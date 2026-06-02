@@ -461,6 +461,9 @@
   .cl-txt{fill:var(--muted);font-family:"Manrope";}
   .cl-dot-nom{fill:var(--teal-darkest);}
   .cl-dot-real{fill:var(--teal);}
+  .cl-dot-pc{fill:var(--mint);stroke:var(--teal-darkest);stroke-width:1.5;}
+  .chart-hl{fill:var(--teal-darkest);font-family:"Manrope";font-weight:800;font-size:16px;}
+  .chart-hl-sub{fill:var(--muted);font-family:"Manrope";font-weight:600;font-size:11.5px;}
   .bar-pos{fill:var(--teal);}
   .bar-neg{fill:var(--teal-darkest);}
   .bar-lbl{fill:var(--ink);font-family:"Manrope";}
@@ -685,8 +688,8 @@
     <p>From 2015 to 2024, total governmental-activities spending rose <b>87.5%</b> in raw (nominal) dollars. Over the same period the dollar lost value and Jacksonville added residents. Adjusting for inflation, real spending grew <b>42.2%</b>. Adjusting further for the <b>16.6%</b> population growth, real spending <b>per resident</b> grew about <b>22%</b> over nine years, or roughly <b>2.2% a year</b>.</p>
 
     <div class="chart-card">
-      <h4 class="chart-title">Total spending, 2015 to 2024: raw dollars vs. inflation-adjusted</h4>
-      <div id="chartTrend" class="chart-svg" role="img" aria-label="Line chart comparing nominal total spending, which rises 87.5 percent, against real inflation-adjusted spending, which rises 42.2 percent, from 2015 to 2024."></div>
+      <h4 class="chart-title">Per Annum Changes: Nominal vs. Inflation-Adjusted</h4>
+      <div id="chartTrend" class="chart-svg" role="img" aria-label="Line chart of Jacksonville spending from 2015 to 2024, indexed to 2015. Nominal spending and inflation-adjusted spending both rise over the period; inflation-adjusted spending per resident grows about 2.2 percent per year, the highlighted figure."></div>
       <div class="chart-legend">
         <span class="lg"><span class="sw nom"></span>Nominal (raw dollars)</span>
         <span class="lg"><span class="sw real"></span>Real (2015 dollars)</span>
@@ -698,8 +701,8 @@
     <p>Of the real spending growth between 2015 and 2024, about <b>83%</b> went to <b>public safety</b>: the Sheriff's Office, Fire and Rescue, and the Medical Examiner. The remaining real growth was spread across the other categories of city spending. The chart below isolates how non-public-safety spending changed over the same period.</p>
 
     <div class="chart-card">
-      <h4 class="chart-title">Non-public-safety spending, 2015 to 2024: raw dollars vs. inflation-adjusted</h4>
-      <div id="chartNonPS" class="chart-svg" role="img" aria-label="Line chart of non-public-safety spending from 2015 to 2024, comparing nominal dollars, inflation-adjusted dollars, and inflation-adjusted dollars per resident."></div>
+      <h4 class="chart-title">Non-Public-Safety Spending Changes: Nominal vs. Inflation-Adjusted</h4>
+      <div id="chartNonPS" class="chart-svg" role="img" aria-label="Line chart of non-public-safety spending from 2015 to 2024, indexed to 2015, comparing nominal dollars, inflation-adjusted dollars, and inflation-adjusted dollars per resident. Inflation-adjusted spending per resident falls about 3 percent over the period, the highlighted figure."></div>
       <div class="chart-legend">
         <span class="lg"><span class="sw nom"></span>Nominal (raw dollars)</span>
         <span class="lg"><span class="sw real"></span>Real (2015 dollars)</span>
@@ -1573,17 +1576,16 @@
     path(series.nom,"cl-nom",true);
     path(series.real,"cl-real",true);
     path(series.pc,"cl-pc");
-    // end-point value labels
-    function endLabel(vals, cls){
-      var i=n-1, v=vals[i];
-      var t=svgEl("text",{x:px(i)-4,y:py(v)-8,class:"bar-val "+cls,"font-size":13,"text-anchor":"end"});
-      t.textContent="+"+Math.round(v-100)+"%"; svg.appendChild(t);
-    }
-    endLabel(series.nom,"bar-val-neg");
-    endLabel(series.real,"bar-val-pos");
-    // dots at endpoints
+    // dots marking each line's endpoint
     svg.appendChild(svgEl("circle",{cx:px(n-1),cy:py(series.nom[n-1]),r:4,class:"cl-dot-nom"}));
     svg.appendChild(svgEl("circle",{cx:px(n-1),cy:py(series.real[n-1]),r:4,class:"cl-dot-real"}));
+    // Highlight the inflation-adjusted, per-resident pace: about +2.2% per year.
+    var pcY = py(series.pc[n-1]);
+    svg.appendChild(svgEl("circle",{cx:px(n-1),cy:pcY,r:5,class:"cl-dot-pc"}));
+    var hl=svgEl("text",{x:px(n-1)-10,y:pcY+6,class:"chart-hl","text-anchor":"end"});
+    hl.textContent="+2.2% / yr"; svg.appendChild(hl);
+    var hls=svgEl("text",{x:px(n-1)-10,y:pcY+22,class:"chart-hl-sub","text-anchor":"end"});
+    hls.textContent="real, per resident"; svg.appendChild(hls);
     host.appendChild(svg);
   })();
 
@@ -1635,15 +1637,16 @@
     path(series.nom,"cl-nom",true);
     path(series.real,"cl-real",true);
     path(series.pc,"cl-pc");
-    function endLabel(vals, cls){
-      var i=n-1, v=vals[i];
-      var t=svgEl("text",{x:px(i)-4,y:py(v)-8,class:"bar-val "+cls,"font-size":13,"text-anchor":"end"});
-      t.textContent=(v>=100?"+":"")+Math.round(v-100)+"%"; svg.appendChild(t);
-    }
-    endLabel(series.nom,"bar-val-neg");
-    endLabel(series.real,"bar-val-pos");
+    // dots marking each line's endpoint
     svg.appendChild(svgEl("circle",{cx:px(n-1),cy:py(series.nom[n-1]),r:4,class:"cl-dot-nom"}));
     svg.appendChild(svgEl("circle",{cx:px(n-1),cy:py(series.real[n-1]),r:4,class:"cl-dot-real"}));
+    // Highlight the inflation-adjusted, per-resident change: about -3% over the period.
+    var pcY = py(series.pc[n-1]);
+    svg.appendChild(svgEl("circle",{cx:px(n-1),cy:pcY,r:5,class:"cl-dot-pc"}));
+    var hl=svgEl("text",{x:px(n-1)-10,y:pcY+6,class:"chart-hl","text-anchor":"end"});
+    hl.textContent="−3%"; svg.appendChild(hl);
+    var hls=svgEl("text",{x:px(n-1)-10,y:pcY+22,class:"chart-hl-sub","text-anchor":"end"});
+    hls.textContent="real, per resident"; svg.appendChild(hls);
     host.appendChild(svg);
   })();
 
