@@ -1,0 +1,152 @@
+er-spacing:0.05em;text-transform:uppercase;padding:3px 8px;border:1px solid;border-radius:2px;white-space:nowrap;}
+  .pill.sc{color:var(--gold);border-color:var(--gold);}
+  .pill.ns{color:var(--teal);border-color:var(--teal);}
+  .ex-cap{font-size:15px;color:var(--muted);font-style:italic;max-width:64ch;margin-top:6px;}
+  .ex-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin:24px 0 10px;}
+  .ex-card{border:2px solid var(--rule);padding:22px 20px;background:var(--paper);}
+  .ex-card.hl{background:var(--teal-deep);border-color:var(--teal-deep);}
+  .ex-card.hl .ex-big{color:var(--gold);}
+  .ex-card.hl .ex-cl{color:#e3dccb;}
+  .ex-big{font-family:"Fraunces";font-size:42px;font-weight:900;line-height:1;color:var(--teal);}
+  .ex-mid{font-family:"Fraunces";font-size:21px;font-weight:700;color:var(--ink);margin-bottom:8px;}
+  .ex-cl{font-size:15px;color:var(--muted);margin-top:10px;line-height:1.5;}
+  .ex-card.hl .ex-cl{color:#e3dccb;}
+  .ex-limits{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px;margin:24px 0 10px;}
+  .ex-limit{border-left:5px solid var(--rust);background:var(--paper);padding:18px 20px;}
+  .ex-lt{font-family:"Fraunces";font-size:28px;font-weight:900;color:var(--rust);line-height:1;margin-bottom:10px;}
+  .ex-limit p{font-size:15.5px;color:var(--muted);margin:0;line-height:1.5;}
+
+  /* ---------- regulatory FAQ ---------- */
+  .reg-h{font-size:24px;margin:48px 0 10px;color:var(--teal);}
+  .reg-list{margin-top:20px;border-top:2px solid var(--rule);}
+  .reg-item{border-bottom:1px solid rgba(26,26,20,0.18);}
+  .reg-btn{width:100%;background:none;border:none;cursor:pointer;text-align:left;padding:16px 6px;display:flex;align-items:center;gap:14px;font-family:"Fraunces";font-weight:600;font-size:17px;color:var(--ink);}
+  .reg-btn:hover{background:var(--paper);}
+  .reg-btn .chev{color:var(--rust);transition:transform .2s;font-size:18px;width:16px;}
+  .reg-btn[aria-expanded="true"] .chev{transform:rotate(90deg);}
+  .reg-panel{display:none;padding:0 6px 20px 36px;}
+  .reg-panel.open{display:block;}
+  .reg-panel p{font-size:16.5px;color:var(--muted);max-width:68ch;margin:0;line-height:1.6;}
+
+  /* ---------- real vs nominal ---------- */
+  .sp-h{font-size:25px;margin:52px 0 14px;color:var(--teal);}
+  .chart-card{margin:28px 0 10px;border:2px solid var(--rule);background:var(--paper);padding:24px 22px 18px;}
+  .chart-title{font-family:"Fraunces";font-size:17px;font-weight:600;margin:0 0 18px;color:var(--ink);}
+  .chart-svg{width:100%;}
+  .chart-svg svg{width:100%;height:auto;display:block;}
+  .chart-legend{display:flex;flex-wrap:wrap;gap:20px;margin-top:16px;font-size:14.5px;color:var(--muted);}
+  .chart-legend .lg{display:flex;align-items:center;gap:8px;}
+  .chart-legend .sw{width:22px;height:4px;display:inline-block;border-radius:2px;}
+  .chart-legend .sw.nom{background:var(--rust);}
+  .chart-legend .sw.real{background:var(--teal);}
+  .chart-legend .sw.pc{background:var(--gold);height:0;border-top:3px dashed var(--gold);}
+  /* svg theming hooks */
+  .cl-nom{stroke:var(--rust);}
+  .cl-real{stroke:var(--teal);}
+  .cl-pc{stroke:var(--gold);}
+  .cl-axis{stroke:rgba(26,26,20,0.35);}
+  .cl-grid{stroke:rgba(26,26,20,0.10);}
+  .cl-txt{fill:var(--muted);font-family:"Fraunces";}
+  .cl-dot-nom{fill:var(--rust);}
+  .cl-dot-real{fill:var(--teal);}
+  .bar-pos{fill:var(--teal);}
+  .bar-neg{fill:var(--rust);}
+  .bar-lbl{fill:var(--ink);font-family:"Newsreader";}
+  .bar-val{font-family:"Fraunces";font-weight:600;}
+  .bar-val-pos{fill:var(--teal-deep);}
+  .bar-val-neg{fill:var(--rust);}
+
+  /* ---------- budget waterfall ---------- */
+  .wf-shell{margin-top:46px;border:2px solid var(--rule);background:var(--paper);padding:30px 28px;}
+  .wf-step{margin-bottom:26px;}
+  .wf-step:last-of-type{margin-bottom:0;}
+  .wf-label{font-size:16px;color:var(--ink);margin-bottom:9px;line-height:1.4;max-width:70ch;}
+  .wf-tag{font-family:"Fraunces";font-size:11.5px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;padding:3px 9px;border-radius:2px;margin-right:8px;white-space:nowrap;color:#fff;}
+  .wf-tag.total{background:var(--ink);}
+  .wf-tag.ps{background:var(--teal);}
+  .wf-tag.lock{background:var(--gold);color:var(--ink);}
+  .wf-tag.cut{background:var(--rust);}
+  .wf-barwrap{background:var(--paper-2);border:1px solid rgba(26,26,20,0.15);}
+  .wf-bar{height:46px;display:flex;align-items:center;justify-content:flex-end;padding:0 14px;min-width:90px;transition:width .5s ease;}
+  .wf-bar.total{background:var(--ink);}
+  .wf-bar.ps{background:repeating-linear-gradient(45deg,var(--teal),var(--teal) 9px,var(--teal-deep) 9px,var(--teal-deep) 18px);}
+  .wf-bar.lock{background:repeating-linear-gradient(45deg,var(--gold),var(--gold) 9px,#9c7426 9px,#9c7426 18px);}
+  .wf-bar.cut{background:repeating-linear-gradient(45deg,var(--rust),var(--rust) 9px,#8f3415 9px,#8f3415 18px);}
+  .wf-amt{font-family:"Fraunces";font-weight:700;font-size:18px;color:#fff;white-space:nowrap;}
+  .wf-bar.lock .wf-amt{color:var(--ink);}
+  .wf-remain .wf-label{font-weight:600;}
+
+  .wf-compare{margin-top:34px;border-top:2px solid var(--rule);padding-top:24px;}
+  .wf-comp-row{display:flex;justify-content:space-between;align-items:baseline;padding:8px 0;gap:16px;}
+  .wf-comp-label{font-size:16px;color:var(--muted);}
+  .wf-comp-val{font-family:"Fraunces";font-weight:700;font-size:26px;}
+  .wf-comp-val.cut{color:var(--rust);}
+  .wf-comp-val.gap{color:var(--ink);}
+  .wf-comp-result{margin-top:14px;background:var(--paper-2);border-left:5px solid var(--rust);padding:16px 18px;font-size:16.5px;line-height:1.55;color:var(--ink);}
+  .panel .note{font-size:13.5px;color:var(--muted);margin-top:18px;font-style:italic;line-height:1.5;}
+
+  .calc-foot{padding:26px 30px;font-size:14px;color:var(--muted);border-top:2px solid var(--rule);background:var(--paper-2);line-height:1.55;}
+  .calc-foot b{color:var(--ink);font-family:"Fraunces";}
+
+  /* ---------- sources ---------- */
+  .sources{background:var(--paper-2);}
+  .sources p{font-size:15px;color:var(--muted);}
+  .sources h2{font-size:30px;}
+  footer{background:var(--ink);color:#b3ac98;padding:46px 24px;font-size:14px;text-align:center;}
+  footer a{color:var(--gold);}
+
+  .disclaimer{
+    border:2px dashed var(--rust);background:#fbf4ee;padding:20px 24px;margin-top:36px;
+    font-size:15px;color:var(--muted);max-width:70ch;
+  }
+  .disclaimer b{color:var(--rust);font-family:"Fraunces";}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<div class="wrap">
+
+<nav aria-label="Section navigation">
+  <ul>
+    <li><a class="brand" href="#top">JAX BUDGET</a></li>
+    <li><a href="#explainer">How You're Taxed</a></li>
+    <li><a href="#budget">The Budget Today</a></li>
+    <li><a href="#spending">Has Spending Grown?</a></li>
+    <li><a href="#shortfall">What's Left to Cut</a></li>
+    <li><a href="#proposal">The Proposed Change</a></li>
+    <li><a href="#calc">The Tradeoff Calculator</a></li>
+    <li><a href="#build">Build Your Own Budget</a></li>
+    <li><a href="#meaning">What It Means</a></li>
+    <li><a href="#sources">Sources</a></li>
+  </ul>
+</nav>
+
+<header class="hero" id="top">
+  <div class="hero-inner">
+    <div class="kicker">A Jacksonville Civic Council Resource</div>
+    <h1>What happens to your city if <em>property taxes</em> are cut?</h1>
+    <p class="hero-sub">Florida is weighing a constitutional amendment that would raise the homestead exemption from $50,000 to $250,000. For Jacksonville, recent estimates put the resulting revenue shortfall at about $283 million a year. This page walks through where the money goes today, what the change would do, and the budget choices that would follow.</p>
+    <div class="hero-meta">
+      <div><strong>$2.02B</strong>General Fund budget</div>
+      <div><strong>$283.2M</strong>Estimated yearly loss</div>
+      <div><strong>211,283</strong>Homestead properties affected</div>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- TAX EXPLAINER -->
+<section id="explainer">
+  <div class="inner">
+    <div class="sec-num">Part One</div>
+    <h2>How Jacksonville is taxed, in plain terms</h2>
+    <p class="lead">Before the proposal makes sense, it helps to know the two main taxes a Jacksonville resident pays, how they are limited, and why the city cannot simply swap one for the other. Property tax and sales tax work in completely different ways under Florida's constitution.</p>
+
+    <h3 class="ex-h">What you pay in property tax today</h3>
+    <p>Property tax is charged as a <b>millage</b>: one mill is $1 of tax for every $1,000 of taxable value. Your bill is the sum of several separate levies set by different bodies. For most of Jacksonville (the General Services district), the 2025 final rates were:</p>
+
+    <div class="ex-table-wrap">
+      <table class="ex-table">
+        <caption class="sr-only">2025 final property tax millage rates for the Jacksonville General Services district</caption>
+        <thead><tr><th scope="col">L

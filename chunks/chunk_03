@@ -1,0 +1,85 @@
+evy</th><th scope="col">Set by</th><th scope="col">Type</th><th scope="col">Mills</th></tr></thead>
+        <tbody>
+          <tr><td>City of Jacksonville government</td><td>City Council</td><td><span class="pill ns">Non-school</span></td><td class="num">11.1919</td></tr>
+          <tr><td>Public schools</td><td>Duval County School Board</td><td><span class="pill sc">School</span></td><td class="num">6.3430</td></tr>
+          <tr><td>St. Johns River Water Management</td><td>Water management district</td><td><span class="pill ns">Non-school</span></td><td class="num">0.1793</td></tr>
+          <tr><td>Florida Inland Navigation</td><td>Navigation district</td><td><span class="pill ns">Non-school</span></td><td class="num">0.0270</td></tr>
+          <tr class="ex-total"><td>Total</td><td></td><td></td><td class="num">17.7412</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="ex-cap">For a home with $200,000 of taxable value, that total works out to about $3,548 a year. Beach cities and Baldwin have slightly different totals because they add their own municipal levy and lower the countywide one.</p>
+
+    <h3 class="ex-h">What you pay in sales tax today</h3>
+    <p>Sales tax is charged on most retail purchases, not on what you own. In Duval County the rate is <b>7.5%</b>, made of two parts:</p>
+    <div class="ex-cards">
+      <div class="ex-card"><div class="ex-big">6.0%</div><div class="ex-cl">State sales tax, set by the Florida Legislature and collected statewide.</div></div>
+      <div class="ex-card"><div class="ex-big">1.5%</div><div class="ex-cl">Local discretionary surtax, approved by Duval voters and used for set local purposes.</div></div>
+      <div class="ex-card hl"><div class="ex-big">7.5%</div><div class="ex-cl">Combined rate paid at the register on taxable goods.</div></div>
+    </div>
+    <p class="ex-cap">Groceries and most medicine are exempt. Counties may add a local surtax of up to 2% in most cases; Duval currently levies 1.5%, so there is limited room left to raise it.</p>
+
+    <h3 class="ex-h">School versus non-school: why the difference matters</h3>
+    <p>Florida's constitution treats school and non-school property taxes separately, and the proposed amendment only touches the <b>non-school</b> side. The $50,000 homestead exemption is split for exactly this reason: the first $25,000 applies to all levies, while the second $25,000 (covering value between $50,000 and $75,000) applies only to non-school levies. The proposed jump to $250,000 would shield far more value from city and county taxes, but schools are handled under their own rules.</p>
+
+    <h3 class="ex-h">The constitutional limits already in place</h3>
+    <div class="ex-limits">
+      <div class="ex-limit"><div class="ex-lt">10 + 10 mills</div><p>The constitution caps property tax at 10 mills each for a county, a municipality, and a school district, separately. Because Jacksonville's consolidated charter holds both the city and county taxing authority, it can legally levy up to about 20 mills for general government. At roughly 11.19 mills today, the city has substantial unused legal room to raise the rate. The real limit is political will, not the constitution: raising the rate is allowed, but there has been little appetite for it. Recent councils have moved to lower the rate, not raise it.</p></div>
+      <div class="ex-limit"><div class="ex-lt">3% cap</div><p>The Save Our Homes amendment limits how fast a homesteaded property's taxable value can rise, to 3% a year or inflation, whichever is lower. Non-homestead property (rentals, businesses) is capped at a looser 10%.</p></div>
+      <div class="ex-limit"><div class="ex-lt">60% vote</div><p>Changing any of this requires a statewide constitutional amendment passed by 60% of voters. That is why the homestead proposal must go on the November 2026 ballot.</p></div>
+    </div>
+
+    <h3 class="ex-h">Where property tax stops and fees begin</h3>
+    <p>Not everything on your tax bill is a tax. Two of the largest line items are <b>non-ad valorem assessments</b>, flat fees billed alongside property tax but not based on your home's value, and homestead exemptions do not reduce them.</p>
+    <div class="ex-cards">
+      <div class="ex-card"><div class="ex-mid">Solid waste fee</div><div class="ex-cl">A flat <b>$354 per year</b> per home in 2026 (rising to $384 in 2027), charged to every residence regardless of value. By interlocal agreement with the Beaches and Baldwin, Jacksonville is barred from using property tax to pay for garbage collection, which is why it is a separate fee. A low-income exemption holds it at $151.80.</div></div>
+      <div class="ex-card"><div class="ex-mid">Stormwater fee</div><div class="ex-cl">A separate flat assessment for drainage system upkeep, also billed as a non-ad valorem assessment and unaffected by homestead status.</div></div>
+    </div>
+    <p class="ex-cap">Other consumption-based levies the city collects include the utility service tax (on electric, water, and gas bills) and the communication services tax (on phone and cable). Like sales tax, these are charged on usage rather than property, and they fall on renters and owners alike. They are capped by state law and tend to rise and fall with the economy, which is part of why they cannot easily replace the steady revenue property tax provides.</p>
+
+    <div class="callout" style="margin-top:42px;">
+      <h3>The core difference</h3>
+      <p>Property tax is steady, locally controlled, and tied to value, which is why it funds the bulk of day-to-day services. Sales taxes, fees, and excise taxes are capped, more volatile, and fall harder on lower-income households. That mismatch is the reason a property tax cut is so hard to replace, and the rest of this page shows what that means for Jacksonville.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 1 -->
+<section id="budget">
+  <div class="inner">
+    <div class="sec-num">Part Two</div>
+    <h2>Where Jacksonville's money goes today</h2>
+    <p class="lead">The City runs on a General Fund of about $2.02 billion for the 2025-2026 year. More than half of every dollar pays for property taxes' biggest job: keeping people safe. Here is the full picture before any change.</p>
+
+    <div class="stat-row" role="list">
+      <div class="stat" role="listitem"><div class="v">$2.02B</div><div class="l">Total General Fund budget</div></div>
+      <div class="stat" role="listitem"><div class="v">$1.19B</div><div class="l">Comes from property (ad valorem) taxes</div></div>
+      <div class="stat" role="listitem"><div class="v">8,189</div><div class="l">Total city employees, all funds</div></div>
+      <div class="stat" role="listitem"><div class="v">~55%</div><div class="l">Of the budget pays for public safety</div></div>
+    </div>
+
+    <h3 style="margin-top:60px;font-size:26px;">How the General Fund is paid for</h3>
+    <p style="margin-top:14px;">Property tax is the single largest source by far. The other pieces, like state-shared money and utility taxes, are smaller and harder for the City to control.</p>
+    <div class="barblock" id="revBars" aria-label="General Fund revenue sources"></div>
+
+    <div class="dept-intro">
+      <h3 style="font-size:26px;">Where it gets spent, department by department</h3>
+      <p style="margin:14px 0 0;">Public safety is grouped into one line at the top; tap it to expand the individual police, fire, and corrections departments. Below it are the other services, each marked <span class="tag np" style="font-size:11px;">Other Services</span>, which would absorb the entire loss since public safety is shielded.</p>
+    </div>
+    <div class="dept-list" id="deptList"></div>
+  </div>
+</section>
+
+<!-- REAL VS NOMINAL -->
+<section id="spending">
+  <div class="inner">
+    <div class="sec-num">Part Three</div>
+    <h2>Has government spending really grown?</h2>
+    <p class="lead">One argument in the property tax debate is that rising home values have produced surplus revenue and that spending has grown faster than the cost of services. Evaluating that claim requires adjusting the raw figures for two factors: inflation and population growth. This section presents both the unadjusted and adjusted numbers.</p>
+
+    <h3 class="sp-h">Nominal and inflation-adjusted figures differ</h3>
+    <p>From 2015 to 2024, total governmental-activities spending rose <b>87.5%</b> in raw (nominal) dollars. Over the same period the dollar lost value and Jacksonville added residents. Adjusting for inflation, real spending grew <b>42.2%</b>. Adjusting further for the <b>16.6%</b> population growth, real spending <b>per resident</b> grew about <b>22%</b> over nine years, or roughly <b>2.2% a year</b>.</p>
+
+    <div class="chart-card">
+      <h4 class="chart-title">Total spending, 2015 to 2024: raw dollars vs. inflation-adjusted</h4>
+      <div id="chartTrend" class="chart-svg" role="img" aria-label="Line chart comparing nominal total spending, which rises 87.5 percent, against

@@ -1,0 +1,192 @@
+ar btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "byo-item " + (it.cut ? "cut" : "funded");
+      btn.setAttribute("aria-pressed", String(it.cut));
+      btn.innerHTML = '<span class="bi-name">'+it.name+'</span>'
+        + '<span class="bi-amt">'+money(it.budget)+'</span>'
+        + '<span class="bi-state">'+(it.cut ? "Cut" : "Funded")+'</span>';
+      btn.addEventListener("click", function(){
+        it.cut = !it.cut; byoRender();
+      });
+      byoServiceEl.appendChild(btn);
+    });
+
+    byoLocked.forEach(function(it, i){
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "byo-item locked-item " + (it.cut ? "cut" : "funded");
+      btn.setAttribute("aria-pressed", String(it.cut));
+      btn.innerHTML = '<span class="bi-name">'+it.name+'<br><span class="bi-lock">'+it.note+'</span></span>'
+        + '<span class="bi-amt">'+money(it.budget)+'</span>'
+        + '<span class="bi-state">'+(it.cut ? "Broken" : "Locked")+'</span>';
+      btn.addEventListener("click", function(){
+        if(!it.cut){
+          var ok = window.confirm("Cutting \""+it.name+"\" means breaking a legal or contractual obligation. In reality the city cannot simply do this. Continue anyway to see what it would take?");
+          if(!ok) return;
+        }
+        it.cut = !it.cut; byoRender();
+      });
+      byoLockedEl.appendChild(btn);
+    });
+
+    // tally
+    var closed = 0;
+    byoService.forEach(function(it){ if(it.cut) closed += it.budget; });
+    byoLocked.forEach(function(it){ if(it.cut) closed += it.budget; });
+    var pct = Math.min(100, closed / GAP * 100);
+    byoClosedEl.textContent = money(closed);
+    byoFillEl.style.width = pct + "%";
+    byoBarEl.setAttribute("aria-valuenow", closed.toFixed(1));
+
+    var serviceMax = byoService.reduce(function(s,d){return s+d.budget;},0);
+    var remaining = GAP - closed;
+
+    if(closed >= GAP){
+      byoFillEl.classList.add("green");
+      byoStatusEl.classList.add("win");
+      byoStatusEl.textContent = "Shortfall closed. The selected categories show what reaching that total requires.";
+    } else {
+      byoFillEl.classList.remove("green");
+      byoStatusEl.classList.remove("win");
+      byoStatusEl.textContent = money(remaining) + " still to cut.";
+    }
+
+    // contextual note
+    var allServiceCut = byoService.every(function(it){return it.cut;});
+    var anyLockedCut = byoLocked.some(function(it){return it.cut;});
+    if(allServiceCut && !anyLockedCut){
+      byoNoteEl.innerHTML = "Reducing every cuttable service department to zero (about "+money(serviceMax)+") still leaves "+money(GAP-serviceMax)+" of the shortfall unclosed. Closing the remainder would require reducing locked obligations such as debt or pensions.";
+    } else if(anyLockedCut){
+      byoNoteEl.innerHTML = "Reaching the goal required breaking obligations the city legally cannot skip. This shows the gap is larger than the city's realistically cuttable budget.";
+    } else {
+      byoNoteEl.innerHTML = "Tip: the cuttable service departments total only about "+money(serviceMax)+", less than the "+money(GAP)+" gap. See how close you can get before running out.";
+    }
+  }
+
+  byoResetBtn.addEventListener("click", function(){
+    byoService.forEach(function(it){ it.cut = false; });
+    byoLocked.forEach(function(it){ it.cut = false; });
+    byoRender();
+  });
+
+  byoRender();
+
+  // ============ SPENDING CHARTS (real vs nominal) ============
+  // Data from City ACFR Statement of Activities 2015-2024, CPI-adjusted to 2015 dollars ($ thousands).
+  var spend = [
+    {y:2015, nom:1359697, real:1359697, pop:866345},
+    {y:2016, nom:1386638, real:1375263, pop:881502},
+    {y:2017, nom:1549488, real:1510673, pop:893203},
+    {y:2018, nom:1660811, real:1572816, pop:904170},
+    {y:2019, nom:1682495, real:1565002, pop:913521},
+    {y:2020, nom:1975372, real:1819485, pop:920570},
+    {y:2021, nom:1934545, real:1691142, pop:954614},
+    {y:2022, nom:1990342, real:1603245, pop:975614},
+    {y:2023, nom:2424043, real:1892459, pop:993468},
+    {y:2024, nom:2548850, real:1933914, pop:1010000}
+  ];
+  // category real change 2015->2024 (%)
+  var catChange = [
+    {name:"Transportation", pct:90.8},
+    {name:"Human services", pct:80.5},
+    {name:"Public safety", pct:76.1},
+    {name:"Culture & recreation", pct:47.6},
+    {name:"Economic & phys. env.", pct:-28.1},
+    {name:"General government", pct:-45.5},
+    {name:"Interest on debt", pct:-65.6}
+  ];
+
+  function svgEl(tag, attrs){
+    var e = document.createElementNS("http://www.w3.org/2000/svg", tag);
+    for(var k in attrs){ e.setAttribute(k, attrs[k]); }
+    return e;
+  }
+
+  // ---- Trend chart (indexed to 100 at 2015 so three series share a scale) ----
+  (function drawTrend(){
+    var host = document.getElementById("chartTrend");
+    if(!host) return;
+    var W=700, H=360, mL=46, mR=16, mT=14, mB=40;
+    var pw=W-mL-mR, ph=H-mT-mB;
+    var base=spend[0];
+    var series = {
+      nom: spend.map(function(d){return d.nom/base.nom*100;}),
+      real: spend.map(function(d){return d.real/base.real*100;}),
+      pc: spend.map(function(d){return (d.real/d.pop)/(base.real/base.pop)*100;})
+    };
+    var allv = series.nom.concat(series.real, series.pc);
+    var ymin=90, ymax=Math.ceil(Math.max.apply(null,allv)/10)*10;
+    var n=spend.length;
+    function px(i){return mL + pw*(i/(n-1));}
+    function py(v){return mT + ph*(1-(v-ymin)/(ymax-ymin));}
+    var svg = svgEl("svg",{viewBox:"0 0 "+W+" "+H,preserveAspectRatio:"xMidYMid meet"});
+    // gridlines + y labels (index values)
+    for(var g=ymin; g<=ymax; g+=20){
+      svg.appendChild(svgEl("line",{x1:mL,y1:py(g),x2:W-mR,y2:py(g),class:"cl-grid","stroke-width":1}));
+      var t=svgEl("text",{x:mL-8,y:py(g)+4,class:"cl-txt","font-size":12,"text-anchor":"end"}); t.textContent=g; svg.appendChild(t);
+    }
+    // x labels (every other year)
+    spend.forEach(function(d,i){
+      if(i%2===0 || i===n-1){
+        var t=svgEl("text",{x:px(i),y:H-mB+22,class:"cl-txt","font-size":12,"text-anchor":"middle"}); t.textContent=d.y; svg.appendChild(t);
+      }
+    });
+    // axis baseline
+    svg.appendChild(svgEl("line",{x1:mL,y1:mT,x2:mL,y2:mT+ph,class:"cl-axis","stroke-width":1.5}));
+    function path(vals, cls, dash){
+      var d="";
+      vals.forEach(function(v,i){ d+=(i?"L":"M")+px(i)+" "+py(v)+" "; });
+      var p=svgEl("path",{d:d,fill:"none",class:cls,"stroke-width":3,"stroke-linejoin":"round"});
+      if(dash) p.setAttribute("stroke-dasharray","7 5");
+      svg.appendChild(p);
+    }
+    path(series.nom,"cl-nom");
+    path(series.real,"cl-real");
+    path(series.pc,"cl-pc",true);
+    // end-point value labels
+    function endLabel(vals, cls){
+      var i=n-1, v=vals[i];
+      var t=svgEl("text",{x:px(i)-4,y:py(v)-8,class:"bar-val "+cls,"font-size":13,"text-anchor":"end"});
+      t.textContent="+"+Math.round(v-100)+"%"; svg.appendChild(t);
+    }
+    endLabel(series.nom,"bar-val-neg");
+    endLabel(series.real,"bar-val-pos");
+    // dots at endpoints
+    svg.appendChild(svgEl("circle",{cx:px(n-1),cy:py(series.nom[n-1]),r:4,class:"cl-dot-nom"}));
+    svg.appendChild(svgEl("circle",{cx:px(n-1),cy:py(series.real[n-1]),r:4,class:"cl-dot-real"}));
+    host.appendChild(svg);
+  })();
+
+  // ---- Category bar chart (diverging, % real change) ----
+  (function drawCats(){
+    var host = document.getElementById("chartCats");
+    if(!host) return;
+    var rows=catChange.length;
+    var W=700, rowH=38, mT=10, mB=10, mL=170, mR=60;
+    var H=mT+mB+rows*rowH;
+    var pw=W-mL-mR;
+    var maxAbs=Math.ceil(Math.max.apply(null,catChange.map(function(c){return Math.abs(c.pct);}))/10)*10;
+    var zero=mL + pw*(maxAbs/(2*maxAbs)); // center
+    function bx(v){return mL + pw*((v+maxAbs)/(2*maxAbs));}
+    var svg=svgEl("svg",{viewBox:"0 0 "+W+" "+H,preserveAspectRatio:"xMidYMid meet"});
+    // zero line
+    svg.appendChild(svgEl("line",{x1:zero,y1:mT,x2:zero,y2:H-mB,class:"cl-axis","stroke-width":1.5}));
+    catChange.forEach(function(c,i){
+      var cy=mT+i*rowH+rowH/2;
+      var x0=zero, x1=bx(c.pct);
+      var x=Math.min(x0,x1), w=Math.abs(x1-x0);
+      svg.appendChild(svgEl("rect",{x:x,y:cy-11,width:w,height:22,class:(c.pct>=0?"bar-pos":"bar-neg"),rx:2}));
+      // category label (left)
+      var lbl=svgEl("text",{x:mL-12,y:cy+5,class:"bar-lbl","font-size":14,"text-anchor":"end"}); lbl.textContent=c.name; svg.appendChild(lbl);
+      // value label (outer end of bar)
+      var vlbl=svgEl("text",{y:cy+5,class:"bar-val "+(c.pct>=0?"bar-val-pos":"bar-val-neg"),"font-size":13.5});
+      if(c.pct>=0){ vlbl.setAttribute("x",x1+6); vlbl.setAttribute("text-anchor","start"); }
+      else { vlbl.setAttribute("x",x1-6); vlbl.setAttribute("text-anchor","end"); }
+      vlbl.textContent=(c.pct>=0?"+":"")+c.pct.toFixed(0)+"%"; svg.appendChild(vlbl);
+    });
+    host.appendChild(svg);
+  })();
+
+  // ============ REGULATORY FAQ TOGGLES ============
+  document.querySelectorAll(".reg-btn").forEach(function(btn){
+    btn.addE

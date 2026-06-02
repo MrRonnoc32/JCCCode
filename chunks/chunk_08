@@ -1,0 +1,167 @@
+he cuttable pool.
+    var cutTarget = GAP * cutShare;
+    var cutDollars = Math.min(cutTarget, cutPool);
+    // Taxes/fees cover everything the cuts cannot.
+    var taxDollars = GAP - cutDollars;
+
+    // Zero out whole departments, SMALLEST budget first, until cutDollars is reached.
+    var bySize = nonPSDepts.slice().sort(function(a,b){return a.budget-b.budget;});
+    var running = 0, jobsLost = 0;
+    var cutState = []; // {d, state:'full'|'partial'|'none', loss, jobs}
+    bySize.forEach(function(d){
+      if(running >= cutDollars - 0.01){
+        cutState.push({d:d, state:'none', loss:0, jobs:0});
+      } else if(running + d.budget <= cutDollars + 0.01){
+        running += d.budget;
+        jobsLost += d.emp;
+        cutState.push({d:d, state:'full', loss:d.budget, jobs:d.emp});
+      } else {
+        // partial: the boundary department absorbs the remainder
+        var rem = cutDollars - running;
+        var frac = rem / d.budget;
+        running += rem;
+        var pj = Math.round(d.emp * frac);
+        jobsLost += pj;
+        cutState.push({d:d, state:'partial', loss:rem, jobs:pj});
+      }
+    });
+
+    // readout + accessible value text
+    var cutPctOfGap = Math.round(cutDollars / GAP * 100);
+    var taxPctOfGap = 100 - cutPctOfGap;
+    mixReadout.innerHTML = "Closing <b>"+cutPctOfGap+"%</b> with service cuts and <b>"+taxPctOfGap+"%</b> with new taxes &amp; fees";
+    slider.setAttribute("aria-valuetext", cutPctOfGap+" percent service cuts, "+taxPctOfGap+" percent new taxes and fees");
+
+    // ---- CUTS side ----
+    cutAmtEl.textContent = money(cutDollars);
+    var fullCount = cutState.filter(function(c){return c.state==='full';}).length;
+    if(cutDollars < 0.05){
+      cutSubEl.textContent = "No departments eliminated at this setting";
+    } else if(cutDollars >= cutPool - 0.05){
+      cutSubEl.textContent = "Every cuttable department eliminated, an estimated " + jobsLost.toLocaleString() + " positions";
+    } else {
+      cutSubEl.textContent = fullCount + (fullCount===1?" department":" departments") + " eliminated entirely, an estimated " + jobsLost.toLocaleString() + " positions";
+    }
+
+    // list departments, largest first for display, showing eliminated / reduced / funded
+    var display = cutState.slice().sort(function(a,b){return b.d.budget-a.d.budget;});
+    var cHTML = "";
+    if(cutDollars < 0.05){
+      cHTML = '<li><span>No departments eliminated at this setting</span><span class="ci">$0</span></li>';
+    } else {
+      display.forEach(function(c){
+        var label, cls;
+        if(c.state==='full'){ label='Eliminated'; cls='ci'; }
+        else if(c.state==='partial'){ label='Reduced'; cls='ci'; }
+        else { label='Still funded'; cls='ci muted-ci'; }
+        var amt = c.loss>0 ? '&minus;'+money(c.loss) : '&mdash;';
+        var sub = c.state==='none' ? 'kept at current funding'
+                 : (c.state==='partial' ? '~'+c.jobs.toLocaleString()+' positions (partial)'
+                                        : '~'+c.jobs.toLocaleString()+' positions');
+        cHTML += '<li><span>'+c.d.name+'<br><span class="sub-emp">'+sub+'</span></span><span class="'+cls+'">'+amt+'</span></li>';
+      });
+      cHTML += '<li class="total-row"><span>Total from service cuts<br><span class="sub-emp">~'+jobsLost.toLocaleString()+' positions</span></span><span class="ci">&minus;'+money(cutDollars)+'</span></li>';
+      if(cutDollars >= cutPool - 0.05){
+        cHTML += '<li class="resid-row"><span>Still unfunded after cutting everything<br><span class="sub-emp">must come from taxes &amp; fees</span></span><span class="ci">'+money(GAP-cutPool)+'</span></li>';
+      }
+    }
+    cutListEl.innerHTML = cHTML;
+
+    // reduceFactor retained for the meaning-section job estimates (avg across pool)
+    var reduceFactor = cutPool > 0 ? (cutDollars/cutPool) : 0;
+
+    // ---- TAX side ----
+    taxAmtEl.textContent = money(taxDollars);
+    taxSubEl.textContent = "New revenue the City would have to raise";
+
+    var surtaxPennies = taxDollars / SURTAX_PENNY;        // fraction of a penny surtax
+    var perParcel = (taxDollars*1000000) / PARCELS;        // $ per parcel per year
+    var tHTML = "";
+    if(taxDollars < 0.05){
+      tHTML = '<li><span>No new taxes or fees at this setting</span><span class="ci">$0</span></li>';
+    } else {
+      tHTML += '<li><span>Equivalent local sales surtax</span><span class="ci">+'+surtaxPennies.toFixed(2)+'&cent;</span></li>';
+      tHTML += '<li><span>Or a flat yearly fee per property</span><span class="ci">'+ "$"+Math.round(perParcel).toLocaleString() +'</span></li>';
+      tHTML += '<li><span>Share of the 1.5&cent; surtax cap used</span><span class="ci">'+ Math.round(surtaxPennies/1.5*100) +'%</span></li>';
+    }
+    taxListEl.innerHTML = tHTML;
+
+    // ---- MEANING: service side ----
+    if(cutDollars < 0.05){
+      meanCutHead.textContent = "No service departments eliminated at this setting";
+    } else {
+      meanCutHead.textContent = "An estimated " + jobsLost.toLocaleString() + " positions cut, with whole departments eliminated";
+    }
+    var mcHTML = "";
+    if(cutDollars < 0.05){
+      mcHTML = '<li><span class="ihead">No service cuts at this setting</span><span class="idetail">Move the slider left to eliminate departments.</span></li>';
+    } else {
+      // show which of the narrated services are fully eliminated vs reduced at this setting
+      serviceImpacts.forEach(function(s){
+        var cs = cutState.filter(function(c){return c.d.name===s.dept;})[0];
+        var statusTxt;
+        if(!cs || cs.state==='none') statusTxt = '('+s.dept+': still funded at this setting)';
+        else if(cs.state==='full') statusTxt = '('+s.dept+': eliminated, about '+cs.jobs.toLocaleString()+' positions)';
+        else statusTxt = '('+s.dept+': reduced, about '+cs.jobs.toLocaleString()+' positions)';
+        mcHTML += '<li><span class="ihead">'+s.headline+'</span>'
+          + '<span class="idetail">'+s.detail+' <em>'+statusTxt+'</em></span></li>';
+      });
+    }
+    meanCutList.innerHTML = mcHTML;
+
+    // ---- MEANING: tax side ----
+    var addedRate = (surtaxPennies/100); // extra rate as a decimal (cents -> rate points)
+    var newRate = BASE_RATE + addedRate;
+    var perHouseholdYr = (taxDollars*1000000) / HOUSEHOLDS;
+    meanTaxHead.textContent = "About $" + Math.round(perHouseholdYr).toLocaleString() + " more per household each year";
+    var mtHTML = "";
+    if(taxDollars < 0.05){
+      mtHTML = '<li><span class="ihead">No added cost at this setting</span><span class="idetail">Move the slider right to see the effect of new taxes.</span></li>';
+    } else {
+      mtHTML += '<li><div class="impact-row"><span class="ihead">Combined sales tax rate</span>'
+        + '<span class="icost">' + (BASE_RATE*100).toFixed(1) + '% &rarr; ' + (newRate*100).toFixed(2) + '%</span></div>'
+        + '<span class="idetail">Groceries and medicine stay exempt. The increase applies to other taxable purchases.</span></li>';
+      taxItems.forEach(function(it){
+        var extra = it.price * addedRate;
+        mtHTML += '<li><div class="impact-row"><span class="ihead">'+it.name+'</span>'
+          + '<span class="icost">+$'+ extra.toFixed(2) +'</span></div></li>';
+      });
+    }
+    meanTaxList.innerHTML = mtHTML;
+  }
+
+  slider.addEventListener("input", update);
+  update();
+
+  // ============ BUILD YOUR OWN BUDGET ============
+  // Service departments (cuttable). Pull non-PS depts from the dataset.
+  var byoService = nonPSDepts.map(function(d){
+    return {name:d.name, budget:d.budget, emp:d.emp, locked:false, cut:false};
+  });
+  // Locked items: the non-departmental ~$654.1M, broken into recognizable pieces.
+  var byoLocked = [
+    {name:"Debt service & repayments", budget:260.0, emp:0, locked:true, cut:false,
+     note:"Bond payments owed to lenders. Missing them would affect the city's credit rating."},
+    {name:"Pension contributions (UAAL & current)", budget:200.0, emp:0, locked:true, cut:false,
+     note:"Retirement promised to employees by contract. Cannot be skipped by law."},
+    {name:"Transfers to other funds", budget:120.0, emp:0, locked:true, cut:false,
+     note:"Required transfers that keep other city operations running."},
+    {name:"Grants, aid & community contributions", budget:74.1, emp:0, locked:true, cut:false,
+     note:"Money to nonprofits, health, and community programs. Discretionary but already committed."}
+  ];
+
+  var byoServiceEl = document.getElementById("byoService");
+  var byoLockedEl = document.getElementById("byoLocked");
+  var byoClosedEl = document.getElementById("byoClosed");
+  var byoFillEl = document.getElementById("byoFill");
+  var byoBarEl = document.getElementById("byoBar");
+  var byoStatusEl = document.getElementById("byoStatus");
+  var byoNoteEl = document.getElementById("byoNote");
+  var byoResetBtn = document.getElementById("byoReset");
+
+  function byoRender(){
+    byoServiceEl.innerHTML = "";
+    byoLockedEl.innerHTML = "";
+
+    byoService.forEach(function(it, i){
+      v

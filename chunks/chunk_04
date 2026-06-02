@@ -1,0 +1,126 @@
+ real inflation-adjusted spending, which rises 42.2 percent, from 2015 to 2024."></div>
+      <div class="chart-legend">
+        <span class="lg"><span class="sw nom"></span>Nominal (raw dollars)</span>
+        <span class="lg"><span class="sw real"></span>Real (2015 dollars)</span>
+        <span class="lg"><span class="sw pc"></span>Real per resident</span>
+      </div>
+    </div>
+
+    <h3 class="sp-h">Where did the real increase go?</h3>
+    <p>Almost all of it went to one place. Of the real spending growth between 2015 and 2024, about <b>83%</b> went to <b>public safety</b>, the Sheriff's Office, Fire and Rescue, and the Medical Examiner. Several other categories actually <b>shrank</b> in real terms over the same period, including general government, economic and physical environment, and interest on debt. This is the same pattern the budget shows today: new money has gone to policing and fire for a larger population, not to broad expansion of government.</p>
+
+    <div class="chart-card">
+      <h4 class="chart-title">Real (inflation-adjusted) change by category, 2015 to 2024</h4>
+      <div id="chartCats" class="chart-svg" role="img" aria-label="Bar chart of real spending change by category from 2015 to 2024. Public safety up 76 percent, transportation up 91 percent, human services up 80 percent, culture and recreation up 48 percent, general government down 46 percent, economic and physical environment down 28 percent, interest on debt down 66 percent."></div>
+    </div>
+
+    <div class="callout">
+      <h3>How this relates to the tax debate</h3>
+      <p>Adjusted for inflation and population, real spending per resident grew about 22% over the nine-year period, and most of the real growth went to public safety. Readers can weigh how these figures bear on claims that rising home values have produced surplus revenue. Any reduction in property tax revenue would apply to this budget as it stands.</p>
+    </div>
+
+    <p class="ex-cap" style="margin-top:30px;">Source: City of Jacksonville Annual Comprehensive Financial Reports (ACFR), government-wide Statement of Activities for Governmental Activities, fiscal years 2015 through 2024. Inflation adjusted using the U.S. Bureau of Labor Statistics Consumer Price Index (July of each year, all urban consumers). Population from city figures. Real dollars expressed in 2015 terms.</p>
+  </div>
+</section>
+
+<!-- BUDGET WATERFALL -->
+<section id="shortfall">
+  <div class="inner">
+    <div class="sec-num">Part Four</div>
+    <h2>A $2 billion budget, and what is left to cut</h2>
+    <p class="lead">The City's General Fund is about $2 billion. The proposed exemption would remove roughly $283 million of it each year. The question that follows is simple: can the City just trim $283 million of spending? The answer is no, and the reason is what most of the budget is already committed to.</p>
+
+    <div class="wf-shell">
+      <div class="wf-step">
+        <div class="wf-label"><span class="wf-tag total">Start</span> Total General Fund budget</div>
+        <div class="wf-barwrap"><div class="wf-bar total" style="width:100%"><span class="wf-amt">$2.02B</span></div></div>
+      </div>
+
+      <div class="wf-step">
+        <div class="wf-label"><span class="wf-tag ps">Step 1, set aside</span> Public safety (police, fire, corrections) is held harmless by the amendment</div>
+        <div class="wf-barwrap"><div class="wf-bar ps" style="width:55.3%"><span class="wf-amt">&minus;$1.12B</span></div></div>
+      </div>
+
+      <div class="wf-step">
+        <div class="wf-label"><span class="wf-tag lock">Step 2, set aside</span> Locked obligations: debt payments, pensions, required transfers, and committed grants</div>
+        <div class="wf-barwrap"><div class="wf-bar lock" style="width:32.4%"><span class="wf-amt">&minus;$654M</span></div></div>
+      </div>
+
+      <div class="wf-step wf-remain">
+        <div class="wf-label"><span class="wf-tag cut">What remains</span> Everything else the City could legally choose to cut</div>
+        <div class="wf-barwrap"><div class="wf-bar cut" style="width:12.2%"><span class="wf-amt">$247M</span></div></div>
+      </div>
+
+      <div class="wf-compare">
+        <div class="wf-comp-row">
+          <span class="wf-comp-label">Cuttable spending available</span>
+          <span class="wf-comp-val cut">$247M</span>
+        </div>
+        <div class="wf-comp-row">
+          <span class="wf-comp-label">Revenue that must be replaced</span>
+          <span class="wf-comp-val gap">$283M</span>
+        </div>
+        <div class="wf-comp-result">
+          Eliminating <b>every</b> cuttable service, all libraries, parks, road crews, code enforcement, planning, and the rest, still falls about <b>$36 million short</b> of the $283 million.
+        </div>
+      </div>
+    </div>
+
+    <p style="margin-top:34px;">Put simply: public safety is protected, and debt and pension obligations have to be paid no matter what. That leaves only about <b>12% of the budget</b> as discretionary service spending. Because the shortfall is larger than that entire pool, closing it through cuts alone would mean eliminating whole categories of city services, and even then the math does not fully work. The next sections let you test the options yourself.</p>
+  </div>
+</section>
+
+<!-- SECTION 2 -->
+<section id="proposal">
+  <div class="inner">
+    <div class="sec-num">Part Five</div>
+    <h2>The proposed change, in plain terms</h2>
+    <p class="lead">Right now, the first $50,000 of a home's value is shielded from most property taxes. The proposed amendment (Senate Joint Resolution 2-F) would raise that shield to $250,000, phased in over two years. Voters would decide in November 2026.</p>
+
+    <div class="timeline">
+      <div class="tl-step">
+        <div class="yr">Today<small>Current law</small></div>
+        <div class="desc">The first <b>$50,000</b> of a home's assessed value is exempt from most city and county property taxes. About 14,000 Jacksonville homes pay nothing toward general services.</div>
+      </div>
+      <div class="tl-step">
+        <div class="yr">2027<small>First step</small></div>
+        <div class="desc">The exemption jumps to <b>$150,000</b>. New Florida residents must live in the state five years before getting the full benefit.</div>
+      </div>
+      <div class="tl-step">
+        <div class="yr">2028<small>Full effect</small></div>
+        <div class="desc">The exemption reaches <b>$250,000</b>. Nearly <b>150,000</b> Jacksonville homes would owe $0 toward general city services, up from about 14,000 today.</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <h3>How the public-safety protection works</h3>
+      <p>The amendment protects police and fire funding by law. The protection does not replace the lost revenue, so the shortfall would be absorbed by the rest of the budget: libraries, parks, road repair, code enforcement, and general operations. With Sheriff's Office and Fire and Rescue functions shielded, a $283 million reduction would fall on about $901 million of non-public-safety spending, which is equivalent to roughly a 31 percent reduction to those services.</p>
+    </div>
+
+    <div class="feature-grid">
+      <div class="feature">
+        <h4>Who saves the most</h4>
+        <p>The savings cap out at about $2,238 a year. A $300,000 home and a $5 million home get the same dollar break. The owner of the smaller home sees an 80% cut to their bill; the mansion owner sees 4%.</p>
+      </div>
+      <div class="feature">
+        <h4>Who saves the least</h4>
+        <p>Homes under $100,000, about 40,000 Jacksonville parcels, save only about $267 a year. These households often rely most on the services facing cuts.</p>
+      </div>
+      <div class="feature">
+        <h4>Who gets nothing</h4>
+        <p>Roughly 47% of Duval parcels, including all rentals and businesses, get no direct savings. Renters face the same service cuts without the tax break.</p>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      <b>A note on the millage cap and SJR 2-F.</b> Because Jacksonville's consolidated government holds both city and county taxing authority, it can legally levy up to about 20 mills, well above today's ~11.19, so raising the rate is constitutionally possible but politically unpopular. SJR 2-F would change this picture in two ways: it would shield far more home value from tax, and separately restrict how remaining property tax can be spent. Recovering $283 million through the property tax rate alone would require a large rate increase concentrated on the smaller pool of still-taxable property, which is one reason the options on the next page involve significant tradeoffs.
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: CALCULATOR -->
+<section id="calc">
+  <div class="inner">
+    <div class="sec-num">Part Six</div>
+    <h2>The tradeoff: cuts or new taxes?</h2>
+    <p class="lead">The $283.2 million shortfall would need to be closed. Move the slider to explore the range:

@@ -1,0 +1,10 @@
+ventListener("click", function(){
+      var exp = btn.getAttribute("aria-expanded") === "true";
+      btn.setAttribute("aria-expanded", String(!exp));
+      document.getElementById(btn.getAttribute("aria-controls")).classList.toggle("open", !exp);
+    });
+  });
+})();
+</script>
+</body>
+</html>

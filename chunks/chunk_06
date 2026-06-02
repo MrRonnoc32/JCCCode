@@ -1,0 +1,97 @@
+ the Personnel and Professional Standards function within the Sheriff's Office. This treats roughly $901 million of the General Fund as non-public-safety spending exposed to cuts. Some summaries that count only the headline Sheriff's Office and Fire and Rescue totals arrive at a slightly larger non-public-safety base of about $944 million; the difference reflects where internal support functions are assigned.</p>
+
+    <h3 class="reg-h" id="regulatory">Regulatory questions: where is the room, and who decides?</h3>
+    <p style="margin-bottom:8px;">The calculator's tax-and-fee side raises obvious questions about what the City could actually do. These answers describe the rules as they stand; specifics can change with legislation, and none of this is legal advice.</p>
+
+    <div class="reg-list" id="regList">
+
+      <div class="reg-item">
+        <button class="reg-btn" aria-expanded="false" aria-controls="reg1" id="regb1"><span class="chev" aria-hidden="true">&#9654;</span><span>Where is the room on fees, and who sets them?</span></button>
+        <div class="reg-panel" id="reg1" role="region" aria-labelledby="regb1">
+          <p>User fees like the solid waste and stormwater assessments are set by the City Council by ordinance, not by referendum, so they are among the few levers the City can pull on its own. That is exactly what happened with the solid waste fee: the Council voted to roughly double it (from $151.80 to $324, then $354, then $384) through the normal ordinance process. The limit is twofold. First, a fee must reasonably relate to the cost of the service it funds; it cannot be a general revenue grab dressed up as a fee, or it risks being challenged as a disguised tax. Second, fees are politically sensitive, the garbage fee passed only 12 to 7 after more than a decade of avoidance. So there is room on fees, but it is narrow and service-specific, not a way to replace hundreds of millions in general revenue.</p>
+        </div>
+      </div>
+
+      <div class="reg-item">
+        <button class="reg-btn" aria-expanded="false" aria-controls="reg2" id="regb2"><span class="chev" aria-hidden="true">&#9654;</span><span>Can we raise the local sales surtax higher?</span></button>
+        <div class="reg-panel" id="reg2" role="region" aria-labelledby="regb2">
+          <p>Very little. Duval's 1.5% surtax is not one tax but three separate half-cent (0.5%) levies stacked together, each authorized under a different part of Florida law (Section 212.055): a Charter County Transportation surtax, a Local Government Infrastructure surtax (set to expire at the end of 2030), and a third half-cent levy. For a county like Duval, state law effectively caps the combined general surtax around this 1.5% level, so the City cannot simply add another penny. Raising more would generally require waiting for an existing levy to expire and replacing it, or the Legislature creating new surtax authority. A 2024 law change (Chapter 2024-158) did remove old language that had excluded consolidated Duval from one surtax category, a reminder that this room is defined by Tallahassee, not Jacksonville.</p>
+        </div>
+      </div>
+
+      <div class="reg-item">
+        <button class="reg-btn" aria-expanded="false" aria-controls="reg3" id="regb3"><span class="chev" aria-hidden="true">&#9654;</span><span>Who has to approve a surtax change, and how?</span></button>
+        <div class="reg-panel" id="reg3" role="region" aria-labelledby="regb3">
+          <p>Most discretionary sales surtaxes can only be enacted or raised by a countywide voter referendum, and the ballot must describe the projects the money will fund. A few specific surtax types can be adopted by a vote of the county governing body instead, but the broad infrastructure and transportation levies Duval relies on are referendum-based. The proceeds stay in the county and are distributed between the county and its municipalities by interlocal agreement or a default state formula. In short: the City Council cannot raise the sales surtax on its own; voters decide.</p>
+        </div>
+      </div>
+
+      <div class="reg-item">
+        <button class="reg-btn" aria-expanded="false" aria-controls="reg4" id="regb4"><span class="chev" aria-hidden="true">&#9654;</span><span>What about the local option gas tax?</span></button>
+        <div class="reg-panel" id="reg4" role="region" aria-labelledby="regb4">
+          <p>Counties can levy up to 12 cents per gallon of local option fuel taxes across three separate levies, and Jacksonville already collects most of this capacity (its budget shows constitutional, county, and multiple local-option fuel taxes). Two practical limits apply. Fuel tax revenue is legally restricted to transportation purposes, so it cannot backfill libraries, parks, or general services. And it is a declining base over time as vehicles grow more efficient, which makes it a poor long-term substitute for property tax. There is some unused headroom, but it is narrow and locked to roads.</p>
+        </div>
+      </div>
+
+      <div class="reg-item">
+        <button class="reg-btn" aria-expanded="false" aria-controls="reg5" id="regb5"><span class="chev" aria-hidden="true">&#9654;</span><span>What legal avenues are left to raise general revenue?</span></button>
+        <div class="reg-panel" id="reg5" role="region" aria-labelledby="regb5">
+          <p>The realistic options are limited and each has constraints. The City can raise the property tax rate (its consolidated charter allows up to about 20 mills, well above today's ~11.19), though this is the same tax the amendment reduces, and large increases face political resistance. It can raise service fees by ordinance, but only where a fee matches a service cost. It can ask voters for a higher or new sales surtax, but the base is near its statutory cap and the money is purpose-restricted. The City cannot levy a local income tax, which the Florida Constitution prohibits, one reason Florida local governments rely heavily on property and consumption taxes. Taken together, no single avenue would replace $283 million in general revenue on its own.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>Prepared as a public-information resource by the Jacksonville Civic Council, Office of Research.<br>
+  Figures reflect the FY2025-2026 proposed budget and the 2026 legislative session as of early 2026.<br>
+  This page is for civic education and does not constitute legal, tax, or financial advice.</p>
+</footer>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var GAP = 283.2; // millions
+  var NON_PS = 901; // millions, non-public-safety General Fund (after P&PS reclassified to public safety)
+  var SURTAX_PENNY = 255; // millions raised by one-cent Duval surtax (illustrative)
+  var PARCELS = 390000; // approx Duval parcels for per-parcel fee
+  var HOUSEHOLDS = 390000; // approx Duval households for per-household tax estimate
+  var BASE_RATE = 0.075; // current Duval combined sales tax rate
+  var NONDEPT = 654.1; // $M non-departmental non-PS spending (debt service, pensions, transfers, grants, citywide allocations) = NON_PS minus listed service depts
+
+  // Service-impact narratives, keyed to the same non-PS departments.
+  // Each describes what losing roughly the cut share of staff/budget would mean.
+  var serviceImpacts = [
+    {dept:"Public Library",
+     headline:"Shorter branch hours and possible closures",
+     detail:"The 21-branch system runs on staff. Fewer librarians means reduced hours, fewer story times and programs, and pressure to close the smallest neighborhood branches."},
+    {dept:"Public Works",
+     headline:"Slower road, signal, and streetlight repair",
+     detail:"Potholes, broken traffic signals, and dark streetlights take longer to fix. Deferred maintenance also raises long-term repair costs and carries a real safety risk."},
+    {dept:"Parks, Recreation & Community Services",
+     headline:"Reduced park upkeep and program hours",
+     detail:"Community centers, pools, and youth and senior programs lose hours or close. Mowing, cleanup, and field maintenance slow down across the park system."},
+    {dept:"Neighborhoods",
+     headline:"Blight and code violations pile up",
+     detail:"Code enforcement, lot mowing, and animal services thin out. Complaints take longer to resolve, letting nuisance and structural hazards accumulate."},
+    {dept:"Planning and Development",
+     headline:"Longer permit and inspection waits",
+     detail:"Fewer planners and inspectors mean slower permitting and review, which delays both home projects and new construction the city is counting on for growth."}
+  ];
+
+  // Per-item taxable purchases for the register example (pre-tax price in $).
+  var taxItems = [
+    {name:"Dinner out for a family of four", price:80},
+    {name:"A $1,200 car repair", price:1200},
+    {name:"A new laptop", price:900},
+    {name:"A furniture purchase", price:600}
+  ];
+
+  // ---- Revenue sources (General Fun

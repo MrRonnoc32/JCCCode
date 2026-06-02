@@ -1,0 +1,166 @@
+d, FY25-26 proposed, $M) ----
+  var revenue = [
+    {name:"Property (ad valorem) taxes", amt:1191},
+    {name:"State-shared revenue", amt:233},
+    {name:"Contributions from local units", amt:150},
+    {name:"Utility service tax", amt:112},
+    {name:"Transfers from other funds", amt:76},
+    {name:"Franchise fees", amt:48},
+    {name:"Communication services tax", amt:33},
+    {name:"All other sources", amt:175}
+  ];
+
+  // ---- Departments (FY25-26, General Fund). budget $M, emp = employee cap ----
+  // ps:true = public safety (shielded). Non-ps share the cut.
+  var depts = [
+    {name:"Fire and Rescue", budget:387.3, emp:1925, ps:true,
+      desc:"Jacksonville Fire and Rescue runs fire stations, ambulances, and emergency medical response across Duval County. Protected from cuts under the proposal."},
+    {name:"Sheriff's Office (Patrol & Enforcement)", budget:249.5, emp:1401, ps:true,
+      desc:"Frontline policing and patrol. The single largest piece of the Sheriff's Office. Protected from cuts under the proposal."},
+    {name:"Corrections", budget:173.2, emp:804, ps:true,
+      desc:"Operates the city jail and pretrial detention. Treated as public safety and shielded under the proposal."},
+    {name:"Investigations & Homeland Security", budget:102.5, emp:537, ps:true,
+      desc:"Detectives, forensics, and security operations within the Sheriff's Office. Protected from cuts."},
+    {name:"Police Services", budget:62.6, emp:366, ps:true,
+      desc:"Records, training, and support functions for the Sheriff's Office. Treated as public safety."},
+    {name:"Public Works", budget:64.3, emp:287, ps:false,
+      desc:"Maintains roads, drainage, traffic signals, and city buildings. Not shielded, so it would face cuts. There is a hidden safety cost here: streetlights and signal upkeep prevent accidents."},
+    {name:"Parks, Recreation & Community Services", budget:58.8, emp:253, ps:false,
+      desc:"Runs parks, community centers, pools, and youth and senior programs. Among the first places service hours and maintenance get reduced."},
+    {name:"Public Library", budget:42.4, emp:307, ps:false,
+      desc:"The 21-branch public library system. Branch hours and locations are vulnerable when this budget shrinks."},
+    {name:"Personnel & Professional Standards", budget:42.7, emp:250, ps:true,
+      desc:"Personnel, training, and professional standards functions within the Sheriff's Office. Treated as public safety and shielded under the proposal."},
+    {name:"Neighborhoods", budget:17.8, emp:101, ps:false,
+      desc:"Code enforcement, mowing, animal services, and neighborhood cleanup. Cutting it lets blight and code violations build up."},
+    {name:"Office of Administrative Services", budget:15.6, emp:153, ps:false,
+      desc:"Procurement, fleet, and internal city services. A support function not shielded from cuts."},
+    {name:"City Council", budget:12.6, emp:65, ps:false,
+      desc:"The legislative branch of city government and its staff."},
+    {name:"Finance", budget:17.9, emp:80, ps:false,
+      desc:"Budgeting, accounting, and treasury for the City. Not shielded."},
+    {name:"Supervisor of Elections", budget:9.4, emp:34, ps:false,
+      desc:"Runs elections and maintains voter rolls for Duval County."},
+    {name:"Planning and Development", budget:5.2, emp:37, ps:false,
+      desc:"Reviews development, zoning, and permitting. Slower permitting is a direct consequence of cuts here."},
+    {name:"Office of Economic Development", budget:2.9, emp:19, ps:false,
+      desc:"Recruits employers and manages incentive deals. A discretionary function exposed to cuts."}
+  ];
+
+  // ---------- helpers ----------
+  function money(m){
+    if(m >= 1000) return "$" + (m/1000).toFixed(2) + "B";
+    if(m >= 100) return "$" + m.toFixed(0) + "M";
+    return "$" + m.toFixed(1) + "M";
+  }
+  function fmtFull(m){
+    return "$" + Math.round(m*1000000).toLocaleString() ;
+  }
+
+  // ---------- render revenue bars ----------
+  var revTotal = revenue.reduce(function(s,r){return s+r.amt;},0);
+  var maxRev = Math.max.apply(null, revenue.map(function(r){return r.amt;}));
+  var revHTML = "";
+  revenue.forEach(function(r){
+    var pct = (r.amt/maxRev*100).toFixed(1);
+    revHTML += '<div class="bar-item">'
+      + '<div class="bar-top"><span class="name">'+r.name+'</span><span class="amt">'+money(r.amt)+'</span></div>'
+      + '<div class="bar-track"><div class="bar-fill rev" style="width:'+pct+'%"></div></div>'
+      + '</div>';
+  });
+  document.getElementById("revBars").innerHTML = revHTML;
+
+  // ---------- render departments ----------
+  var dl = document.getElementById("deptList");
+  var psDepts = depts.filter(function(d){return d.ps;});
+  var npDepts = depts.filter(function(d){return !d.ps;});
+  var psTotalBudget = psDepts.reduce(function(s,d){return s+d.budget;},0);
+  var psTotalEmp = psDepts.reduce(function(s,d){return s+d.emp;},0);
+
+  function deptRow(d, idx, nested){
+    var tag = d.ps ? '<span class="tag ps">Public Safety</span>' : '<span class="tag np">Other Services</span>';
+    return '<div class="dept'+(nested?' dept-nested':'')+'">'
+      + '<button class="dept-btn" aria-expanded="false" aria-controls="dp'+idx+'" id="db'+idx+'">'
+        + '<span class="chev" aria-hidden="true">&#9654;</span>'
+        + '<span class="dn">'+d.name+'</span>'
+        + tag
+        + '<span class="da">'+money(d.budget)+'</span>'
+      + '</button>'
+      + '<div class="dept-panel" id="dp'+idx+'" role="region" aria-labelledby="db'+idx+'">'
+        + '<p style="margin:0 0 10px;">'+d.desc+'</p>'
+        + '<span class="emp">'+d.emp.toLocaleString()+' employees</span> &middot; '
+        + '<span class="emp">'+money(d.budget)+'</span> budget'
+      + '</div>'
+    + '</div>';
+  }
+
+  var dHTML = "";
+
+  // ---- Public Safety top-line, expands to its individual departments ----
+  dHTML += '<div class="dept dept-summary">'
+    + '<button class="dept-btn ps-summary" aria-expanded="false" aria-controls="psGroup" id="psSummaryBtn">'
+      + '<span class="chev" aria-hidden="true">&#9654;</span>'
+      + '<span class="dn">Public Safety <span class="dn-sub">police, fire, corrections</span></span>'
+      + '<span class="tag ps">Shielded</span>'
+      + '<span class="da">'+money(psTotalBudget)+'</span>'
+    + '</button>'
+    + '<div class="dept-group" id="psGroup" role="region" aria-labelledby="psSummaryBtn">'
+      + '<p class="group-note">These departments are protected from cuts by the amendment. Together they make up '+money(psTotalBudget)+' and about '+psTotalEmp.toLocaleString()+' positions. Tap each to see detail.</p>';
+  psDepts.forEach(function(d){
+    var gi = depts.indexOf(d);
+    dHTML += deptRow(d, gi, true);
+  });
+  dHTML += '</div></div>';
+
+  // ---- Non-public-safety departments (the exposed pool) ----
+  npDepts.forEach(function(d){
+    var gi = depts.indexOf(d);
+    dHTML += deptRow(d, gi, false);
+  });
+
+  dl.innerHTML = dHTML;
+
+  // toggle for the public safety group
+  var psSummaryBtn = document.getElementById("psSummaryBtn");
+  psSummaryBtn.addEventListener("click", function(){
+    var exp = psSummaryBtn.getAttribute("aria-expanded") === "true";
+    psSummaryBtn.setAttribute("aria-expanded", String(!exp));
+    document.getElementById("psGroup").classList.toggle("open", !exp);
+  });
+
+  // toggles for individual department detail panels
+  document.querySelectorAll(".dept-btn:not(.ps-summary)").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      var exp = btn.getAttribute("aria-expanded") === "true";
+      btn.setAttribute("aria-expanded", String(!exp));
+      var panel = document.getElementById(btn.getAttribute("aria-controls"));
+      panel.classList.toggle("open", !exp);
+    });
+  });
+
+  // ---------- calculator ----------
+  var nonPSDepts = depts.filter(function(d){return !d.ps;});
+  var nonPSTotal = nonPSDepts.reduce(function(s,d){return s+d.budget;},0);
+
+  var slider = document.getElementById("mixSlider");
+  var mixReadout = document.getElementById("mixReadout");
+  var cutAmtEl = document.getElementById("cutAmt");
+  var cutSubEl = document.getElementById("cutSub");
+  var cutListEl = document.getElementById("cutList");
+  var taxAmtEl = document.getElementById("taxAmt");
+  var taxSubEl = document.getElementById("taxSub");
+  var taxListEl = document.getElementById("taxList");
+
+  // meaning-section elements
+  var meanCutHead = document.getElementById("meanCutHead");
+  var meanCutList = document.getElementById("meanCutList");
+  var meanTaxHead = document.getElementById("meanTaxHead");
+  var meanTaxList = document.getElementById("meanTaxList");
+
+  function update(){
+    var taxShare = parseInt(slider.value,10)/100;   // 0..1 toward taxes
+    var cutShare = 1 - taxShare;                     // toward cuts
+
+    // Cuttable pool = departmental non-PS budgets only (no debt/pension/grants).
+    var cutPool = nonPSDepts.reduce(function(s,d){return s+d.budget;},0); // ~246.9M
+    // The cut side targets a share of the shortfall, but can never exceed t

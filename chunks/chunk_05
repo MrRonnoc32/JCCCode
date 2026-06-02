@@ -1,0 +1,123 @@
+ closing it entirely through service reductions, entirely through new taxes and fees, or any mix in between.</p>
+
+    <div class="calc-shell">
+      <div class="gap-banner">
+        <div class="gv">$283.2M</div>
+        <div class="gl">THE YEARLY REVENUE GAP THAT MUST BE CLOSED</div>
+      </div>
+
+      <div class="slider-zone">
+        <div class="slider-ends">
+          <span class="left">&#9664; Cut Services</span>
+          <span class="mid">Drag to choose how the gap is closed</span>
+          <span class="right">Raise Taxes &amp; Fees &#9654;</span>
+        </div>
+        <input type="range" id="mixSlider" min="0" max="100" value="50" step="1"
+               aria-label="Choose the mix between service cuts and tax increases. 0 is all cuts, 100 is all new taxes and fees."
+               aria-valuetext="50 percent cuts, 50 percent new taxes and fees">
+        <div class="mix-readout" id="mixReadout" aria-live="polite"></div>
+      </div>
+
+      <div class="split">
+        <div class="panel cuts">
+          <h3>Closed by cutting services</h3>
+          <div class="amount" id="cutAmt">$141.6M</div>
+          <div class="sub" id="cutSub">Whole departments eliminated, smallest first</div>
+          <ul class="conseq" id="cutList"></ul>
+          <p class="note">Police, fire, and corrections are protected by the amendment, so cuts can only come from the roughly $247M of discretionary service departments. Departments are eliminated whole, smallest budget first. Because that pool is smaller than the $283.2M shortfall, even eliminating all of them leaves a remainder that taxes and fees must cover.</p>
+        </div>
+        <div class="panel taxes">
+          <h3>Closed by raising taxes &amp; fees</h3>
+          <div class="amount" id="taxAmt">$141.6M</div>
+          <div class="sub" id="taxSub">Equivalent new revenue the City would need to find</div>
+          <ul class="conseq" id="taxList"></ul>
+          <p class="note">The City could legally raise property tax (its consolidated charter allows up to ~20 mills), but recovering the loss that way means a steep rate hike on a shrinking taxable base, which has little political support. So in practice the City would lean on sales surtax, service fees, and impact fees. These hit renters and lower-income households hardest.</p>
+        </div>
+      </div>
+
+      <div class="calc-foot">
+        <b>How to read this.</b> The cut side spreads your chosen share of the $283.2M gap proportionally across all $901M of non-public-safety General Fund spending, using real FY2025-2026 figures. Most of that spending is non-departmental: debt service, pension contributions, transfers, and grants, much of which is legally or contractually fixed and hard to cut in practice. That is why a realistic cut would fall even harder on the visible service departments than the proportional split shown here. The tax side converts the same dollars into rough, illustrative equivalents: a one-cent local sales surtax raises on the order of $250-260M a year in Duval County, plus a flat fee spread across the City's roughly 390,000 parcels. These are scale estimates for public understanding, not precise rate forecasts; sales and property tax bases are not interchangeable.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUILD YOUR OWN BUDGET -->
+<section id="build">
+  <div class="inner">
+    <div class="sec-num">Part Seven</div>
+    <h2>Build your own budget</h2>
+    <p class="lead">This tool lets you test the options directly. Every department starts funded at today's level. Select a department to reduce it to zero and count its budget toward closing the $283.2 million shortfall. The objective is to reach the full amount, which shows how far service reductions alone can go.</p>
+
+    <div class="byo-shell">
+      <div class="byo-meter">
+        <div class="byo-meter-top">
+          <span class="byo-label">Gap closed</span>
+          <span class="byo-figure"><span id="byoClosed">$0</span> <span class="byo-of">of $283.2M</span></span>
+        </div>
+        <div class="byo-track" role="progressbar" aria-valuemin="0" aria-valuemax="283.2" aria-valuenow="0" aria-label="Budget gap closed" id="byoBar">
+          <div class="byo-fill" id="byoFill"></div>
+          <div class="byo-goal-line" aria-hidden="true"></div>
+        </div>
+        <p class="byo-status" id="byoStatus" aria-live="polite">$283.2M still to cut. Click departments below.</p>
+      </div>
+
+      <div class="byo-cols">
+        <div class="byo-group">
+          <h3 class="byo-h ok">Service departments you can cut</h3>
+          <p class="byo-sub">These are the discretionary services not shielded by the amendment. Click to cut.</p>
+          <div class="byo-list" id="byoService"></div>
+        </div>
+        <div class="byo-group">
+          <h3 class="byo-h locked">Legally or contractually locked</h3>
+          <p class="byo-sub">Debt payments and pensions are promised by contract and law. Cutting them means breaking an obligation. You will be asked to confirm.</p>
+          <div class="byo-list" id="byoLocked"></div>
+        </div>
+      </div>
+
+      <div class="byo-foot">
+        <button class="byo-reset" id="byoReset" type="button">Reset to current budget</button>
+        <p class="byo-note" id="byoNote"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT IT MEANS -->
+<section id="meaning">
+  <div class="inner">
+    <div class="sec-num">Part Eight</div>
+    <h2>What each option would mean in practice</h2>
+    <p class="lead">This section translates the slider choice into concrete terms: on one side, the effect on services the City delivers; on the other, the effect on what residents pay at the register. Both sides update as you move the slider above.</p>
+
+    <div class="meaning-grid">
+      <div class="meaning-col cuts">
+        <h3>If the gap is closed by cutting</h3>
+        <p class="mc-head" id="meanCutHead">An estimated 210 positions cut from service departments</p>
+        <ul class="impact-list" id="meanCutList"></ul>
+        <p class="note">At a given setting, departments are eliminated whole, smallest first, so a service is either fully funded or fully cut, not trimmed. The list shows which services are eliminated at the current slider position.</p>
+      </div>
+      <div class="meaning-col taxes">
+        <h3>If the gap is closed by taxing</h3>
+        <p class="mc-head" id="meanTaxHead">About $363 more per household each year</p>
+        <ul class="impact-list" id="meanTaxList"></ul>
+        <p class="note">Florida exempts most groceries and medicine, so the cost lands on other purchases: dining out, repairs, electronics, furniture, and similar taxable goods and services. Renters pay this too, even though they get none of the homestead savings.</p>
+      </div>
+    </div>
+
+    <div class="disclaimer" style="margin-top:42px;">
+      <b>On the household figure.</b> The per-household estimate spreads the tax share of the gap across Duval County's roughly 390,000 households. It is an average; a family that spends more on taxable goods pays more, and one that spends less pays less. Per-item costs show the extra tax on a single purchase at the higher rate, not a yearly total.
+    </div>
+  </div>
+</section>
+
+<!-- SOURCES -->
+<section id="sources" class="sources">
+  <div class="inner">
+    <div class="sec-num">Methodology</div>
+    <h2>Sources and how the numbers were built</h2>
+    <p>The $283.2 million figure comes from a parcel-level analysis of the Florida Department of Revenue's 2025 Name-Address-Legal file for Duval County (file NAL26F202501), covering all 398,317 parcels. The method applies an added $200,000 reduction to each homestead's non-school taxable value, floored at zero, then multiplies by the City's general services rate of 11.191 mills. Homestead general-services revenue falls from $409.3 million to $126.1 million, a loss of $283.2 million.</p>
+    <p>Budget and staffing figures are drawn from the City of Jacksonville General Fund Operating Fund (00111) summary for FY2025-2026, including the $2,017,752,830 proposed General Fund, $1,191,159,774 in property tax revenue, and $731,948,235 in salaries. Department budgets and employee caps come from the same adopted budget document.</p>
+    <p>The proposed exemption change reflects Florida Senate Joint Resolution 2-F (2026) and companion House measures HJR 201 through 213, which raise the homestead exemption in stages and restrict the use of remaining property tax revenue to public safety, education, infrastructure, and natural resources.</p>
+    <p>The analysis estimates static revenue effects only. It does not model behavioral responses such as changes in housing prices or new construction, nor does it assume any state replacement funding. Tax-and-fee equivalents on the calculator are illustrative estimates of scale, not precise rate projections.</p>
+    <p>Public-safety classification on this page follows the Sheriff's Office and Fire and Rescue organizational structure, including
