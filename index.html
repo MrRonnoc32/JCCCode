@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jacksonville's Budget and the Property Tax Question</title>
+<title>What is the impact on Jacksonville if property taxes are cut?</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -450,9 +450,9 @@
   .chart-legend{display:flex;flex-wrap:wrap;gap:20px;margin-top:16px;font-size:14.5px;color:var(--muted);}
   .chart-legend .lg{display:flex;align-items:center;gap:8px;}
   .chart-legend .sw{width:22px;height:4px;display:inline-block;border-radius:2px;}
-  .chart-legend .sw.nom{background:var(--teal-darkest);}
-  .chart-legend .sw.real{background:var(--teal);}
-  .chart-legend .sw.pc{background:var(--mint);height:0;border-top:3px dashed var(--mint);}
+  .chart-legend .sw.nom{background:none;height:0;border-top:3px dashed var(--teal-darkest);}
+  .chart-legend .sw.real{background:none;height:0;border-top:3px dashed var(--teal);}
+  .chart-legend .sw.pc{background:var(--mint);height:4px;}
   .cl-nom{stroke:var(--teal-darkest);}
   .cl-real{stroke:var(--teal);}
   .cl-pc{stroke:var(--mint);}
@@ -512,11 +512,52 @@
     box-shadow:0 16px 30px rgba(5,58,64,0.05);
   }
   .disclaimer b{color:var(--teal-deep);font-family:"Manrope";}
+
+  .draft-banner{
+    background:linear-gradient(135deg,var(--teal-darkest),var(--teal-deep));
+    color:#f2fffb;
+    padding:14px 24px;
+    text-align:center;
+    font-size:15px;
+    line-height:1.5;
+    font-family:"Manrope","Helvetica Neue",Arial,sans-serif;
+  }
+  .draft-banner b{color:var(--mint);font-weight:700;}
+  .draft-banner a{color:#fff;font-weight:700;}
+
+  /* Build-your-own incremental funding controls */
+  .byo-item.adjust{display:block;cursor:default;}
+  .byo-item.adjust:hover{background:#fff;}
+  .byo-item.adjust.locked-item:hover{background:#fff;}
+  .byo-adj-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:4px;}
+  .byo-adj-top .bi-name{flex:1;font-weight:600;}
+  .byo-adj-top .bi-amt{font-family:"Manrope";font-weight:700;color:var(--muted);white-space:nowrap;}
+  .byo-adj-lock{display:block;font-family:"Cormorant Garamond",Georgia,serif;font-size:14px;color:var(--teal-deep);font-weight:400;margin-top:2px;}
+  .byo-slider{
+    -webkit-appearance:none;appearance:none;width:100%;height:8px;margin:10px 0 6px;
+    background:rgba(32,133,145,0.18);border-radius:999px;cursor:pointer;
+  }
+  .byo-slider::-webkit-slider-thumb{
+    -webkit-appearance:none;appearance:none;width:20px;height:20px;
+    background:#fff;border:3px solid var(--teal-deep);border-radius:50%;cursor:grab;
+    box-shadow:0 2px 6px var(--shadow);
+  }
+  .byo-slider::-moz-range-thumb{
+    width:20px;height:20px;background:#fff;border:3px solid var(--teal-deep);border-radius:50%;cursor:grab;
+  }
+  .byo-adj-foot{display:flex;justify-content:space-between;align-items:baseline;font-size:13.5px;font-family:"Manrope";gap:12px;}
+  .byo-adj-foot .funded-lvl{color:var(--muted);}
+  .byo-adj-foot .cut-lvl{font-weight:700;color:var(--teal-deep);white-space:nowrap;}
+  .byo-adj-foot .cut-lvl.none{color:var(--muted);font-weight:400;}
 </style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to main content</a>
 <div class="wrap">
+
+<div class="draft-banner" role="note">
+  This is a <b>working draft</b>. We welcome comments and questions. Please send them to our Director of Research, Dr. Connor Oswald, at <a href="mailto:connor@jaxciviccouncil.com">connor@jaxciviccouncil.com</a>.
+</div>
 
 <nav aria-label="Section navigation">
   <ul>
@@ -535,10 +576,9 @@
 
 <header class="hero" id="top">
   <div class="hero-inner">
-    <div class="kicker">Research &amp; Stories</div>
-    <p class="hero-byline">Jacksonville Civic Council</p>
-    <h1>What happens to your city if <em>property taxes</em> are cut?</h1>
-    <p class="hero-sub">Florida is weighing a constitutional amendment that would raise the homestead exemption from $50,000 to $250,000. For Jacksonville, recent estimates put the resulting revenue shortfall at about $283 million a year. This page walks through where the money goes today, what the change would do, and the budget choices that would follow.</p>
+    <div class="kicker">A working analysis</div>
+    <h1>What is the impact on Jacksonville if <em>property taxes</em> are cut?</h1>
+    <p class="hero-sub">Florida voters will consider a constitutional amendment that would raise the homestead exemption on most non-school property taxes, phasing up to the first $250,000 of a home's assessed value. For Jacksonville, current estimates put the resulting revenue change at about $283 million a year. This page lays out where the money comes from and goes today, what the amendment would do, and the budget choices that would follow, so readers can weigh the tradeoffs for themselves.</p>
     <div class="hero-meta">
       <div><strong>$2.02B</strong>General Fund budget</div>
       <div><strong>$283.2M</strong>Estimated yearly loss</div>
@@ -584,26 +624,26 @@
     <p class="ex-cap">Groceries and most medicine are exempt. Counties may add a local surtax of up to 2% in most cases; Duval currently levies 1.5%, so there is limited room left to raise it.</p>
 
     <h3 class="ex-h">School versus non-school: why the difference matters</h3>
-    <p>Florida's constitution treats school and non-school property taxes separately, and the proposed amendment only touches the <b>non-school</b> side. The $50,000 homestead exemption is split for exactly this reason: the first $25,000 applies to all levies, while the second $25,000 (covering value between $50,000 and $75,000) applies only to non-school levies. The proposed jump to $250,000 would shield far more value from city and county taxes, but schools are handled under their own rules.</p>
+    <p>Florida's constitution treats school and non-school property taxes separately, and the proposed amendment only touches the <b>non-school</b> side. The $50,000 homestead exemption is split for exactly this reason: the first $25,000 applies to all levies, while the second $25,000 (covering value between $50,000 and $75,000) applies only to non-school levies. The proposed jump to $250,000 would exempt far more value from city and county taxes, but schools are handled under their own rules.</p>
 
     <h3 class="ex-h">The constitutional limits already in place</h3>
     <div class="ex-limits">
-      <div class="ex-limit"><div class="ex-lt">10 + 10 mills</div><p>The constitution caps property tax at 10 mills each for a county, a municipality, and a school district, separately. Because Jacksonville's consolidated charter holds both the city and county taxing authority, it can legally levy up to about 20 mills for general government. At roughly 11.19 mills today, the city has substantial unused legal room to raise the rate. The real limit is political will, not the constitution: raising the rate is allowed, but there has been little appetite for it. Recent councils have moved to lower the rate, not raise it.</p></div>
-      <div class="ex-limit"><div class="ex-lt">3% cap</div><p>The Save Our Homes amendment limits how fast a homesteaded property's taxable value can rise, to 3% a year or inflation, whichever is lower. Non-homestead property (rentals, businesses) is capped at a looser 10%.</p></div>
-      <div class="ex-limit"><div class="ex-lt">60% vote</div><p>Changing any of this requires a statewide constitutional amendment passed by 60% of voters. That is why the homestead proposal must go on the November 2026 ballot.</p></div>
+      <div class="ex-limit"><div class="ex-lt">10 + 10 mills</div><p>The constitution caps property tax at 10 mills each for a county, a municipality, and a school district, separately. Because Jacksonville's consolidated charter holds both the city and county taxing authority, it can legally levy up to about 20 mills for general government. At roughly 11.19 mills today, the city has unused legal room under that cap to raise the rate.</p></div>
+      <div class="ex-limit"><div class="ex-lt">3% cap</div><p>The Save Our Homes amendment limits how fast a homesteaded property's taxable value can rise, to 3% a year or inflation, whichever is lower. Non-homestead property (rentals, businesses) is currently capped at a looser 10%; the proposed amendment would lower that cap to 5% a year beginning in 2027.</p></div>
+      <div class="ex-limit"><div class="ex-lt">60% vote</div><p>Changing any of this requires a statewide constitutional amendment passed by 60% of voters, which is why the homestead proposal goes before voters at the next general election.</p></div>
     </div>
 
-    <h3 class="ex-h">Where property tax stops and fees begin</h3>
-    <p>Not everything on your tax bill is a tax. Two of the largest line items are <b>non-ad valorem assessments</b>, flat fees billed alongside property tax but not based on your home's value, and homestead exemptions do not reduce them.</p>
+    <h3 class="ex-h">Taxes versus flat fees on your bill</h3>
+    <p>Your annual bill includes more than one kind of charge. Some line items are <b>ad valorem property taxes</b>: they are calculated as a millage rate applied to your home's taxable value, and homestead exemptions reduce them. Other line items are <b>flat fees</b>, also called non-ad valorem assessments. These are billed alongside the property tax but charged as a set amount per household or per property rather than as a percentage of value, so homestead exemptions do not reduce them. Both are real charges on the same bill; the difference is how each one is calculated. Two of the largest flat fees are:</p>
     <div class="ex-cards">
       <div class="ex-card"><div class="ex-mid">Solid waste fee</div><div class="ex-cl">A flat <b>$354 per year</b> per home in 2026 (rising to $384 in 2027), charged to every residence regardless of value. By interlocal agreement with the Beaches and Baldwin, Jacksonville is barred from using property tax to pay for garbage collection, which is why it is a separate fee. A low-income exemption holds it at $151.80.</div></div>
       <div class="ex-card"><div class="ex-mid">Stormwater fee</div><div class="ex-cl">A separate flat assessment for drainage system upkeep, also billed as a non-ad valorem assessment and unaffected by homestead status.</div></div>
     </div>
-    <p class="ex-cap">Other consumption-based levies the city collects include the utility service tax (on electric, water, and gas bills) and the communication services tax (on phone and cable). Like sales tax, these are charged on usage rather than property, and they fall on renters and owners alike. They are capped by state law and tend to rise and fall with the economy, which is part of why they cannot easily replace the steady revenue property tax provides.</p>
+    <p class="ex-cap">Other consumption-based levies the city collects include the utility service tax (on electric, water, and gas bills) and the communication services tax (on phone and cable). Like sales tax, these are charged on usage rather than property, and they apply to renters and owners alike. They are capped by state law and tend to rise and fall with the economy.</p>
 
     <div class="callout" style="margin-top:42px;">
-      <h3>The core difference</h3>
-      <p>Property tax is steady, locally controlled, and tied to value, which is why it funds the bulk of day-to-day services. Sales taxes, fees, and excise taxes are capped, more volatile, and fall harder on lower-income households. That mismatch is the reason a property tax cut is so hard to replace, and the rest of this page shows what that means for Jacksonville.</p>
+      <h3>How these revenue sources differ</h3>
+      <p>Property tax is tied to assessed value, set locally within the millage cap, and relatively steady year to year; it funds the largest share of day-to-day services. Sales taxes, flat fees, and excise taxes are capped by state law, vary more with the economy, and are not tied to property value. Because the bases are not interchangeable, replacing a large amount of property tax revenue with these other sources involves tradeoffs. The rest of this page sets out what those tradeoffs would look like for Jacksonville.</p>
     </div>
   </div>
 </section>
@@ -612,8 +652,8 @@
 <section id="budget">
   <div class="inner">
     <div class="sec-num">Part Two</div>
-    <h2>Where Jacksonville's money goes today</h2>
-    <p class="lead">The City runs on a General Fund of about $2.02 billion for the 2025-2026 year. More than half of every dollar pays for property taxes' biggest job: keeping people safe. Here is the full picture before any change.</p>
+    <h2>What Jacksonville's taxes and fees pay for</h2>
+    <p class="lead">The City runs on a General Fund of about $2.02 billion for the 2025-2026 year. This section shows where that money comes from first, then where it is spent. About 55% of the General Fund goes to public safety. Here is the full picture before any change.</p>
 
     <div class="stat-row" role="list">
       <div class="stat" role="listitem"><div class="v">$2.02B</div><div class="l">Total General Fund budget</div></div>
@@ -622,13 +662,13 @@
       <div class="stat" role="listitem"><div class="v">~55%</div><div class="l">Of the budget pays for public safety</div></div>
     </div>
 
-    <h3 style="margin-top:60px;font-size:26px;">How the General Fund is paid for</h3>
-    <p style="margin-top:14px;">Property tax is the single largest source by far. The other pieces, like state-shared money and utility taxes, are smaller and harder for the City to control.</p>
+    <h3 style="margin-top:60px;font-size:26px;">Where the money comes from</h3>
+    <p style="margin-top:14px;">Property tax is the single largest source. The other pieces, such as state-shared money and utility taxes, are smaller and largely set outside the City's control.</p>
     <div class="barblock" id="revBars" aria-label="General Fund revenue sources"></div>
 
     <div class="dept-intro">
-      <h3 style="font-size:26px;">Where it gets spent, department by department</h3>
-      <p style="margin:14px 0 0;">Public safety is grouped into one line at the top; tap it to expand the individual police, fire, and corrections departments. Below it are the other services, each marked <span class="tag np" style="font-size:11px;">Other Services</span>, which would absorb the entire loss since public safety is shielded.</p>
+      <h3 style="font-size:26px;">Where the money is spent, department by department</h3>
+      <p style="margin:14px 0 0;">Public safety is grouped into one line at the top; tap it to expand the individual police, fire, and corrections departments. Below it are the other services, each marked <span class="tag np" style="font-size:11px;">Other Services</span>. Under the amendment, public-safety funding is protected from cuts, so any revenue loss would fall on these other services.</p>
     </div>
     <div class="dept-list" id="deptList"></div>
   </div>
@@ -655,19 +695,20 @@
     </div>
 
     <h3 class="sp-h">Where did the real increase go?</h3>
-    <p>Almost all of it went to one place. Of the real spending growth between 2015 and 2024, about <b>83%</b> went to <b>public safety</b>, the Sheriff's Office, Fire and Rescue, and the Medical Examiner. Several other categories actually <b>shrank</b> in real terms over the same period, including general government, economic and physical environment, and interest on debt. This is the same pattern the budget shows today: new money has gone to policing and fire for a larger population, not to broad expansion of government.</p>
+    <p>Of the real spending growth between 2015 and 2024, about <b>83%</b> went to <b>public safety</b>: the Sheriff's Office, Fire and Rescue, and the Medical Examiner. The remaining real growth was spread across the other categories of city spending. The chart below isolates how non-public-safety spending changed over the same period.</p>
 
     <div class="chart-card">
-      <h4 class="chart-title">Real (inflation-adjusted) change by category, 2015 to 2024</h4>
-      <div id="chartCats" class="chart-svg" role="img" aria-label="Bar chart of real spending change by category from 2015 to 2024. Public safety up 76 percent, transportation up 91 percent, human services up 80 percent, culture and recreation up 48 percent, general government down 46 percent, economic and physical environment down 28 percent, interest on debt down 66 percent."></div>
+      <h4 class="chart-title">Non-public-safety spending, 2015 to 2024: raw dollars vs. inflation-adjusted</h4>
+      <div id="chartNonPS" class="chart-svg" role="img" aria-label="Line chart of non-public-safety spending from 2015 to 2024, comparing nominal dollars, inflation-adjusted dollars, and inflation-adjusted dollars per resident."></div>
+      <div class="chart-legend">
+        <span class="lg"><span class="sw nom"></span>Nominal (raw dollars)</span>
+        <span class="lg"><span class="sw real"></span>Real (2015 dollars)</span>
+        <span class="lg"><span class="sw pc"></span>Real per resident</span>
+      </div>
+      <p class="ex-cap" style="margin-top:14px;font-family:'Manrope';font-size:14px;line-height:1.5;"><b>Note on this chart:</b> non-public-safety spending is total governmental-activities spending minus the public-safety category, year by year, from the City's ACFR statement of activities. Over 2015&ndash;2024 it rose about 49% in raw dollars but only about 13% after inflation, and fell roughly 3% per resident in real terms.</p>
     </div>
 
-    <div class="callout">
-      <h3>How this relates to the tax debate</h3>
-      <p>Adjusted for inflation and population, real spending per resident grew about 22% over the nine-year period, and most of the real growth went to public safety. Readers can weigh how these figures bear on claims that rising home values have produced surplus revenue. Any reduction in property tax revenue would apply to this budget as it stands.</p>
-    </div>
-
-    <p class="ex-cap" style="margin-top:30px;">Source: City of Jacksonville Annual Comprehensive Financial Reports (ACFR), government-wide Statement of Activities for Governmental Activities, fiscal years 2015 through 2024. Inflation adjusted using the U.S. Bureau of Labor Statistics Consumer Price Index (July of each year, all urban consumers). Population from city figures. Real dollars expressed in 2015 terms.</p>
+    <p class="ex-cap" style="margin-top:30px;">Source: City of Jacksonville Annual Comprehensive Financial Reports (ACFR), government-wide Statement of Activities for Governmental Activities, fiscal years 2015 through 2024. Inflation adjusted using the U.S. Bureau of Labor Statistics Consumer Price Index (July of each year, all urban consumers). Population from city figures. Real dollars expressed in 2015 terms. The non-public-safety series is total governmental-activities spending minus the public-safety category, computed year by year from the same statement of activities.</p>
   </div>
 </section>
 
@@ -676,7 +717,7 @@
   <div class="inner">
     <div class="sec-num">Part Four</div>
     <h2>A $2 billion budget, and what is left to cut</h2>
-    <p class="lead">The City's General Fund is about $2 billion. The proposed exemption would remove roughly $283 million of it each year. The question that follows is simple: can the City just trim $283 million of spending? The answer is no, and the reason is what most of the budget is already committed to.</p>
+    <p class="lead">The City's General Fund is about $2 billion. The proposed exemption would reduce General Fund revenue by roughly $283 million each year. The question that follows is whether the City could simply trim $283 million of spending. The answer is that it would be very challenging given our city's commitments. And the cuts the City could make would dramatically impact core services.</p>
 
     <div class="wf-shell">
       <div class="wf-step">
@@ -714,7 +755,7 @@
       </div>
     </div>
 
-    <p style="margin-top:34px;">Put simply: public safety is protected, and debt and pension obligations have to be paid no matter what. That leaves only about <b>12% of the budget</b> as discretionary service spending. Because the shortfall is larger than that entire pool, closing it through cuts alone would mean eliminating whole categories of city services, and even then the math does not fully work. The next sections let you test the options yourself.</p>
+    <p style="margin-top:34px;">In short: public-safety funding is protected under the amendment, and debt and pension obligations have to be paid regardless. That leaves only about <b>12% of the budget</b> as discretionary service spending. Because the shortfall is larger than that entire pool, closing it through cuts alone would mean eliminating whole categories of city services.</p>
   </div>
 </section>
 
@@ -722,8 +763,8 @@
 <section id="proposal">
   <div class="inner">
     <div class="sec-num">Part Five</div>
-    <h2>The proposed change, in plain terms</h2>
-    <p class="lead">Right now, the first $50,000 of a home's value is shielded from most property taxes. The proposed amendment (Senate Joint Resolution 2-F) would raise that shield to $250,000, phased in over two years. Voters would decide in November 2026.</p>
+    <h2>What the amendment would do</h2>
+    <p class="lead">The amendment raises the homestead exemption that applies to most non-school property taxes. Today the first $50,000 of a home's assessed value is exempt; the amendment phases that up to the first $250,000, reaching full effect in 2028. School district taxes are unaffected and keep their existing $25,000 exemption. If approved by Florida voters at the next general election, the amendment takes effect January 1, 2027.</p>
 
     <div class="timeline">
       <div class="tl-step">
@@ -732,36 +773,64 @@
       </div>
       <div class="tl-step">
         <div class="yr">2027<small>First step</small></div>
-        <div class="desc">The exemption jumps to <b>$150,000</b>. New Florida residents must live in the state five years before getting the full benefit.</div>
+        <div class="desc">Beginning January 1, the exemption rises to the first <b>$150,000</b> of assessed value for existing homesteads.</div>
       </div>
       <div class="tl-step">
         <div class="yr">2028<small>Full effect</small></div>
-        <div class="desc">The exemption reaches <b>$250,000</b>. Nearly <b>150,000</b> Jacksonville homes would owe $0 toward general city services, up from about 14,000 today.</div>
+        <div class="desc">Beginning January 1, the exemption reaches the first <b>$250,000</b> of assessed value. Starting in 2028, the exemption amounts adjust annually for inflation (CPI) when the change is positive.</div>
+      </div>
+    </div>
+
+    <h3 class="ex-h">Other provisions in the amendment</h3>
+    <div class="feature-grid">
+      <div class="feature">
+        <h4>New-resident phase-in (5-year rule)</h4>
+        <p>Anyone who establishes a Florida homestead on or after January 1, 2027, and who was not a permanent resident as of December 31, 2026, receives only a $50,000 exemption for their first five years, then moves to the full $250,000 exemption in the fifth year.</p>
+      </div>
+      <div class="feature">
+        <h4>Lower assessment cap</h4>
+        <p>For non-school levies, the annual cap on assessment increases for non-homestead residential property (9 units or fewer) and other real property drops from 10% to <b>5%</b> beginning January 1, 2027, with the 10% cap remaining through 2026.</p>
+      </div>
+      <div class="feature">
+        <h4>Restrictions on how property tax is spent</h4>
+        <p>Local governments could spend property tax revenue only on defined core needs: public safety, education, infrastructure, natural resources, debt service and employee retirement obligations, and basic administration.</p>
+      </div>
+      <div class="feature">
+        <h4>Portability of Save Our Homes</h4>
+        <p>The amendment maintains and structures portability of the Save Our Homes benefit when a homeowner moves to a new homestead, capping the maximum transferable assessment difference at $500,000.</p>
+      </div>
+      <div class="feature">
+        <h4>Special taxing districts</h4>
+        <p>Local special taxing districts may raise their own homestead exemptions up to the remaining value of a property, but only if approved by local voters through a referendum.</p>
+      </div>
+      <div class="feature">
+        <h4>Long-term direction</h4>
+        <p>The amendment directs the Legislature to set a schedule, by general law, for the eventual full elimination of these property taxes on homesteads.</p>
       </div>
     </div>
 
     <div class="callout">
       <h3>How the public-safety protection works</h3>
-      <p>The amendment protects police and fire funding by law. The protection does not replace the lost revenue, so the shortfall would be absorbed by the rest of the budget: libraries, parks, road repair, code enforcement, and general operations. With Sheriff's Office and Fire and Rescue functions shielded, a $283 million reduction would fall on about $901 million of non-public-safety spending, which is equivalent to roughly a 31 percent reduction to those services.</p>
+      <p>The amendment protects police and fire funding by law, but it does not replace the lost revenue. As a result, a revenue reduction would fall on the rest of the budget: services such as libraries, parks, road repair, code enforcement, and general operations. The calculator and budget tools later on this page let you see how a $283 million reduction would land across those non-public-safety services.</p>
     </div>
 
     <div class="feature-grid">
       <div class="feature">
-        <h4>Who saves the most</h4>
-        <p>The savings cap out at about $2,238 a year. A $300,000 home and a $5 million home get the same dollar break. The owner of the smaller home sees an 80% cut to their bill; the mansion owner sees 4%.</p>
+        <h4>Largest dollar savings</h4>
+        <p>Because the exemption is a fixed dollar amount, the maximum saving is capped at about $2,238 a year, the city tax on $200,000 of value. Any home assessed above the $250,000 threshold receives the same maximum dollar reduction, regardless of its total value.</p>
       </div>
       <div class="feature">
-        <h4>Who saves the least</h4>
-        <p>Homes under $100,000, about 40,000 Jacksonville parcels, save only about $267 a year. These households often rely most on the services facing cuts.</p>
+        <h4>Smaller dollar savings</h4>
+        <p>Homes assessed under $100,000, about 40,000 Jacksonville parcels, would see a smaller reduction, around $267 a year, because their taxable value is already low.</p>
       </div>
       <div class="feature">
-        <h4>Who gets nothing</h4>
-        <p>Roughly 47% of Duval parcels, including all rentals and businesses, get no direct savings. Renters face the same service cuts without the tax break.</p>
+        <h4>No direct savings</h4>
+        <p>Roughly 47% of Duval parcels, including rentals and businesses, receive no direct homestead savings. Renters do not receive the exemption, though any change in services would still affect them.</p>
       </div>
     </div>
 
     <div class="disclaimer">
-      <b>A note on the millage cap and SJR 2-F.</b> Because Jacksonville's consolidated government holds both city and county taxing authority, it can legally levy up to about 20 mills, well above today's ~11.19, so raising the rate is constitutionally possible but politically unpopular. SJR 2-F would change this picture in two ways: it would shield far more home value from tax, and separately restrict how remaining property tax can be spent. Recovering $283 million through the property tax rate alone would require a large rate increase concentrated on the smaller pool of still-taxable property, which is one reason the options on the next page involve significant tradeoffs.
+      <b>A note on the millage cap.</b> Because Jacksonville's consolidated government holds both city and county taxing authority, it can legally levy up to about 20 mills, above today's ~11.19, so raising the rate is constitutionally possible. The amendment would change the picture in two ways: it would exempt more home value from tax, and separately restrict how the remaining property tax can be spent. Recovering $283 million through the property tax rate alone would mean a large rate increase concentrated on a smaller pool of still-taxable property. The calculator on the next page lets you explore that option alongside others.
     </div>
   </div>
 </section>
@@ -804,12 +873,12 @@
           <div class="amount" id="taxAmt">$141.6M</div>
           <div class="sub" id="taxSub">Equivalent new revenue the City would need to find</div>
           <ul class="conseq" id="taxList"></ul>
-          <p class="note">The City could legally raise property tax (its consolidated charter allows up to ~20 mills), but recovering the loss that way means a steep rate hike on a shrinking taxable base, which has little political support. So in practice the City would lean on sales surtax, service fees, and impact fees. These hit renters and lower-income households hardest.</p>
+          <p class="note">The City's main legal options are raising the property tax millage (its consolidated charter allows up to about 20 mills) and, with voter approval, the local sales surtax. Recovering the full loss through the millage would concentrate the increase on a smaller taxable base, since the amendment removes much of the homestead value from that base. Sales surtax and fees apply to renters and lower-income households as well as homeowners.</p>
         </div>
       </div>
 
       <div class="calc-foot">
-        <b>How to read this.</b> The cut side spreads your chosen share of the $283.2M gap proportionally across all $901M of non-public-safety General Fund spending, using real FY2025-2026 figures. Most of that spending is non-departmental: debt service, pension contributions, transfers, and grants, much of which is legally or contractually fixed and hard to cut in practice. That is why a realistic cut would fall even harder on the visible service departments than the proportional split shown here. The tax side converts the same dollars into rough, illustrative equivalents: a one-cent local sales surtax raises on the order of $250-260M a year in Duval County, plus a flat fee spread across the City's roughly 390,000 parcels. These are scale estimates for public understanding, not precise rate forecasts; sales and property tax bases are not interchangeable.
+        <b>How to read this.</b> The cut side draws from the discretionary service departments that are not protected by the amendment, eliminating them whole, smallest budget first, using FY2025-2026 figures. The tax side converts the same dollars into rough, illustrative equivalents: an increase in the property tax millage (scaled from the City's current ratio of about 11.19 mills to roughly $1.19B in property tax revenue) and an equivalent local sales surtax (a one-cent Duval surtax raises on the order of $250-260M a year). These are scale estimates for public understanding, not precise rate forecasts. The sales and property tax bases are not interchangeable, and the still-taxable property base would itself shrink under the amendment, so a real-world millage increase would likely need to be larger than the illustrative figure shown here.
       </div>
     </div>
   </div>
@@ -820,7 +889,7 @@
   <div class="inner">
     <div class="sec-num">Part Seven</div>
     <h2>Build your own budget</h2>
-    <p class="lead">This tool lets you test the options directly. Every department starts funded at today's level. Select a department to reduce it to zero and count its budget toward closing the $283.2 million shortfall. The objective is to reach the full amount, which shows how far service reductions alone can go.</p>
+    <p class="lead">This tool lets you build a budget directly. Every department starts funded at today's level. Use the sliders to reduce any department's funding by as much or as little as you choose; each dollar cut counts toward closing the $283.2 million shortfall. The goal is to see how close service reductions alone can get to the full amount, and what it would take to reach it.</p>
 
     <div class="byo-shell">
       <div class="byo-meter">
@@ -832,18 +901,18 @@
           <div class="byo-fill" id="byoFill"></div>
           <div class="byo-goal-line" aria-hidden="true"></div>
         </div>
-        <p class="byo-status" id="byoStatus" aria-live="polite">$283.2M still to cut. Click departments below.</p>
+        <p class="byo-status" id="byoStatus" aria-live="polite">$283.2M still to cut. Adjust the sliders below.</p>
       </div>
 
       <div class="byo-cols">
         <div class="byo-group">
-          <h3 class="byo-h ok">Service departments you can cut</h3>
-          <p class="byo-sub">These are the discretionary services not shielded by the amendment. Click to cut.</p>
+          <h3 class="byo-h ok">Service departments you can reduce</h3>
+          <p class="byo-sub">These are the discretionary services not protected by the amendment. Drag each slider to set its funding.</p>
           <div class="byo-list" id="byoService"></div>
         </div>
         <div class="byo-group">
           <h3 class="byo-h locked">Legally or contractually locked</h3>
-          <p class="byo-sub">Debt payments and pensions are promised by contract and law. Cutting them means breaking an obligation. You will be asked to confirm.</p>
+          <p class="byo-sub">Debt payments and pensions are promised by contract and law. Reducing them means breaking an obligation. You will be asked to confirm the first time you move one of these sliders.</p>
           <div class="byo-list" id="byoLocked"></div>
         </div>
       </div>
@@ -891,9 +960,9 @@
     <h2>Sources and how the numbers were built</h2>
     <p>The $283.2 million figure comes from a parcel-level analysis of the Florida Department of Revenue's 2025 Name-Address-Legal file for Duval County (file NAL26F202501), covering all 398,317 parcels. The method applies an added $200,000 reduction to each homestead's non-school taxable value, floored at zero, then multiplies by the City's general services rate of 11.191 mills. Homestead general-services revenue falls from $409.3 million to $126.1 million, a loss of $283.2 million.</p>
     <p>Budget and staffing figures are drawn from the City of Jacksonville General Fund Operating Fund (00111) summary for FY2025-2026, including the $2,017,752,830 proposed General Fund, $1,191,159,774 in property tax revenue, and $731,948,235 in salaries. Department budgets and employee caps come from the same adopted budget document.</p>
-    <p>The proposed exemption change reflects Florida Senate Joint Resolution 2-F (2026) and companion House measures HJR 201 through 213, which raise the homestead exemption in stages and restrict the use of remaining property tax revenue to public safety, education, infrastructure, and natural resources.</p>
+    <p>The proposed exemption change reflects Florida Senate Joint Resolution 2-F (2026) and companion House measures HJR 201 through 213. These raise the homestead exemption on non-school levies in stages (to $150,000 in 2027 and $250,000 in 2028, with inflation adjustments thereafter), phase in the benefit for new residents over five years, lower the annual assessment-increase cap on non-homestead property to 5% beginning in 2027, cap transferable Save Our Homes portability at $500,000, and restrict the use of remaining property tax revenue to defined core needs: public safety, education, infrastructure, natural resources, debt and retirement obligations, and basic administration. If approved by voters, the amendment takes effect January 1, 2027.</p>
     <p>The analysis estimates static revenue effects only. It does not model behavioral responses such as changes in housing prices or new construction, nor does it assume any state replacement funding. Tax-and-fee equivalents on the calculator are illustrative estimates of scale, not precise rate projections.</p>
-    <p>Public-safety classification on this page follows the Sheriff's Office and Fire and Rescue organizational structure, including the Personnel and Professional Standards function within the Sheriff's Office. This treats roughly $901 million of the General Fund as non-public-safety spending exposed to cuts. Some summaries that count only the headline Sheriff's Office and Fire and Rescue totals arrive at a slightly larger non-public-safety base of about $944 million; the difference reflects where internal support functions are assigned.</p>
+    <p>Public-safety classification on this page follows the Sheriff's Office and Fire and Rescue organizational structure, including the Personnel and Professional Standards function within the Sheriff's Office. Where internal support functions are assigned affects the size of the non-public-safety base; summaries that count only the headline Sheriff's Office and Fire and Rescue totals arrive at a slightly larger non-public-safety figure.</p>
 
     <h3 class="reg-h" id="regulatory">Regulatory questions: where is the room, and who decides?</h3>
     <p style="margin-bottom:8px;">The calculator's tax-and-fee side raises obvious questions about what the City could actually do. These answers describe the rules as they stand; specifics can change with legislation, and none of this is legal advice.</p>
@@ -931,7 +1000,7 @@
       <div class="reg-item">
         <button class="reg-btn" aria-expanded="false" aria-controls="reg5" id="regb5"><span class="chev" aria-hidden="true">&#9654;</span><span>What legal avenues are left to raise general revenue?</span></button>
         <div class="reg-panel" id="reg5" role="region" aria-labelledby="regb5">
-          <p>The realistic options are limited and each has constraints. The City can raise the property tax rate (its consolidated charter allows up to about 20 mills, well above today's ~11.19), though this is the same tax the amendment reduces, and large increases face political resistance. It can raise service fees by ordinance, but only where a fee matches a service cost. It can ask voters for a higher or new sales surtax, but the base is near its statutory cap and the money is purpose-restricted. The City cannot levy a local income tax, which the Florida Constitution prohibits, one reason Florida local governments rely heavily on property and consumption taxes. Taken together, no single avenue would replace $283 million in general revenue on its own.</p>
+          <p>The realistic options are limited and each has constraints. The City can raise the property tax rate (its consolidated charter allows up to about 20 mills, above today's ~11.19), though this is the same tax the amendment reduces, and recovering the full amount would require a large increase on a smaller taxable base. It can raise service fees by ordinance, but only where a fee matches a service cost. It can ask voters for a higher or new sales surtax, but the base is near its statutory cap and the money is purpose-restricted. The City cannot levy a local income tax, which the Florida Constitution prohibits, one reason Florida local governments rely heavily on property and consumption taxes. Taken together, no single avenue would replace $283 million in general revenue on its own.</p>
         </div>
       </div>
 
@@ -954,12 +1023,15 @@
   "use strict";
 
   var GAP = 283.2; // millions
-  var NON_PS = 901; // millions, non-public-safety General Fund (after P&PS reclassified to public safety)
   var SURTAX_PENNY = 255; // millions raised by one-cent Duval surtax (illustrative)
-  var PARCELS = 390000; // approx Duval parcels for per-parcel fee
   var HOUSEHOLDS = 390000; // approx Duval households for per-household tax estimate
   var BASE_RATE = 0.075; // current Duval combined sales tax rate
-  var NONDEPT = 654.1; // $M non-departmental non-PS spending (debt service, pensions, transfers, grants, citywide allocations) = NON_PS minus listed service depts
+  // Property-tax millage model (illustrative). The City can recover revenue by raising the
+  // general-services millage, scaled from today's rate-to-revenue ratio.
+  var CURRENT_MILLAGE = 11.191; // current City general-services millage rate (mills)
+  var PROP_TAX_REV = 1191;      // $M property (ad valorem) tax revenue at the current rate
+  var MILLAGE_CAP = 20;         // approx legal millage cap under the consolidated charter
+  var REV_PER_MILL = PROP_TAX_REV / CURRENT_MILLAGE; // $M of revenue per mill (~106.4)
 
   // Service-impact narratives, keyed to the same non-PS departments.
   // Each describes what losing roughly the cut share of staff/budget would mean.
@@ -1002,34 +1074,34 @@
   ];
 
   // ---- Departments (FY25-26, General Fund). budget $M, emp = employee cap ----
-  // ps:true = public safety (shielded). Non-ps share the cut.
+  // ps:true = public safety (protected from cuts). Non-ps share the cut.
   var depts = [
     {name:"Fire and Rescue", budget:387.3, emp:1925, ps:true,
       desc:"Jacksonville Fire and Rescue runs fire stations, ambulances, and emergency medical response across Duval County. Protected from cuts under the proposal."},
     {name:"Sheriff's Office (Patrol & Enforcement)", budget:249.5, emp:1401, ps:true,
       desc:"Frontline policing and patrol. The single largest piece of the Sheriff's Office. Protected from cuts under the proposal."},
     {name:"Corrections", budget:173.2, emp:804, ps:true,
-      desc:"Operates the city jail and pretrial detention. Treated as public safety and shielded under the proposal."},
+      desc:"Operates the city jail and pretrial detention. Treated as public safety and protected from cuts under the proposal."},
     {name:"Investigations & Homeland Security", budget:102.5, emp:537, ps:true,
       desc:"Detectives, forensics, and security operations within the Sheriff's Office. Protected from cuts."},
     {name:"Police Services", budget:62.6, emp:366, ps:true,
       desc:"Records, training, and support functions for the Sheriff's Office. Treated as public safety."},
     {name:"Public Works", budget:64.3, emp:287, ps:false,
-      desc:"Maintains roads, drainage, traffic signals, and city buildings. Not shielded, so it would face cuts. There is a hidden safety cost here: streetlights and signal upkeep prevent accidents."},
+      desc:"Maintains roads, drainage, traffic signals, and city buildings. Not protected from cuts. Streetlight and traffic-signal maintenance also carry safety implications."},
     {name:"Parks, Recreation & Community Services", budget:58.8, emp:253, ps:false,
       desc:"Runs parks, community centers, pools, and youth and senior programs. Among the first places service hours and maintenance get reduced."},
     {name:"Public Library", budget:42.4, emp:307, ps:false,
       desc:"The 21-branch public library system. Branch hours and locations are vulnerable when this budget shrinks."},
     {name:"Personnel & Professional Standards", budget:42.7, emp:250, ps:true,
-      desc:"Personnel, training, and professional standards functions within the Sheriff's Office. Treated as public safety and shielded under the proposal."},
+      desc:"Personnel, training, and professional standards functions within the Sheriff's Office. Treated as public safety and protected from cuts under the proposal."},
     {name:"Neighborhoods", budget:17.8, emp:101, ps:false,
       desc:"Code enforcement, mowing, animal services, and neighborhood cleanup. Cutting it lets blight and code violations build up."},
     {name:"Office of Administrative Services", budget:15.6, emp:153, ps:false,
-      desc:"Procurement, fleet, and internal city services. A support function not shielded from cuts."},
+      desc:"Procurement, fleet, and internal city services. A support function not protected from cuts."},
     {name:"City Council", budget:12.6, emp:65, ps:false,
       desc:"The legislative branch of city government and its staff."},
     {name:"Finance", budget:17.9, emp:80, ps:false,
-      desc:"Budgeting, accounting, and treasury for the City. Not shielded."},
+      desc:"Budgeting, accounting, and treasury for the City. Not protected from cuts."},
     {name:"Supervisor of Elections", budget:9.4, emp:34, ps:false,
       desc:"Runs elections and maintains voter rolls for Duval County."},
     {name:"Planning and Development", budget:5.2, emp:37, ps:false,
@@ -1092,7 +1164,7 @@
     + '<button class="dept-btn ps-summary" aria-expanded="false" aria-controls="psGroup" id="psSummaryBtn">'
       + '<span class="chev" aria-hidden="true">&#9654;</span>'
       + '<span class="dn">Public Safety <span class="dn-sub">police, fire, corrections</span></span>'
-      + '<span class="tag ps">Shielded</span>'
+      + '<span class="tag ps">Protected</span>'
       + '<span class="da">'+money(psTotalBudget)+'</span>'
     + '</button>'
     + '<div class="dept-group" id="psGroup" role="region" aria-labelledby="psSummaryBtn">'
@@ -1230,15 +1302,15 @@
     taxAmtEl.textContent = money(taxDollars);
     taxSubEl.textContent = "New revenue the City would have to raise";
 
-    var surtaxPennies = taxDollars / SURTAX_PENNY;        // fraction of a penny surtax
-    var perParcel = (taxDollars*1000000) / PARCELS;        // $ per parcel per year
+    var surtaxPennies = taxDollars / SURTAX_PENNY;        // fraction of a penny surtax (illustrative)
+    var addedMills = taxDollars / REV_PER_MILL;            // extra mills needed (illustrative)
+    var newMillage = CURRENT_MILLAGE + addedMills;
     var tHTML = "";
     if(taxDollars < 0.05){
-      tHTML = '<li><span>No new taxes or fees at this setting</span><span class="ci">$0</span></li>';
+      tHTML = '<li><span>No new taxes at this setting</span><span class="ci">$0</span></li>';
     } else {
-      tHTML += '<li><span>Equivalent local sales surtax</span><span class="ci">+'+surtaxPennies.toFixed(2)+'&cent;</span></li>';
-      tHTML += '<li><span>Or a flat yearly fee per property</span><span class="ci">'+ "$"+Math.round(perParcel).toLocaleString() +'</span></li>';
-      tHTML += '<li><span>Share of the 1.5&cent; surtax cap used</span><span class="ci">'+ Math.round(surtaxPennies/1.5*100) +'%</span></li>';
+      tHTML += '<li><span>Property tax millage increase<br><span class="sub-emp">'+CURRENT_MILLAGE.toFixed(2)+' &rarr; '+newMillage.toFixed(2)+' mills (cap ~'+MILLAGE_CAP+')</span></span><span class="ci">+'+addedMills.toFixed(2)+' mills</span></li>';
+      tHTML += '<li><span>Or an equivalent local sales surtax</span><span class="ci">+'+surtaxPennies.toFixed(2)+'&cent;</span></li>';
     }
     taxListEl.innerHTML = tHTML;
 
@@ -1292,17 +1364,17 @@
   // ============ BUILD YOUR OWN BUDGET ============
   // Service departments (cuttable). Pull non-PS depts from the dataset.
   var byoService = nonPSDepts.map(function(d){
-    return {name:d.name, budget:d.budget, emp:d.emp, locked:false, cut:false};
+    return {name:d.name, budget:d.budget, emp:d.emp, locked:false, funded:d.budget};
   });
   // Locked items: the non-departmental ~$654.1M, broken into recognizable pieces.
   var byoLocked = [
-    {name:"Debt service & repayments", budget:260.0, emp:0, locked:true, cut:false,
+    {name:"Debt service & repayments", budget:260.0, locked:true, funded:260.0, acked:false,
      note:"Bond payments owed to lenders. Missing them would affect the city's credit rating."},
-    {name:"Pension contributions (UAAL & current)", budget:200.0, emp:0, locked:true, cut:false,
+    {name:"Pension contributions (UAAL & current)", budget:200.0, locked:true, funded:200.0, acked:false,
      note:"Retirement promised to employees by contract. Cannot be skipped by law."},
-    {name:"Transfers to other funds", budget:120.0, emp:0, locked:true, cut:false,
+    {name:"Transfers to other funds", budget:120.0, locked:true, funded:120.0, acked:false,
      note:"Required transfers that keep other city operations running."},
-    {name:"Grants, aid & community contributions", budget:74.1, emp:0, locked:true, cut:false,
+    {name:"Grants, aid & community contributions", budget:74.1, locked:true, funded:74.1, acked:false,
      note:"Money to nonprofits, health, and community programs. Discretionary but already committed."}
   ];
 
@@ -1315,83 +1387,115 @@
   var byoNoteEl = document.getElementById("byoNote");
   var byoResetBtn = document.getElementById("byoReset");
 
-  function byoRender(){
+  var serviceMaxTotal = byoService.reduce(function(s,d){return s+d.budget;},0);
+
+  // Build one adjustable (slider) row per item; created once, then only the tally updates.
+  function makeItem(it, locked){
+    var wrap = document.createElement("div");
+    wrap.className = "byo-item adjust" + (locked ? " locked-item" : "");
+
+    var top = document.createElement("div");
+    top.className = "byo-adj-top";
+    top.innerHTML = '<span class="bi-name">'+it.name
+      + (locked ? '<span class="byo-adj-lock">'+it.note+'</span>' : '')
+      + '</span><span class="bi-amt">'+money(it.budget)+'</span>';
+    wrap.appendChild(top);
+
+    var slider = document.createElement("input");
+    slider.type = "range";
+    slider.className = "byo-slider";
+    slider.min = 0;
+    slider.max = it.budget;
+    slider.step = it.budget / 200;
+    slider.value = it.funded;
+    slider.setAttribute("aria-label", "Funding for " + it.name + ", out of " + money(it.budget));
+    wrap.appendChild(slider);
+
+    var foot = document.createElement("div");
+    foot.className = "byo-adj-foot";
+    var fundedSpan = document.createElement("span");
+    fundedSpan.className = "funded-lvl";
+    var cutSpan = document.createElement("span");
+    cutSpan.className = "cut-lvl";
+    foot.appendChild(fundedSpan);
+    foot.appendChild(cutSpan);
+    wrap.appendChild(foot);
+
+    function refreshItem(){
+      var cut = it.budget - it.funded;
+      fundedSpan.textContent = money(it.funded) + " funded";
+      if(cut < 0.05){
+        cutSpan.textContent = "fully funded";
+        cutSpan.className = "cut-lvl none";
+      } else {
+        cutSpan.textContent = (locked ? "broken " : "cut ") + money(cut);
+        cutSpan.className = "cut-lvl";
+      }
+    }
+
+    slider.addEventListener("input", function(){
+      var val = parseFloat(slider.value);
+      if(locked && val < it.budget - 0.001 && !it.acked){
+        var ok = window.confirm("Reducing \""+it.name+"\" means breaking a legal or contractual obligation. In reality the city cannot simply do this. Continue anyway to see what it would take?");
+        if(!ok){ slider.value = it.budget; val = it.budget; }
+        else { it.acked = true; }
+      }
+      it.funded = val;
+      refreshItem();
+      tally();
+    });
+
+    it._slider = slider;
+    it._refresh = refreshItem;
+    refreshItem();
+    return wrap;
+  }
+
+  function buildItems(){
     byoServiceEl.innerHTML = "";
     byoLockedEl.innerHTML = "";
+    byoService.forEach(function(it){ byoServiceEl.appendChild(makeItem(it, false)); });
+    byoLocked.forEach(function(it){ byoLockedEl.appendChild(makeItem(it, true)); });
+  }
 
-    byoService.forEach(function(it, i){
-      var btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "byo-item " + (it.cut ? "cut" : "funded");
-      btn.setAttribute("aria-pressed", String(it.cut));
-      btn.innerHTML = '<span class="bi-name">'+it.name+'</span>'
-        + '<span class="bi-amt">'+money(it.budget)+'</span>'
-        + '<span class="bi-state">'+(it.cut ? "Cut" : "Funded")+'</span>';
-      btn.addEventListener("click", function(){
-        it.cut = !it.cut; byoRender();
-      });
-      byoServiceEl.appendChild(btn);
-    });
-
-    byoLocked.forEach(function(it, i){
-      var btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "byo-item locked-item " + (it.cut ? "cut" : "funded");
-      btn.setAttribute("aria-pressed", String(it.cut));
-      btn.innerHTML = '<span class="bi-name">'+it.name+'<br><span class="bi-lock">'+it.note+'</span></span>'
-        + '<span class="bi-amt">'+money(it.budget)+'</span>'
-        + '<span class="bi-state">'+(it.cut ? "Broken" : "Locked")+'</span>';
-      btn.addEventListener("click", function(){
-        if(!it.cut){
-          var ok = window.confirm("Cutting \""+it.name+"\" means breaking a legal or contractual obligation. In reality the city cannot simply do this. Continue anyway to see what it would take?");
-          if(!ok) return;
-        }
-        it.cut = !it.cut; byoRender();
-      });
-      byoLockedEl.appendChild(btn);
-    });
-
-    // tally
-    var closed = 0;
-    byoService.forEach(function(it){ if(it.cut) closed += it.budget; });
-    byoLocked.forEach(function(it){ if(it.cut) closed += it.budget; });
+  function tally(){
+    var closed = 0, serviceCut = 0;
+    byoService.forEach(function(it){ var c = it.budget - it.funded; closed += c; serviceCut += c; });
+    byoLocked.forEach(function(it){ closed += (it.budget - it.funded); });
     var pct = Math.min(100, closed / GAP * 100);
     byoClosedEl.textContent = money(closed);
     byoFillEl.style.width = pct + "%";
     byoBarEl.setAttribute("aria-valuenow", closed.toFixed(1));
 
-    var serviceMax = byoService.reduce(function(s,d){return s+d.budget;},0);
     var remaining = GAP - closed;
-
-    if(closed >= GAP){
+    if(closed >= GAP - 0.05){
       byoFillEl.classList.add("green");
       byoStatusEl.classList.add("win");
-      byoStatusEl.textContent = "Shortfall closed. The selected categories show what reaching that total requires.";
+      byoStatusEl.textContent = "Shortfall closed. The funding levels you set show what reaching that total requires.";
     } else {
       byoFillEl.classList.remove("green");
       byoStatusEl.classList.remove("win");
       byoStatusEl.textContent = money(remaining) + " still to cut.";
     }
 
-    // contextual note
-    var allServiceCut = byoService.every(function(it){return it.cut;});
-    var anyLockedCut = byoLocked.some(function(it){return it.cut;});
-    if(allServiceCut && !anyLockedCut){
-      byoNoteEl.innerHTML = "Reducing every cuttable service department to zero (about "+money(serviceMax)+") still leaves "+money(GAP-serviceMax)+" of the shortfall unclosed. Closing the remainder would require reducing locked obligations such as debt or pensions.";
-    } else if(anyLockedCut){
-      byoNoteEl.innerHTML = "Reaching the goal required breaking obligations the city legally cannot skip. This shows the gap is larger than the city's realistically cuttable budget.";
+    var anyLockedCut = byoLocked.some(function(it){ return it.funded < it.budget - 0.05; });
+    if(anyLockedCut){
+      byoNoteEl.innerHTML = "Closing the gap here required reducing obligations the city legally cannot skip, such as debt or pensions. This illustrates that the shortfall is larger than the realistically cuttable budget.";
+    } else if(serviceCut >= serviceMaxTotal - 0.05){
+      byoNoteEl.innerHTML = "Even reducing every cuttable service department to zero (about "+money(serviceMaxTotal)+") leaves "+money(GAP-serviceMaxTotal)+" of the shortfall unclosed. Reaching it would mean reducing locked obligations such as debt or pensions.";
     } else {
-      byoNoteEl.innerHTML = "Tip: the cuttable service departments total only about "+money(serviceMax)+", less than the "+money(GAP)+" gap. See how close you can get before running out.";
+      byoNoteEl.innerHTML = "The cuttable service departments total only about "+money(serviceMaxTotal)+", less than the "+money(GAP)+" gap. Adjust the sliders to see how close you can get.";
     }
   }
 
   byoResetBtn.addEventListener("click", function(){
-    byoService.forEach(function(it){ it.cut = false; });
-    byoLocked.forEach(function(it){ it.cut = false; });
-    byoRender();
+    byoService.forEach(function(it){ it.funded = it.budget; if(it._slider){it._slider.value = it.budget;} if(it._refresh){it._refresh();} });
+    byoLocked.forEach(function(it){ it.funded = it.budget; it.acked = false; if(it._slider){it._slider.value = it.budget;} if(it._refresh){it._refresh();} });
+    tally();
   });
 
-  byoRender();
+  buildItems();
+  tally();
 
   // ============ SPENDING CHARTS (real vs nominal) ============
   // Data from City ACFR Statement of Activities 2015-2024, CPI-adjusted to 2015 dollars ($ thousands).
@@ -1407,15 +1511,19 @@
     {y:2023, nom:2424043, real:1892459, pop:993468},
     {y:2024, nom:2548850, real:1933914, pop:1010000}
   ];
-  // category real change 2015->2024 (%)
-  var catChange = [
-    {name:"Transportation", pct:90.8},
-    {name:"Human services", pct:80.5},
-    {name:"Public safety", pct:76.1},
-    {name:"Culture & recreation", pct:47.6},
-    {name:"Economic & phys. env.", pct:-28.1},
-    {name:"General government", pct:-45.5},
-    {name:"Interest on debt", pct:-65.6}
+  // Public-safety spending by year ($ thousands), from the same ACFR statement of activities.
+  // Non-public-safety spending is computed as the total above minus these figures.
+  var psSpend = [
+    {y:2015, nom:629100,  real:629100},
+    {y:2016, nom:625227,  real:620098},
+    {y:2017, nom:787756,  real:768022},
+    {y:2018, nom:867834,  real:821854},
+    {y:2019, nom:867176,  real:806619},
+    {y:2020, nom:1110858, real:1023194},
+    {y:2021, nom:1161203, real:1015101},
+    {y:2022, nom:903833,  real:728049},
+    {y:2023, nom:1321889, real:1032003},
+    {y:2024, nom:1460293, real:1107982}
   ];
 
   function svgEl(tag, attrs){
@@ -1462,9 +1570,9 @@
       if(dash) p.setAttribute("stroke-dasharray","7 5");
       svg.appendChild(p);
     }
-    path(series.nom,"cl-nom");
-    path(series.real,"cl-real");
-    path(series.pc,"cl-pc",true);
+    path(series.nom,"cl-nom",true);
+    path(series.real,"cl-real",true);
+    path(series.pc,"cl-pc");
     // end-point value labels
     function endLabel(vals, cls){
       var i=n-1, v=vals[i];
@@ -1479,33 +1587,63 @@
     host.appendChild(svg);
   })();
 
-  // ---- Category bar chart (diverging, % real change) ----
-  (function drawCats(){
-    var host = document.getElementById("chartCats");
+  // ---- Non-public-safety trend chart (actual figures, parallels the first chart) ----
+  // Non-PS spending = total governmental-activities spending minus the public-safety category,
+  // year by year, from the ACFR statement of activities.
+  (function drawNonPS(){
+    var host = document.getElementById("chartNonPS");
     if(!host) return;
-    var rows=catChange.length;
-    var W=700, rowH=38, mT=10, mB=10, mL=170, mR=60;
-    var H=mT+mB+rows*rowH;
-    var pw=W-mL-mR;
-    var maxAbs=Math.ceil(Math.max.apply(null,catChange.map(function(c){return Math.abs(c.pct);}))/10)*10;
-    var zero=mL + pw*(maxAbs/(2*maxAbs)); // center
-    function bx(v){return mL + pw*((v+maxAbs)/(2*maxAbs));}
-    var svg=svgEl("svg",{viewBox:"0 0 "+W+" "+H,preserveAspectRatio:"xMidYMid meet"});
-    // zero line
-    svg.appendChild(svgEl("line",{x1:zero,y1:mT,x2:zero,y2:H-mB,class:"cl-axis","stroke-width":1.5}));
-    catChange.forEach(function(c,i){
-      var cy=mT+i*rowH+rowH/2;
-      var x0=zero, x1=bx(c.pct);
-      var x=Math.min(x0,x1), w=Math.abs(x1-x0);
-      svg.appendChild(svgEl("rect",{x:x,y:cy-11,width:w,height:22,class:(c.pct>=0?"bar-pos":"bar-neg"),rx:2}));
-      // category label (left)
-      var lbl=svgEl("text",{x:mL-12,y:cy+5,class:"bar-lbl","font-size":14,"text-anchor":"end"}); lbl.textContent=c.name; svg.appendChild(lbl);
-      // value label (outer end of bar)
-      var vlbl=svgEl("text",{y:cy+5,class:"bar-val "+(c.pct>=0?"bar-val-pos":"bar-val-neg"),"font-size":13.5});
-      if(c.pct>=0){ vlbl.setAttribute("x",x1+6); vlbl.setAttribute("text-anchor","start"); }
-      else { vlbl.setAttribute("x",x1-6); vlbl.setAttribute("text-anchor","end"); }
-      vlbl.textContent=(c.pct>=0?"+":"")+c.pct.toFixed(0)+"%"; svg.appendChild(vlbl);
+    var n = spend.length;
+    // Build the non-PS series (total minus public safety), indexing each measure to 100 at 2015.
+    var derived = spend.map(function(d,i){
+      var ps = psSpend[i];
+      return {y:d.y, nom:d.nom - ps.nom, real:d.real - ps.real, pop:d.pop};
     });
+    var nb = derived[0];
+    var series = {
+      nom: derived.map(function(d){return d.nom/nb.nom*100;}),
+      real: derived.map(function(d){return d.real/nb.real*100;}),
+      pc: derived.map(function(d){return (d.real/d.pop)/(nb.real/nb.pop)*100;})
+    };
+
+    var W=700, H=360, mL=46, mR=16, mT=14, mB=40;
+    var pw=W-mL-mR, ph=H-mT-mB;
+    var allv = series.nom.concat(series.real, series.pc);
+    var ymin=Math.floor(Math.min.apply(null,allv)/10)*10;
+    var ymax=Math.ceil(Math.max.apply(null,allv)/10)*10;
+    function px(i){return mL + pw*(i/(n-1));}
+    function py(v){return mT + ph*(1-(v-ymin)/(ymax-ymin));}
+    var svg = svgEl("svg",{viewBox:"0 0 "+W+" "+H,preserveAspectRatio:"xMidYMid meet"});
+    for(var g=ymin; g<=ymax; g+=20){
+      svg.appendChild(svgEl("line",{x1:mL,y1:py(g),x2:W-mR,y2:py(g),class:"cl-grid","stroke-width":1}));
+      var t=svgEl("text",{x:mL-8,y:py(g)+4,class:"cl-txt","font-size":12,"text-anchor":"end"}); t.textContent=g; svg.appendChild(t);
+    }
+    derived.forEach(function(d,i){
+      if(i%2===0 || i===n-1){
+        var t=svgEl("text",{x:px(i),y:H-mB+22,class:"cl-txt","font-size":12,"text-anchor":"middle"}); t.textContent=d.y; svg.appendChild(t);
+      }
+    });
+    svg.appendChild(svgEl("line",{x1:mL,y1:mT,x2:mL,y2:mT+ph,class:"cl-axis","stroke-width":1.5}));
+    function path(vals, cls, dash){
+      var d="";
+      vals.forEach(function(v,i){ d+=(i?"L":"M")+px(i)+" "+py(v)+" "; });
+      var p=svgEl("path",{d:d,fill:"none",class:cls,"stroke-width":3,"stroke-linejoin":"round"});
+      if(dash) p.setAttribute("stroke-dasharray","7 5");
+      svg.appendChild(p);
+    }
+    // match the first chart: nominal & real dashed, real-per-resident solid
+    path(series.nom,"cl-nom",true);
+    path(series.real,"cl-real",true);
+    path(series.pc,"cl-pc");
+    function endLabel(vals, cls){
+      var i=n-1, v=vals[i];
+      var t=svgEl("text",{x:px(i)-4,y:py(v)-8,class:"bar-val "+cls,"font-size":13,"text-anchor":"end"});
+      t.textContent=(v>=100?"+":"")+Math.round(v-100)+"%"; svg.appendChild(t);
+    }
+    endLabel(series.nom,"bar-val-neg");
+    endLabel(series.real,"bar-val-pos");
+    svg.appendChild(svgEl("circle",{cx:px(n-1),cy:py(series.nom[n-1]),r:4,class:"cl-dot-nom"}));
+    svg.appendChild(svgEl("circle",{cx:px(n-1),cy:py(series.real[n-1]),r:4,class:"cl-dot-real"}));
     host.appendChild(svg);
   })();
 
