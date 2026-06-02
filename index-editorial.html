@@ -1,0 +1,1523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jacksonville's Budget and the Property Tax Question</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#3d4142;
+    --paper:#f7fbfb;
+    --paper-2:#edf6f5;
+    --surface:#ffffff;
+    --rule:rgba(5,58,64,0.14);
+    --teal:#208591;
+    --teal-deep:#00666e;
+    --teal-darkest:#053a40;
+    --mint:#00e6a5;
+    --muted:#647778;
+    --shadow:rgba(5,58,64,0.08);
+    --safety:#00666e;
+    --cut:#0f717b;
+    --tax:#00a47a;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Manrope","Helvetica Neue",Arial,sans-serif;
+    font-size:18px;
+    line-height:1.68;
+    -webkit-font-smoothing:antialiased;
+  }
+  body::before{
+    content:"";
+    position:fixed;inset:0;
+    pointer-events:none;z-index:0;
+    background-image:
+      radial-gradient(circle at 14% 10%, rgba(0,230,165,0.12), transparent 26%),
+      radial-gradient(circle at 88% 18%, rgba(32,133,145,0.08), transparent 24%),
+      linear-gradient(180deg, rgba(255,255,255,0.84), rgba(247,251,251,0.98));
+  }
+  .wrap{position:relative;z-index:1;}
+  h1,h2,h3,h4{font-family:"Manrope","Helvetica Neue",Arial,sans-serif;line-height:1.06;margin:0;font-weight:800;letter-spacing:-0.03em;}
+  a{color:var(--teal-deep);}
+  a:focus-visible,button:focus-visible,input:focus-visible,[tabindex]:focus-visible{
+    outline:3px solid var(--mint);
+    outline-offset:3px;
+  }
+  b,strong{font-weight:700;}
+
+  .skip{
+    position:absolute;left:-9999px;top:0;background:var(--teal-darkest);color:#fff;
+    padding:12px 18px;z-index:100;font-family:"Manrope";text-decoration:none;
+  }
+  .skip:focus{left:8px;top:8px;}
+
+  nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(255,255,255,0.9);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--rule);
+    box-shadow:0 8px 24px rgba(5,58,64,0.04);
+  }
+  nav ul{
+    display:flex;flex-wrap:wrap;gap:0;margin:0;padding:0;list-style:none;
+    max-width:1180px;margin-inline:auto;padding-inline:10px;
+  }
+  nav a{
+    display:block;color:var(--ink);text-decoration:none;
+    padding:18px 16px;font-family:"Manrope";font-size:13px;font-weight:700;
+    letter-spacing:0.12em;text-transform:uppercase;
+  }
+  nav a:hover{color:var(--teal-deep);}
+  nav .brand{
+    font-weight:800;
+    color:var(--teal);
+    position:relative;
+  }
+  nav .brand::after{
+    content:"";
+    position:absolute;
+    left:16px;right:16px;bottom:12px;
+    height:3px;border-radius:999px;
+    background:linear-gradient(90deg,var(--teal),var(--mint));
+  }
+
+  header.hero{
+    padding:72px 24px 44px;
+  }
+  .hero-inner{
+    max-width:1180px;
+    margin-inline:auto;
+    padding:52px clamp(24px,4vw,44px);
+    background:
+      linear-gradient(140deg, rgba(255,255,255,0.98), rgba(237,246,245,0.96)),
+      linear-gradient(90deg, rgba(0,230,165,0.12), transparent);
+    border:1px solid rgba(5,58,64,0.09);
+    border-radius:30px;
+    box-shadow:0 26px 60px var(--shadow);
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-inner::after{
+    content:"";
+    position:absolute;
+    top:-140px;right:-120px;
+    width:340px;height:340px;border-radius:50%;
+    background:radial-gradient(circle, rgba(0,230,165,0.3) 0%, rgba(0,230,165,0) 68%);
+    pointer-events:none;
+  }
+  .kicker{
+    display:flex;align-items:center;gap:18px;
+    font-family:"Manrope";text-transform:uppercase;letter-spacing:0.22em;
+    font-size:12px;color:var(--teal-darkest);margin-bottom:18px;font-weight:800;
+  }
+  .kicker::after{
+    content:"";
+    width:92px;
+    max-width:20vw;
+    height:1px;
+    background:rgba(5,58,64,0.28);
+  }
+  header.hero h1{
+    font-size:clamp(42px,6vw,76px);font-weight:800;
+    color:var(--teal);max-width:13ch;
+  }
+  header.hero h1 em{
+    display:block;
+    font-style:normal;
+    color:var(--teal-darkest);
+    font-family:"Cormorant Garamond",Georgia,serif;
+    font-weight:500;
+    letter-spacing:0;
+  }
+  .hero-byline{
+    margin:0 0 18px;
+    color:var(--muted);
+    font-size:26px;
+    line-height:1.1;
+    font-family:"Cormorant Garamond",Georgia,serif;
+    font-weight:400;
+  }
+  .hero-sub{
+    font-size:clamp(18px,2vw,23px);max-width:59ch;margin-top:26px;
+    color:var(--ink);line-height:1.6;
+  }
+  .hero-meta{
+    margin-top:34px;display:flex;flex-wrap:wrap;gap:18px;
+    font-family:"Manrope";font-size:14px;color:var(--muted);
+    padding-top:0;
+  }
+  .hero-meta div{
+    min-width:190px;
+    background:rgba(255,255,255,0.82);
+    border:1px solid rgba(5,58,64,0.08);
+    border-radius:18px;
+    padding:18px 20px;
+    box-shadow:0 10px 24px rgba(5,58,64,0.05);
+  }
+  .hero-meta strong{
+    color:var(--teal-darkest);
+    display:block;
+    font-size:28px;
+    font-weight:800;
+    margin-bottom:6px;
+  }
+
+  section{padding:88px 24px;}
+  .inner{max-width:1080px;margin-inline:auto;}
+  .sec-num{
+    font-family:"Manrope";font-size:12px;letter-spacing:0.22em;text-transform:uppercase;
+    color:var(--teal-deep);font-weight:800;margin-bottom:14px;
+  }
+  section h2{font-size:clamp(32px,4.4vw,54px);font-weight:800;max-width:16ch;color:var(--teal-darkest);}
+  .lead{font-size:clamp(18px,1.9vw,22px);max-width:62ch;margin-top:20px;color:var(--muted);}
+  p{max-width:65ch;}
+
+  .stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:48px;background:transparent;border:none;}
+  .stat{
+    background:var(--surface);
+    padding:28px 24px;
+    border:1px solid var(--rule);
+    border-radius:22px;
+    box-shadow:0 18px 40px var(--shadow);
+  }
+  .stat .v{font-family:"Manrope";font-size:clamp(32px,4vw,46px);font-weight:800;line-height:1;color:var(--teal-darkest);}
+  .stat .l{font-size:15px;color:var(--muted);margin-top:10px;line-height:1.45;}
+
+  .barblock{margin-top:30px;}
+  .bar-item{margin-bottom:18px;}
+  .bar-top{display:flex;justify-content:space-between;align-items:baseline;font-size:16px;margin-bottom:6px;gap:14px;}
+  .bar-top .name{font-weight:600;}
+  .bar-top .amt{font-family:"Manrope";font-weight:700;color:var(--muted);white-space:nowrap;}
+  .bar-track{height:18px;background:rgba(32,133,145,0.12);border:none;border-radius:999px;overflow:hidden;}
+  .bar-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--teal-darkest),var(--teal));}
+  .bar-fill.rev{background:linear-gradient(90deg,var(--teal),var(--mint));}
+
+  .dept-intro{margin-top:48px;}
+  .dept-list{margin-top:24px;border-top:1px solid var(--rule);}
+  .dept{border-bottom:1px solid var(--rule);}
+  .dept-btn{
+    width:100%;background:none;border:none;cursor:pointer;text-align:left;
+    padding:18px 8px;display:flex;align-items:center;gap:18px;
+    font-family:"Manrope";font-size:17px;color:var(--ink);
+  }
+  .dept-btn:hover{background:rgba(32,133,145,0.06);}
+  .dept-btn .chev{font-family:"Manrope";color:var(--teal-deep);transition:transform .2s;font-size:18px;width:18px;}
+  .dept-btn[aria-expanded="true"] .chev{transform:rotate(90deg);}
+  .dept-btn .dn{flex:1;font-weight:600;}
+  .dept-btn .da{font-family:"Manrope";font-weight:800;color:var(--teal-darkest);white-space:nowrap;}
+  .dept-btn .tag{font-size:11px;font-family:"Manrope";letter-spacing:0.12em;text-transform:uppercase;padding:5px 10px;border:none;border-radius:999px;}
+  .tag.ps{color:var(--teal-darkest);background:rgba(0,230,165,0.2);}
+  .tag.np{color:var(--teal-deep);background:rgba(32,133,145,0.12);}
+  .dept-panel{padding:0 8px 22px 44px;font-size:16.5px;color:var(--muted);max-width:60ch;display:none;}
+  .dept-panel.open{display:block;}
+  .dept-panel .emp{font-family:"Manrope";color:var(--ink);font-weight:700;}
+
+  .dept-summary{border-bottom:1px solid var(--rule);}
+  .dept-btn.ps-summary{background:linear-gradient(90deg, rgba(32,133,145,0.12), rgba(0,230,165,0.08));}
+  .dept-btn.ps-summary:hover{background:linear-gradient(90deg, rgba(32,133,145,0.16), rgba(0,230,165,0.1));}
+  .dept-btn.ps-summary .dn{font-family:"Manrope";font-weight:800;font-size:19px;}
+  .dept-btn.ps-summary .da{font-size:19px;}
+  .dn-sub{display:block;font-family:"Cormorant Garamond",Georgia,serif;font-weight:400;font-size:16px;color:var(--muted);margin-top:2px;}
+  .dept-group{display:none;background:#f6fbfb;padding:0 0 8px;border-top:1px solid rgba(5,58,64,0.08);}
+  .dept-group.open{display:block;}
+  .group-note{font-size:14.5px;color:var(--muted);padding:14px 16px 6px 44px;margin:0;max-width:64ch;}
+  .dept-nested{border-bottom:1px solid rgba(5,58,64,0.08);margin:0 16px;border-left:3px solid var(--mint);}
+  .dept-nested:last-child{border-bottom:none;}
+  .dept-nested .dept-btn{padding-left:16px;}
+  .dept-nested .dept-btn .dn{font-weight:500;}
+
+  .timeline{margin-top:48px;display:grid;gap:18px;background:transparent;border:none;}
+  .tl-step{
+    background:var(--surface);
+    padding:28px 30px;
+    display:grid;grid-template-columns:130px 1fr;gap:24px;align-items:start;
+    border:1px solid var(--rule);
+    border-radius:24px;
+    box-shadow:0 18px 36px var(--shadow);
+  }
+  .tl-step .yr{font-family:"Manrope";font-size:26px;font-weight:800;color:var(--teal-darkest);}
+  .tl-step .yr small{display:block;font-size:13px;color:var(--muted);font-weight:400;letter-spacing:0.05em;text-transform:uppercase;}
+  .tl-step .desc{font-size:17px;}
+  .tl-step .desc b{font-family:"Manrope";}
+  .callout{
+    margin-top:40px;
+    background:linear-gradient(135deg, rgba(5,58,64,0.98), rgba(0,102,110,0.96));
+    color:#f2fffb;
+    padding:34px 36px;
+    border-radius:28px;
+    box-shadow:0 22px 48px rgba(5,58,64,0.18);
+  }
+  .callout h3{font-size:24px;color:var(--mint);margin-bottom:12px;}
+  .callout p{color:rgba(255,255,255,0.9);max-width:66ch;}
+  .feature-grid{margin-top:42px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;}
+  .feature{
+    border:1px solid var(--rule);
+    padding:24px;
+    background:var(--surface);
+    border-radius:22px;
+    box-shadow:0 18px 36px var(--shadow);
+  }
+  .feature h4{font-size:19px;margin-bottom:10px;color:var(--teal-darkest);}
+  .feature p{font-size:16px;color:var(--muted);margin:0;}
+
+  #calc{background:linear-gradient(180deg,#f4fbfa,#ebf6f5);color:var(--ink);}
+  #calc .sec-num{color:var(--teal-deep);}
+  #calc h2{color:var(--teal-darkest);}
+  #calc .lead{color:var(--muted);}
+  .calc-shell{
+    margin-top:50px;background:var(--surface);color:var(--ink);
+    border:1px solid var(--rule);
+    border-radius:30px;
+    overflow:hidden;
+    box-shadow:0 24px 52px var(--shadow);
+  }
+  .gap-banner{
+    background:linear-gradient(135deg,var(--teal-darkest),var(--teal-deep));
+    color:#fff;padding:28px 30px;text-align:center;
+    border-bottom:none;
+  }
+  .gap-banner .gv{font-family:"Manrope";font-size:clamp(34px,6vw,56px);font-weight:800;line-height:1;}
+  .gap-banner .gl{font-size:13px;letter-spacing:0.18em;margin-top:10px;opacity:0.92;}
+
+  .slider-zone{padding:36px 30px 30px;}
+  .slider-ends{display:flex;justify-content:space-between;font-family:"Manrope";font-size:13px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:14px;}
+  .slider-ends .left{color:var(--cut);}
+  .slider-ends .right{color:var(--tax);}
+  .slider-ends .mid{color:var(--muted);text-transform:none;letter-spacing:0;font-weight:500;font-family:"Cormorant Garamond",Georgia,serif;font-size:20px;align-self:center;}
+
+  input[type=range]{
+    -webkit-appearance:none;appearance:none;width:100%;height:14px;
+    background:linear-gradient(90deg,var(--teal-darkest),var(--teal) 60%,var(--mint));
+    border:none;border-radius:999px;cursor:pointer;margin:6px 0 4px;
+  }
+  input[type=range]::-webkit-slider-thumb{
+    -webkit-appearance:none;appearance:none;width:30px;height:30px;
+    background:#fff;border:4px solid var(--teal-darkest);border-radius:50%;
+    box-shadow:0 2px 8px var(--shadow);cursor:grab;
+  }
+  input[type=range]::-moz-range-thumb{
+    width:30px;height:30px;background:#fff;border:4px solid var(--teal-darkest);
+    border-radius:50%;cursor:grab;
+  }
+  .mix-readout{text-align:center;font-size:17px;margin-top:14px;color:var(--muted);}
+  .mix-readout b{font-family:"Manrope";color:var(--teal-darkest);}
+
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:18px;background:transparent;border-top:1px solid var(--rule);padding:18px;}
+  @media(max-width:760px){.split{grid-template-columns:1fr;}}
+  .panel{background:var(--surface);padding:30px 28px;border:1px solid var(--rule);border-radius:24px;}
+  .panel.cuts{background:#f7fcfb;}
+  .panel.taxes{background:#f0fcf7;}
+  .panel h3{font-size:21px;margin-bottom:6px;}
+  .panel.cuts h3{color:var(--teal-darkest);}
+  .panel.taxes h3{color:var(--teal-deep);}
+  .panel .amount{font-family:"Manrope";font-size:clamp(30px,5vw,46px);font-weight:800;line-height:1;margin:14px 0 6px;}
+  .panel.cuts .amount{color:var(--teal-darkest);}
+  .panel.taxes .amount{color:var(--teal-deep);}
+  .panel .sub{font-size:15px;color:var(--muted);margin-bottom:20px;}
+  .conseq{list-style:none;padding:0;margin:0;}
+  .conseq li{padding:12px 0;border-top:1px solid rgba(5,58,64,0.12);font-size:16px;display:flex;justify-content:space-between;gap:14px;align-items:baseline;}
+  .conseq li .ci{font-family:"Manrope";font-weight:700;white-space:nowrap;}
+  .panel.cuts .conseq li .ci{color:var(--teal-darkest);}
+  .panel.taxes .conseq li .ci{color:var(--teal-deep);}
+  .conseq li .sub-emp{font-family:"Cormorant Garamond",Georgia,serif;font-weight:400;font-size:18px;color:var(--muted);}
+  .conseq li.total-row{border-top:2px solid var(--rule);margin-top:4px;}
+  .conseq li.total-row span:first-child{font-family:"Manrope";font-weight:800;}
+  .conseq li.total-row .ci{font-size:18px;}
+  .conseq li .muted-ci{color:var(--muted)!important;font-weight:400;}
+  .conseq li.resid-row{border-top:1px dashed var(--teal-deep);}
+  .conseq li.resid-row span:first-child{font-family:"Manrope";font-weight:700;color:var(--teal-deep);}
+  .conseq li.resid-row .ci{color:var(--teal-deep);}
+
+  .meaning-grid{margin-top:48px;display:grid;grid-template-columns:1fr 1fr;gap:18px;background:transparent;border:none;}
+  @media(max-width:760px){.meaning-grid{grid-template-columns:1fr;}}
+  .meaning-col{padding:34px 30px;border:1px solid var(--rule);border-radius:24px;box-shadow:0 18px 36px var(--shadow);}
+  .meaning-col.cuts{background:#f7fcfb;}
+  .meaning-col.taxes{background:#f0fcf7;}
+  .meaning-col h3{font-size:23px;margin-bottom:14px;}
+  .meaning-col.cuts h3{color:var(--teal-darkest);}
+  .meaning-col.taxes h3{color:var(--teal-deep);}
+  .mc-head{font-family:"Manrope";font-size:20px;font-weight:700;line-height:1.25;margin:0 0 22px;max-width:none;}
+  .meaning-col.cuts .mc-head{color:var(--teal-darkest);}
+  .meaning-col.taxes .mc-head{color:var(--teal-deep);}
+  .impact-list{list-style:none;padding:0;margin:0;}
+  .impact-list li{padding:14px 0;border-top:1px solid rgba(5,58,64,0.12);font-size:16.5px;line-height:1.5;}
+  .impact-list li .ihead{font-family:"Manrope";font-weight:700;display:block;margin-bottom:3px;}
+  .meaning-col.cuts .impact-list li .ihead{color:var(--ink);}
+  .meaning-col.taxes .impact-list li .ihead{color:var(--ink);}
+  .impact-list li .idetail{color:var(--muted);font-size:15.5px;}
+  .impact-list li .icost{font-family:"Manrope";font-weight:700;white-space:nowrap;}
+  .meaning-col.taxes .impact-list li .icost{color:var(--teal-deep);}
+  .impact-row{display:flex;justify-content:space-between;gap:14px;align-items:baseline;}
+
+  .byo-shell{margin-top:48px;border:1px solid var(--rule);background:var(--surface);border-radius:30px;overflow:hidden;box-shadow:0 24px 52px var(--shadow);}
+  .byo-meter{padding:30px 30px 26px;background:linear-gradient(135deg,var(--teal-darkest),var(--teal-deep));color:#fff;}
+  .byo-meter-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px;flex-wrap:wrap;gap:8px;}
+  .byo-label{font-family:"Manrope";text-transform:uppercase;letter-spacing:0.14em;font-size:13px;color:var(--mint);font-weight:800;}
+  .byo-figure{font-family:"Manrope";font-size:clamp(26px,4vw,38px);font-weight:800;}
+  .byo-figure .byo-of{font-size:16px;font-weight:500;color:rgba(255,255,255,0.72);}
+  .byo-track{position:relative;height:30px;background:rgba(255,255,255,0.14);border:1px solid rgba(255,255,255,0.2);overflow:hidden;border-radius:999px;}
+  .byo-fill{height:100%;width:0%;background:linear-gradient(90deg,#90f8d5,var(--mint));transition:width .35s ease, background .35s ease;}
+  .byo-fill.green{background:linear-gradient(90deg,var(--mint),#90f8d5);}
+  .byo-goal-line{position:absolute;top:0;bottom:0;left:100%;width:0;}
+  .byo-status{margin:14px 0 0;font-size:16px;color:rgba(255,255,255,0.86);font-family:"Manrope";}
+  .byo-status.win{color:#d8fff0;}
+
+  .byo-cols{display:grid;grid-template-columns:1fr 1fr;gap:18px;background:transparent;border-top:1px solid var(--rule);padding:18px;}
+  @media(max-width:760px){.byo-cols{grid-template-columns:1fr;}}
+  .byo-group{background:var(--surface);padding:26px 24px;border:1px solid var(--rule);border-radius:22px;}
+  .byo-h{font-size:18px;margin-bottom:6px;}
+  .byo-h.ok{color:var(--teal-darkest);}
+  .byo-h.locked{color:var(--teal-deep);}
+  .byo-sub{font-size:14.5px;color:var(--muted);margin:0 0 18px;}
+  .byo-list{display:flex;flex-direction:column;gap:8px;}
+  .byo-item{
+    width:100%;text-align:left;cursor:pointer;
+    border:1px solid var(--rule);background:#fff;
+    padding:12px 14px;display:flex;justify-content:space-between;align-items:center;gap:12px;
+    font-family:"Manrope";font-size:16px;color:var(--ink);transition:all .15s;border-radius:18px;
+  }
+  .byo-item:hover{background:var(--paper-2);}
+  .byo-item .bi-name{flex:1;font-weight:500;}
+  .byo-item .bi-amt{font-family:"Manrope";font-weight:700;color:var(--muted);white-space:nowrap;}
+  .byo-item .bi-state{font-family:"Manrope";font-size:11px;letter-spacing:0.12em;text-transform:uppercase;padding:5px 10px;border:none;white-space:nowrap;border-radius:999px;}
+  .byo-item.funded .bi-state{color:var(--teal-darkest);background:rgba(0,230,165,0.18);}
+  .byo-item.cut{background:#eef8f6;border-color:rgba(0,102,110,0.18);}
+  .byo-item.cut .bi-name{text-decoration:line-through;color:var(--muted);}
+  .byo-item.cut .bi-amt{color:var(--teal-deep);}
+  .byo-item.cut .bi-state{color:#fff;background:var(--teal-deep);}
+  .byo-item.locked-item{border-style:dashed;border-color:rgba(0,102,110,0.28);}
+  .byo-item.locked-item .bi-lock{font-size:13px;color:var(--teal-deep);font-style:normal;font-family:"Cormorant Garamond",Georgia,serif;}
+
+  .byo-foot{padding:22px 24px;border-top:1px solid var(--rule);background:var(--paper-2);display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
+  .byo-reset{
+    font-family:"Manrope";font-size:15px;font-weight:700;cursor:pointer;
+    background:#fff;color:var(--teal-deep);border:2px solid rgba(32,133,145,0.5);padding:14px 24px;border-radius:16px;
+  }
+  .byo-reset:hover{background:rgba(0,230,165,0.1);}
+  .byo-note{margin:0;font-size:14px;color:var(--muted);flex:1;min-width:240px;}
+
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+  .ex-h{font-size:25px;margin:52px 0 14px;color:var(--teal-darkest);}
+  .ex-table-wrap{margin:24px 0 10px;border:1px solid var(--rule);overflow-x:auto;border-radius:20px;box-shadow:0 18px 36px var(--shadow);}
+  .ex-table{width:100%;border-collapse:collapse;font-size:16.5px;background:#fff;}
+  .ex-table caption{text-align:left;}
+  .ex-table th{background:var(--teal-darkest);color:#fff;font-family:"Manrope";font-weight:700;text-align:left;padding:14px 16px;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;}
+  .ex-table th.num,.ex-table td.num{text-align:right;font-variant-numeric:tabular-nums;}
+  .ex-table td{padding:14px 16px;border-top:1px solid rgba(5,58,64,0.1);}
+  .ex-table td.num{font-family:"Manrope";font-weight:700;}
+  .ex-table tr.ex-total td{border-top:1px solid rgba(5,58,64,0.12);font-family:"Manrope";font-weight:800;background:var(--paper-2);}
+  .pill{font-family:"Manrope";font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;padding:5px 9px;border:none;border-radius:999px;white-space:nowrap;}
+  .pill.sc{color:var(--teal-darkest);background:rgba(0,230,165,0.2);}
+  .pill.ns{color:var(--teal-deep);background:rgba(32,133,145,0.12);}
+  .ex-cap{font-size:15px;color:var(--muted);max-width:64ch;margin-top:10px;font-family:"Cormorant Garamond",Georgia,serif;font-size:20px;line-height:1.4;}
+  .ex-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin:24px 0 10px;}
+  .ex-card{border:1px solid var(--rule);padding:22px 20px;background:#fff;border-radius:22px;box-shadow:0 18px 36px var(--shadow);}
+  .ex-card.hl{background:linear-gradient(135deg,var(--teal-darkest),var(--teal-deep));border-color:transparent;}
+  .ex-card.hl .ex-big{color:var(--mint);}
+  .ex-card.hl .ex-cl{color:rgba(255,255,255,0.86);}
+  .ex-big{font-family:"Manrope";font-size:42px;font-weight:800;line-height:1;color:var(--teal-darkest);}
+  .ex-mid{font-family:"Manrope";font-size:21px;font-weight:800;color:var(--ink);margin-bottom:8px;}
+  .ex-cl{font-size:15px;color:var(--muted);margin-top:10px;line-height:1.5;}
+  .ex-limits{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px;margin:24px 0 10px;}
+  .ex-limit{border-left:5px solid var(--mint);background:#fff;padding:18px 20px;border-radius:0 20px 20px 0;box-shadow:0 18px 36px var(--shadow);}
+  .ex-lt{font-family:"Manrope";font-size:28px;font-weight:800;color:var(--teal-darkest);line-height:1;margin-bottom:10px;}
+  .ex-limit p{font-size:15.5px;color:var(--muted);margin:0;line-height:1.5;}
+
+  .reg-h{font-size:24px;margin:48px 0 10px;color:var(--teal-darkest);}
+  .reg-list{margin-top:20px;border-top:1px solid var(--rule);}
+  .reg-item{border-bottom:1px solid rgba(5,58,64,0.12);}
+  .reg-btn{width:100%;background:none;border:none;cursor:pointer;text-align:left;padding:18px 6px;display:flex;align-items:center;gap:14px;font-family:"Manrope";font-weight:700;font-size:17px;color:var(--ink);}
+  .reg-btn:hover{background:rgba(32,133,145,0.04);}
+  .reg-btn .chev{color:var(--teal-deep);transition:transform .2s;font-size:18px;width:16px;}
+  .reg-btn[aria-expanded="true"] .chev{transform:rotate(90deg);}
+  .reg-panel{display:none;padding:0 6px 20px 36px;}
+  .reg-panel.open{display:block;}
+  .reg-panel p{font-size:16.5px;color:var(--muted);max-width:68ch;margin:0;line-height:1.6;}
+
+  .sp-h{font-size:25px;margin:52px 0 14px;color:var(--teal-darkest);}
+  .chart-card{margin:28px 0 10px;border:1px solid var(--rule);background:#fff;padding:24px 22px 18px;border-radius:24px;box-shadow:0 18px 36px var(--shadow);}
+  .chart-title{font-family:"Manrope";font-size:17px;font-weight:700;margin:0 0 18px;color:var(--ink);}
+  .chart-svg{width:100%;}
+  .chart-svg svg{width:100%;height:auto;display:block;}
+  .chart-legend{display:flex;flex-wrap:wrap;gap:20px;margin-top:16px;font-size:14.5px;color:var(--muted);}
+  .chart-legend .lg{display:flex;align-items:center;gap:8px;}
+  .chart-legend .sw{width:22px;height:4px;display:inline-block;border-radius:2px;}
+  .chart-legend .sw.nom{background:var(--teal-darkest);}
+  .chart-legend .sw.real{background:var(--teal);}
+  .chart-legend .sw.pc{background:var(--mint);height:0;border-top:3px dashed var(--mint);}
+  .cl-nom{stroke:var(--teal-darkest);}
+  .cl-real{stroke:var(--teal);}
+  .cl-pc{stroke:var(--mint);}
+  .cl-axis{stroke:rgba(5,58,64,0.28);}
+  .cl-grid{stroke:rgba(5,58,64,0.08);}
+  .cl-txt{fill:var(--muted);font-family:"Manrope";}
+  .cl-dot-nom{fill:var(--teal-darkest);}
+  .cl-dot-real{fill:var(--teal);}
+  .bar-pos{fill:var(--teal);}
+  .bar-neg{fill:var(--teal-darkest);}
+  .bar-lbl{fill:var(--ink);font-family:"Manrope";}
+  .bar-val{font-family:"Manrope";font-weight:700;}
+  .bar-val-pos{fill:var(--teal-deep);}
+  .bar-val-neg{fill:var(--teal-darkest);}
+
+  .wf-shell{margin-top:46px;border:1px solid var(--rule);background:#fff;padding:30px 28px;border-radius:28px;box-shadow:0 18px 36px var(--shadow);}
+  .wf-step{margin-bottom:26px;}
+  .wf-step:last-of-type{margin-bottom:0;}
+  .wf-label{font-size:16px;color:var(--ink);margin-bottom:9px;line-height:1.4;max-width:70ch;}
+  .wf-tag{font-family:"Manrope";font-size:10.5px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:5px 10px;border-radius:999px;margin-right:8px;white-space:nowrap;color:#fff;}
+  .wf-tag.total{background:var(--teal-darkest);}
+  .wf-tag.ps{background:var(--teal);}
+  .wf-tag.lock{background:var(--mint);color:var(--teal-darkest);}
+  .wf-tag.cut{background:var(--teal-deep);}
+  .wf-barwrap{background:var(--paper-2);border:none;border-radius:999px;overflow:hidden;}
+  .wf-bar{height:46px;display:flex;align-items:center;justify-content:flex-end;padding:0 14px;min-width:90px;transition:width .5s ease;}
+  .wf-bar.total{background:var(--teal-darkest);}
+  .wf-bar.ps{background:linear-gradient(90deg,var(--teal-darkest),var(--teal));}
+  .wf-bar.lock{background:linear-gradient(90deg,#a3f8da,var(--mint));}
+  .wf-bar.cut{background:linear-gradient(90deg,var(--teal-deep),var(--teal));}
+  .wf-amt{font-family:"Manrope";font-weight:800;font-size:18px;color:#fff;white-space:nowrap;}
+  .wf-bar.lock .wf-amt{color:var(--teal-darkest);}
+  .wf-remain .wf-label{font-weight:600;}
+
+  .wf-compare{margin-top:34px;border-top:1px solid var(--rule);padding-top:24px;}
+  .wf-comp-row{display:flex;justify-content:space-between;align-items:baseline;padding:8px 0;gap:16px;}
+  .wf-comp-label{font-size:16px;color:var(--muted);}
+  .wf-comp-val{font-family:"Manrope";font-weight:800;font-size:26px;}
+  .wf-comp-val.cut{color:var(--teal-deep);}
+  .wf-comp-val.gap{color:var(--ink);}
+  .wf-comp-result{margin-top:14px;background:var(--paper-2);border-left:5px solid var(--mint);padding:16px 18px;font-size:16.5px;line-height:1.55;color:var(--ink);border-radius:0 18px 18px 0;}
+  .panel .note{font-size:13.5px;color:var(--muted);margin-top:18px;line-height:1.5;font-family:"Cormorant Garamond",Georgia,serif;font-size:19px;}
+
+  .calc-foot{padding:26px 30px;font-size:14px;color:var(--muted);border-top:1px solid var(--rule);background:var(--paper-2);line-height:1.6;}
+  .calc-foot b{color:var(--ink);font-family:"Manrope";}
+
+  .sources{background:var(--paper-2);}
+  .sources p{font-size:15px;color:var(--muted);}
+  .sources h2{font-size:30px;}
+  footer{background:var(--teal-darkest);color:rgba(255,255,255,0.7);padding:46px 24px;font-size:14px;text-align:center;}
+  footer a{color:var(--mint);}
+
+  .disclaimer{
+    border:1px solid rgba(32,133,145,0.18);background:#fff;padding:20px 24px;margin-top:36px;
+    font-size:15px;color:var(--muted);max-width:70ch;
+    border-radius:22px;
+    box-shadow:0 16px 30px rgba(5,58,64,0.05);
+  }
+  .disclaimer b{color:var(--teal-deep);font-family:"Manrope";}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<div class="wrap">
+
+<nav aria-label="Section navigation">
+  <ul>
+    <li><a class="brand" href="#top">JAX BUDGET</a></li>
+    <li><a href="#explainer">How You're Taxed</a></li>
+    <li><a href="#budget">The Budget Today</a></li>
+    <li><a href="#spending">Has Spending Grown?</a></li>
+    <li><a href="#shortfall">What's Left to Cut</a></li>
+    <li><a href="#proposal">The Proposed Change</a></li>
+    <li><a href="#calc">The Tradeoff Calculator</a></li>
+    <li><a href="#build">Build Your Own Budget</a></li>
+    <li><a href="#meaning">What It Means</a></li>
+    <li><a href="#sources">Sources</a></li>
+  </ul>
+</nav>
+
+<header class="hero" id="top">
+  <div class="hero-inner">
+    <div class="kicker">Research &amp; Stories</div>
+    <p class="hero-byline">Jacksonville Civic Council</p>
+    <h1>What happens to your city if <em>property taxes</em> are cut?</h1>
+    <p class="hero-sub">Florida is weighing a constitutional amendment that would raise the homestead exemption from $50,000 to $250,000. For Jacksonville, recent estimates put the resulting revenue shortfall at about $283 million a year. This page walks through where the money goes today, what the change would do, and the budget choices that would follow.</p>
+    <div class="hero-meta">
+      <div><strong>$2.02B</strong>General Fund budget</div>
+      <div><strong>$283.2M</strong>Estimated yearly loss</div>
+      <div><strong>211,283</strong>Homestead properties affected</div>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- TAX EXPLAINER -->
+<section id="explainer">
+  <div class="inner">
+    <div class="sec-num">Part One</div>
+    <h2>How Jacksonville is taxed, in plain terms</h2>
+    <p class="lead">Before the proposal makes sense, it helps to know the two main taxes a Jacksonville resident pays, how they are limited, and why the city cannot simply swap one for the other. Property tax and sales tax work in completely different ways under Florida's constitution.</p>
+
+    <h3 class="ex-h">What you pay in property tax today</h3>
+    <p>Property tax is charged as a <b>millage</b>: one mill is $1 of tax for every $1,000 of taxable value. Your bill is the sum of several separate levies set by different bodies. For most of Jacksonville (the General Services district), the 2025 final rates were:</p>
+
+    <div class="ex-table-wrap">
+      <table class="ex-table">
+        <caption class="sr-only">2025 final property tax millage rates for the Jacksonville General Services district</caption>
+        <thead><tr><th scope="col">Levy</th><th scope="col">Set by</th><th scope="col">Type</th><th scope="col">Mills</th></tr></thead>
+        <tbody>
+          <tr><td>City of Jacksonville government</td><td>City Council</td><td><span class="pill ns">Non-school</span></td><td class="num">11.1919</td></tr>
+          <tr><td>Public schools</td><td>Duval County School Board</td><td><span class="pill sc">School</span></td><td class="num">6.3430</td></tr>
+          <tr><td>St. Johns River Water Management</td><td>Water management district</td><td><span class="pill ns">Non-school</span></td><td class="num">0.1793</td></tr>
+          <tr><td>Florida Inland Navigation</td><td>Navigation district</td><td><span class="pill ns">Non-school</span></td><td class="num">0.0270</td></tr>
+          <tr class="ex-total"><td>Total</td><td></td><td></td><td class="num">17.7412</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="ex-cap">For a home with $200,000 of taxable value, that total works out to about $3,548 a year. Beach cities and Baldwin have slightly different totals because they add their own municipal levy and lower the countywide one.</p>
+
+    <h3 class="ex-h">What you pay in sales tax today</h3>
+    <p>Sales tax is charged on most retail purchases, not on what you own. In Duval County the rate is <b>7.5%</b>, made of two parts:</p>
+    <div class="ex-cards">
+      <div class="ex-card"><div class="ex-big">6.0%</div><div class="ex-cl">State sales tax, set by the Florida Legislature and collected statewide.</div></div>
+      <div class="ex-card"><div class="ex-big">1.5%</div><div class="ex-cl">Local discretionary surtax, approved by Duval voters and used for set local purposes.</div></div>
+      <div class="ex-card hl"><div class="ex-big">7.5%</div><div class="ex-cl">Combined rate paid at the register on taxable goods.</div></div>
+    </div>
+    <p class="ex-cap">Groceries and most medicine are exempt. Counties may add a local surtax of up to 2% in most cases; Duval currently levies 1.5%, so there is limited room left to raise it.</p>
+
+    <h3 class="ex-h">School versus non-school: why the difference matters</h3>
+    <p>Florida's constitution treats school and non-school property taxes separately, and the proposed amendment only touches the <b>non-school</b> side. The $50,000 homestead exemption is split for exactly this reason: the first $25,000 applies to all levies, while the second $25,000 (covering value between $50,000 and $75,000) applies only to non-school levies. The proposed jump to $250,000 would shield far more value from city and county taxes, but schools are handled under their own rules.</p>
+
+    <h3 class="ex-h">The constitutional limits already in place</h3>
+    <div class="ex-limits">
+      <div class="ex-limit"><div class="ex-lt">10 + 10 mills</div><p>The constitution caps property tax at 10 mills each for a county, a municipality, and a school district, separately. Because Jacksonville's consolidated charter holds both the city and county taxing authority, it can legally levy up to about 20 mills for general government. At roughly 11.19 mills today, the city has substantial unused legal room to raise the rate. The real limit is political will, not the constitution: raising the rate is allowed, but there has been little appetite for it. Recent councils have moved to lower the rate, not raise it.</p></div>
+      <div class="ex-limit"><div class="ex-lt">3% cap</div><p>The Save Our Homes amendment limits how fast a homesteaded property's taxable value can rise, to 3% a year or inflation, whichever is lower. Non-homestead property (rentals, businesses) is capped at a looser 10%.</p></div>
+      <div class="ex-limit"><div class="ex-lt">60% vote</div><p>Changing any of this requires a statewide constitutional amendment passed by 60% of voters. That is why the homestead proposal must go on the November 2026 ballot.</p></div>
+    </div>
+
+    <h3 class="ex-h">Where property tax stops and fees begin</h3>
+    <p>Not everything on your tax bill is a tax. Two of the largest line items are <b>non-ad valorem assessments</b>, flat fees billed alongside property tax but not based on your home's value, and homestead exemptions do not reduce them.</p>
+    <div class="ex-cards">
+      <div class="ex-card"><div class="ex-mid">Solid waste fee</div><div class="ex-cl">A flat <b>$354 per year</b> per home in 2026 (rising to $384 in 2027), charged to every residence regardless of value. By interlocal agreement with the Beaches and Baldwin, Jacksonville is barred from using property tax to pay for garbage collection, which is why it is a separate fee. A low-income exemption holds it at $151.80.</div></div>
+      <div class="ex-card"><div class="ex-mid">Stormwater fee</div><div class="ex-cl">A separate flat assessment for drainage system upkeep, also billed as a non-ad valorem assessment and unaffected by homestead status.</div></div>
+    </div>
+    <p class="ex-cap">Other consumption-based levies the city collects include the utility service tax (on electric, water, and gas bills) and the communication services tax (on phone and cable). Like sales tax, these are charged on usage rather than property, and they fall on renters and owners alike. They are capped by state law and tend to rise and fall with the economy, which is part of why they cannot easily replace the steady revenue property tax provides.</p>
+
+    <div class="callout" style="margin-top:42px;">
+      <h3>The core difference</h3>
+      <p>Property tax is steady, locally controlled, and tied to value, which is why it funds the bulk of day-to-day services. Sales taxes, fees, and excise taxes are capped, more volatile, and fall harder on lower-income households. That mismatch is the reason a property tax cut is so hard to replace, and the rest of this page shows what that means for Jacksonville.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 1 -->
+<section id="budget">
+  <div class="inner">
+    <div class="sec-num">Part Two</div>
+    <h2>Where Jacksonville's money goes today</h2>
+    <p class="lead">The City runs on a General Fund of about $2.02 billion for the 2025-2026 year. More than half of every dollar pays for property taxes' biggest job: keeping people safe. Here is the full picture before any change.</p>
+
+    <div class="stat-row" role="list">
+      <div class="stat" role="listitem"><div class="v">$2.02B</div><div class="l">Total General Fund budget</div></div>
+      <div class="stat" role="listitem"><div class="v">$1.19B</div><div class="l">Comes from property (ad valorem) taxes</div></div>
+      <div class="stat" role="listitem"><div class="v">8,189</div><div class="l">Total city employees, all funds</div></div>
+      <div class="stat" role="listitem"><div class="v">~55%</div><div class="l">Of the budget pays for public safety</div></div>
+    </div>
+
+    <h3 style="margin-top:60px;font-size:26px;">How the General Fund is paid for</h3>
+    <p style="margin-top:14px;">Property tax is the single largest source by far. The other pieces, like state-shared money and utility taxes, are smaller and harder for the City to control.</p>
+    <div class="barblock" id="revBars" aria-label="General Fund revenue sources"></div>
+
+    <div class="dept-intro">
+      <h3 style="font-size:26px;">Where it gets spent, department by department</h3>
+      <p style="margin:14px 0 0;">Public safety is grouped into one line at the top; tap it to expand the individual police, fire, and corrections departments. Below it are the other services, each marked <span class="tag np" style="font-size:11px;">Other Services</span>, which would absorb the entire loss since public safety is shielded.</p>
+    </div>
+    <div class="dept-list" id="deptList"></div>
+  </div>
+</section>
+
+<!-- REAL VS NOMINAL -->
+<section id="spending">
+  <div class="inner">
+    <div class="sec-num">Part Three</div>
+    <h2>Has government spending really grown?</h2>
+    <p class="lead">One argument in the property tax debate is that rising home values have produced surplus revenue and that spending has grown faster than the cost of services. Evaluating that claim requires adjusting the raw figures for two factors: inflation and population growth. This section presents both the unadjusted and adjusted numbers.</p>
+
+    <h3 class="sp-h">Nominal and inflation-adjusted figures differ</h3>
+    <p>From 2015 to 2024, total governmental-activities spending rose <b>87.5%</b> in raw (nominal) dollars. Over the same period the dollar lost value and Jacksonville added residents. Adjusting for inflation, real spending grew <b>42.2%</b>. Adjusting further for the <b>16.6%</b> population growth, real spending <b>per resident</b> grew about <b>22%</b> over nine years, or roughly <b>2.2% a year</b>.</p>
+
+    <div class="chart-card">
+      <h4 class="chart-title">Total spending, 2015 to 2024: raw dollars vs. inflation-adjusted</h4>
+      <div id="chartTrend" class="chart-svg" role="img" aria-label="Line chart comparing nominal total spending, which rises 87.5 percent, against real inflation-adjusted spending, which rises 42.2 percent, from 2015 to 2024."></div>
+      <div class="chart-legend">
+        <span class="lg"><span class="sw nom"></span>Nominal (raw dollars)</span>
+        <span class="lg"><span class="sw real"></span>Real (2015 dollars)</span>
+        <span class="lg"><span class="sw pc"></span>Real per resident</span>
+      </div>
+    </div>
+
+    <h3 class="sp-h">Where did the real increase go?</h3>
+    <p>Almost all of it went to one place. Of the real spending growth between 2015 and 2024, about <b>83%</b> went to <b>public safety</b>, the Sheriff's Office, Fire and Rescue, and the Medical Examiner. Several other categories actually <b>shrank</b> in real terms over the same period, including general government, economic and physical environment, and interest on debt. This is the same pattern the budget shows today: new money has gone to policing and fire for a larger population, not to broad expansion of government.</p>
+
+    <div class="chart-card">
+      <h4 class="chart-title">Real (inflation-adjusted) change by category, 2015 to 2024</h4>
+      <div id="chartCats" class="chart-svg" role="img" aria-label="Bar chart of real spending change by category from 2015 to 2024. Public safety up 76 percent, transportation up 91 percent, human services up 80 percent, culture and recreation up 48 percent, general government down 46 percent, economic and physical environment down 28 percent, interest on debt down 66 percent."></div>
+    </div>
+
+    <div class="callout">
+      <h3>How this relates to the tax debate</h3>
+      <p>Adjusted for inflation and population, real spending per resident grew about 22% over the nine-year period, and most of the real growth went to public safety. Readers can weigh how these figures bear on claims that rising home values have produced surplus revenue. Any reduction in property tax revenue would apply to this budget as it stands.</p>
+    </div>
+
+    <p class="ex-cap" style="margin-top:30px;">Source: City of Jacksonville Annual Comprehensive Financial Reports (ACFR), government-wide Statement of Activities for Governmental Activities, fiscal years 2015 through 2024. Inflation adjusted using the U.S. Bureau of Labor Statistics Consumer Price Index (July of each year, all urban consumers). Population from city figures. Real dollars expressed in 2015 terms.</p>
+  </div>
+</section>
+
+<!-- BUDGET WATERFALL -->
+<section id="shortfall">
+  <div class="inner">
+    <div class="sec-num">Part Four</div>
+    <h2>A $2 billion budget, and what is left to cut</h2>
+    <p class="lead">The City's General Fund is about $2 billion. The proposed exemption would remove roughly $283 million of it each year. The question that follows is simple: can the City just trim $283 million of spending? The answer is no, and the reason is what most of the budget is already committed to.</p>
+
+    <div class="wf-shell">
+      <div class="wf-step">
+        <div class="wf-label"><span class="wf-tag total">Start</span> Total General Fund budget</div>
+        <div class="wf-barwrap"><div class="wf-bar total" style="width:100%"><span class="wf-amt">$2.02B</span></div></div>
+      </div>
+
+      <div class="wf-step">
+        <div class="wf-label"><span class="wf-tag ps">Step 1, set aside</span> Public safety (police, fire, corrections) is held harmless by the amendment</div>
+        <div class="wf-barwrap"><div class="wf-bar ps" style="width:55.3%"><span class="wf-amt">&minus;$1.12B</span></div></div>
+      </div>
+
+      <div class="wf-step">
+        <div class="wf-label"><span class="wf-tag lock">Step 2, set aside</span> Locked obligations: debt payments, pensions, required transfers, and committed grants</div>
+        <div class="wf-barwrap"><div class="wf-bar lock" style="width:32.4%"><span class="wf-amt">&minus;$654M</span></div></div>
+      </div>
+
+      <div class="wf-step wf-remain">
+        <div class="wf-label"><span class="wf-tag cut">What remains</span> Everything else the City could legally choose to cut</div>
+        <div class="wf-barwrap"><div class="wf-bar cut" style="width:12.2%"><span class="wf-amt">$247M</span></div></div>
+      </div>
+
+      <div class="wf-compare">
+        <div class="wf-comp-row">
+          <span class="wf-comp-label">Cuttable spending available</span>
+          <span class="wf-comp-val cut">$247M</span>
+        </div>
+        <div class="wf-comp-row">
+          <span class="wf-comp-label">Revenue that must be replaced</span>
+          <span class="wf-comp-val gap">$283M</span>
+        </div>
+        <div class="wf-comp-result">
+          Eliminating <b>every</b> cuttable service, all libraries, parks, road crews, code enforcement, planning, and the rest, still falls about <b>$36 million short</b> of the $283 million.
+        </div>
+      </div>
+    </div>
+
+    <p style="margin-top:34px;">Put simply: public safety is protected, and debt and pension obligations have to be paid no matter what. That leaves only about <b>12% of the budget</b> as discretionary service spending. Because the shortfall is larger than that entire pool, closing it through cuts alone would mean eliminating whole categories of city services, and even then the math does not fully work. The next sections let you test the options yourself.</p>
+  </div>
+</section>
+
+<!-- SECTION 2 -->
+<section id="proposal">
+  <div class="inner">
+    <div class="sec-num">Part Five</div>
+    <h2>The proposed change, in plain terms</h2>
+    <p class="lead">Right now, the first $50,000 of a home's value is shielded from most property taxes. The proposed amendment (Senate Joint Resolution 2-F) would raise that shield to $250,000, phased in over two years. Voters would decide in November 2026.</p>
+
+    <div class="timeline">
+      <div class="tl-step">
+        <div class="yr">Today<small>Current law</small></div>
+        <div class="desc">The first <b>$50,000</b> of a home's assessed value is exempt from most city and county property taxes. About 14,000 Jacksonville homes pay nothing toward general services.</div>
+      </div>
+      <div class="tl-step">
+        <div class="yr">2027<small>First step</small></div>
+        <div class="desc">The exemption jumps to <b>$150,000</b>. New Florida residents must live in the state five years before getting the full benefit.</div>
+      </div>
+      <div class="tl-step">
+        <div class="yr">2028<small>Full effect</small></div>
+        <div class="desc">The exemption reaches <b>$250,000</b>. Nearly <b>150,000</b> Jacksonville homes would owe $0 toward general city services, up from about 14,000 today.</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <h3>How the public-safety protection works</h3>
+      <p>The amendment protects police and fire funding by law. The protection does not replace the lost revenue, so the shortfall would be absorbed by the rest of the budget: libraries, parks, road repair, code enforcement, and general operations. With Sheriff's Office and Fire and Rescue functions shielded, a $283 million reduction would fall on about $901 million of non-public-safety spending, which is equivalent to roughly a 31 percent reduction to those services.</p>
+    </div>
+
+    <div class="feature-grid">
+      <div class="feature">
+        <h4>Who saves the most</h4>
+        <p>The savings cap out at about $2,238 a year. A $300,000 home and a $5 million home get the same dollar break. The owner of the smaller home sees an 80% cut to their bill; the mansion owner sees 4%.</p>
+      </div>
+      <div class="feature">
+        <h4>Who saves the least</h4>
+        <p>Homes under $100,000, about 40,000 Jacksonville parcels, save only about $267 a year. These households often rely most on the services facing cuts.</p>
+      </div>
+      <div class="feature">
+        <h4>Who gets nothing</h4>
+        <p>Roughly 47% of Duval parcels, including all rentals and businesses, get no direct savings. Renters face the same service cuts without the tax break.</p>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      <b>A note on the millage cap and SJR 2-F.</b> Because Jacksonville's consolidated government holds both city and county taxing authority, it can legally levy up to about 20 mills, well above today's ~11.19, so raising the rate is constitutionally possible but politically unpopular. SJR 2-F would change this picture in two ways: it would shield far more home value from tax, and separately restrict how remaining property tax can be spent. Recovering $283 million through the property tax rate alone would require a large rate increase concentrated on the smaller pool of still-taxable property, which is one reason the options on the next page involve significant tradeoffs.
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: CALCULATOR -->
+<section id="calc">
+  <div class="inner">
+    <div class="sec-num">Part Six</div>
+    <h2>The tradeoff: cuts or new taxes?</h2>
+    <p class="lead">The $283.2 million shortfall would need to be closed. Move the slider to explore the range: closing it entirely through service reductions, entirely through new taxes and fees, or any mix in between.</p>
+
+    <div class="calc-shell">
+      <div class="gap-banner">
+        <div class="gv">$283.2M</div>
+        <div class="gl">THE YEARLY REVENUE GAP THAT MUST BE CLOSED</div>
+      </div>
+
+      <div class="slider-zone">
+        <div class="slider-ends">
+          <span class="left">&#9664; Cut Services</span>
+          <span class="mid">Drag to choose how the gap is closed</span>
+          <span class="right">Raise Taxes &amp; Fees &#9654;</span>
+        </div>
+        <input type="range" id="mixSlider" min="0" max="100" value="50" step="1"
+               aria-label="Choose the mix between service cuts and tax increases. 0 is all cuts, 100 is all new taxes and fees."
+               aria-valuetext="50 percent cuts, 50 percent new taxes and fees">
+        <div class="mix-readout" id="mixReadout" aria-live="polite"></div>
+      </div>
+
+      <div class="split">
+        <div class="panel cuts">
+          <h3>Closed by cutting services</h3>
+          <div class="amount" id="cutAmt">$141.6M</div>
+          <div class="sub" id="cutSub">Whole departments eliminated, smallest first</div>
+          <ul class="conseq" id="cutList"></ul>
+          <p class="note">Police, fire, and corrections are protected by the amendment, so cuts can only come from the roughly $247M of discretionary service departments. Departments are eliminated whole, smallest budget first. Because that pool is smaller than the $283.2M shortfall, even eliminating all of them leaves a remainder that taxes and fees must cover.</p>
+        </div>
+        <div class="panel taxes">
+          <h3>Closed by raising taxes &amp; fees</h3>
+          <div class="amount" id="taxAmt">$141.6M</div>
+          <div class="sub" id="taxSub">Equivalent new revenue the City would need to find</div>
+          <ul class="conseq" id="taxList"></ul>
+          <p class="note">The City could legally raise property tax (its consolidated charter allows up to ~20 mills), but recovering the loss that way means a steep rate hike on a shrinking taxable base, which has little political support. So in practice the City would lean on sales surtax, service fees, and impact fees. These hit renters and lower-income households hardest.</p>
+        </div>
+      </div>
+
+      <div class="calc-foot">
+        <b>How to read this.</b> The cut side spreads your chosen share of the $283.2M gap proportionally across all $901M of non-public-safety General Fund spending, using real FY2025-2026 figures. Most of that spending is non-departmental: debt service, pension contributions, transfers, and grants, much of which is legally or contractually fixed and hard to cut in practice. That is why a realistic cut would fall even harder on the visible service departments than the proportional split shown here. The tax side converts the same dollars into rough, illustrative equivalents: a one-cent local sales surtax raises on the order of $250-260M a year in Duval County, plus a flat fee spread across the City's roughly 390,000 parcels. These are scale estimates for public understanding, not precise rate forecasts; sales and property tax bases are not interchangeable.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUILD YOUR OWN BUDGET -->
+<section id="build">
+  <div class="inner">
+    <div class="sec-num">Part Seven</div>
+    <h2>Build your own budget</h2>
+    <p class="lead">This tool lets you test the options directly. Every department starts funded at today's level. Select a department to reduce it to zero and count its budget toward closing the $283.2 million shortfall. The objective is to reach the full amount, which shows how far service reductions alone can go.</p>
+
+    <div class="byo-shell">
+      <div class="byo-meter">
+        <div class="byo-meter-top">
+          <span class="byo-label">Gap closed</span>
+          <span class="byo-figure"><span id="byoClosed">$0</span> <span class="byo-of">of $283.2M</span></span>
+        </div>
+        <div class="byo-track" role="progressbar" aria-valuemin="0" aria-valuemax="283.2" aria-valuenow="0" aria-label="Budget gap closed" id="byoBar">
+          <div class="byo-fill" id="byoFill"></div>
+          <div class="byo-goal-line" aria-hidden="true"></div>
+        </div>
+        <p class="byo-status" id="byoStatus" aria-live="polite">$283.2M still to cut. Click departments below.</p>
+      </div>
+
+      <div class="byo-cols">
+        <div class="byo-group">
+          <h3 class="byo-h ok">Service departments you can cut</h3>
+          <p class="byo-sub">These are the discretionary services not shielded by the amendment. Click to cut.</p>
+          <div class="byo-list" id="byoService"></div>
+        </div>
+        <div class="byo-group">
+          <h3 class="byo-h locked">Legally or contractually locked</h3>
+          <p class="byo-sub">Debt payments and pensions are promised by contract and law. Cutting them means breaking an obligation. You will be asked to confirm.</p>
+          <div class="byo-list" id="byoLocked"></div>
+        </div>
+      </div>
+
+      <div class="byo-foot">
+        <button class="byo-reset" id="byoReset" type="button">Reset to current budget</button>
+        <p class="byo-note" id="byoNote"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT IT MEANS -->
+<section id="meaning">
+  <div class="inner">
+    <div class="sec-num">Part Eight</div>
+    <h2>What each option would mean in practice</h2>
+    <p class="lead">This section translates the slider choice into concrete terms: on one side, the effect on services the City delivers; on the other, the effect on what residents pay at the register. Both sides update as you move the slider above.</p>
+
+    <div class="meaning-grid">
+      <div class="meaning-col cuts">
+        <h3>If the gap is closed by cutting</h3>
+        <p class="mc-head" id="meanCutHead">An estimated 210 positions cut from service departments</p>
+        <ul class="impact-list" id="meanCutList"></ul>
+        <p class="note">At a given setting, departments are eliminated whole, smallest first, so a service is either fully funded or fully cut, not trimmed. The list shows which services are eliminated at the current slider position.</p>
+      </div>
+      <div class="meaning-col taxes">
+        <h3>If the gap is closed by taxing</h3>
+        <p class="mc-head" id="meanTaxHead">About $363 more per household each year</p>
+        <ul class="impact-list" id="meanTaxList"></ul>
+        <p class="note">Florida exempts most groceries and medicine, so the cost lands on other purchases: dining out, repairs, electronics, furniture, and similar taxable goods and services. Renters pay this too, even though they get none of the homestead savings.</p>
+      </div>
+    </div>
+
+    <div class="disclaimer" style="margin-top:42px;">
+      <b>On the household figure.</b> The per-household estimate spreads the tax share of the gap across Duval County's roughly 390,000 households. It is an average; a family that spends more on taxable goods pays more, and one that spends less pays less. Per-item costs show the extra tax on a single purchase at the higher rate, not a yearly total.
+    </div>
+  </div>
+</section>
+
+<!-- SOURCES -->
+<section id="sources" class="sources">
+  <div class="inner">
+    <div class="sec-num">Methodology</div>
+    <h2>Sources and how the numbers were built</h2>
+    <p>The $283.2 million figure comes from a parcel-level analysis of the Florida Department of Revenue's 2025 Name-Address-Legal file for Duval County (file NAL26F202501), covering all 398,317 parcels. The method applies an added $200,000 reduction to each homestead's non-school taxable value, floored at zero, then multiplies by the City's general services rate of 11.191 mills. Homestead general-services revenue falls from $409.3 million to $126.1 million, a loss of $283.2 million.</p>
+    <p>Budget and staffing figures are drawn from the City of Jacksonville General Fund Operating Fund (00111) summary for FY2025-2026, including the $2,017,752,830 proposed General Fund, $1,191,159,774 in property tax revenue, and $731,948,235 in salaries. Department budgets and employee caps come from the same adopted budget document.</p>
+    <p>The proposed exemption change reflects Florida Senate Joint Resolution 2-F (2026) and companion House measures HJR 201 through 213, which raise the homestead exemption in stages and restrict the use of remaining property tax revenue to public safety, education, infrastructure, and natural resources.</p>
+    <p>The analysis estimates static revenue effects only. It does not model behavioral responses such as changes in housing prices or new construction, nor does it assume any state replacement funding. Tax-and-fee equivalents on the calculator are illustrative estimates of scale, not precise rate projections.</p>
+    <p>Public-safety classification on this page follows the Sheriff's Office and Fire and Rescue organizational structure, including the Personnel and Professional Standards function within the Sheriff's Office. This treats roughly $901 million of the General Fund as non-public-safety spending exposed to cuts. Some summaries that count only the headline Sheriff's Office and Fire and Rescue totals arrive at a slightly larger non-public-safety base of about $944 million; the difference reflects where internal support functions are assigned.</p>
+
+    <h3 class="reg-h" id="regulatory">Regulatory questions: where is the room, and who decides?</h3>
+    <p style="margin-bottom:8px;">The calculator's tax-and-fee side raises obvious questions about what the City could actually do. These answers describe the rules as they stand; specifics can change with legislation, and none of this is legal advice.</p>
+
+    <div class="reg-list" id="regList">
+
+      <div class="reg-item">
+        <button class="reg-btn" aria-expanded="false" aria-controls="reg1" id="regb1"><span class="chev" aria-hidden="true">&#9654;</span><span>Where is the room on fees, and who sets them?</span></button>
+        <div class="reg-panel" id="reg1" role="region" aria-labelledby="regb1">
+          <p>User fees like the solid waste and stormwater assessments are set by the City Council by ordinance, not by referendum, so they are among the few levers the City can pull on its own. That is exactly what happened with the solid waste fee: the Council voted to roughly double it (from $151.80 to $324, then $354, then $384) through the normal ordinance process. The limit is twofold. First, a fee must reasonably relate to the cost of the service it funds; it cannot be a general revenue grab dressed up as a fee, or it risks being challenged as a disguised tax. Second, fees are politically sensitive, the garbage fee passed only 12 to 7 after more than a decade of avoidance. So there is room on fees, but it is narrow and service-specific, not a way to replace hundreds of millions in general revenue.</p>
+        </div>
+      </div>
+
+      <div class="reg-item">
+        <button class="reg-btn" aria-expanded="false" aria-controls="reg2" id="regb2"><span class="chev" aria-hidden="true">&#9654;</span><span>Can we raise the local sales surtax higher?</span></button>
+        <div class="reg-panel" id="reg2" role="region" aria-labelledby="regb2">
+          <p>Very little. Duval's 1.5% surtax is not one tax but three separate half-cent (0.5%) levies stacked together, each authorized under a different part of Florida law (Section 212.055): a Charter County Transportation surtax, a Local Government Infrastructure surtax (set to expire at the end of 2030), and a third half-cent levy. For a county like Duval, state law effectively caps the combined general surtax around this 1.5% level, so the City cannot simply add another penny. Raising more would generally require waiting for an existing levy to expire and replacing it, or the Legislature creating new surtax authority. A 2024 law change (Chapter 2024-158) did remove old language that had excluded consolidated Duval from one surtax category, a reminder that this room is defined by Tallahassee, not Jacksonville.</p>
+        </div>
+      </div>
+
+      <div class="reg-item">
+        <button class="reg-btn" aria-expanded="false" aria-controls="reg3" id="regb3"><span class="chev" aria-hidden="true">&#9654;</span><span>Who has to approve a surtax change, and how?</span></button>
+        <div class="reg-panel" id="reg3" role="region" aria-labelledby="regb3">
+          <p>Most discretionary sales surtaxes can only be enacted or raised by a countywide voter referendum, and the ballot must describe the projects the money will fund. A few specific surtax types can be adopted by a vote of the county governing body instead, but the broad infrastructure and transportation levies Duval relies on are referendum-based. The proceeds stay in the county and are distributed between the county and its municipalities by interlocal agreement or a default state formula. In short: the City Council cannot raise the sales surtax on its own; voters decide.</p>
+        </div>
+      </div>
+
+      <div class="reg-item">
+        <button class="reg-btn" aria-expanded="false" aria-controls="reg4" id="regb4"><span class="chev" aria-hidden="true">&#9654;</span><span>What about the local option gas tax?</span></button>
+        <div class="reg-panel" id="reg4" role="region" aria-labelledby="regb4">
+          <p>Counties can levy up to 12 cents per gallon of local option fuel taxes across three separate levies, and Jacksonville already collects most of this capacity (its budget shows constitutional, county, and multiple local-option fuel taxes). Two practical limits apply. Fuel tax revenue is legally restricted to transportation purposes, so it cannot backfill libraries, parks, or general services. And it is a declining base over time as vehicles grow more efficient, which makes it a poor long-term substitute for property tax. There is some unused headroom, but it is narrow and locked to roads.</p>
+        </div>
+      </div>
+
+      <div class="reg-item">
+        <button class="reg-btn" aria-expanded="false" aria-controls="reg5" id="regb5"><span class="chev" aria-hidden="true">&#9654;</span><span>What legal avenues are left to raise general revenue?</span></button>
+        <div class="reg-panel" id="reg5" role="region" aria-labelledby="regb5">
+          <p>The realistic options are limited and each has constraints. The City can raise the property tax rate (its consolidated charter allows up to about 20 mills, well above today's ~11.19), though this is the same tax the amendment reduces, and large increases face political resistance. It can raise service fees by ordinance, but only where a fee matches a service cost. It can ask voters for a higher or new sales surtax, but the base is near its statutory cap and the money is purpose-restricted. The City cannot levy a local income tax, which the Florida Constitution prohibits, one reason Florida local governments rely heavily on property and consumption taxes. Taken together, no single avenue would replace $283 million in general revenue on its own.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>Prepared as a public-information resource by the Jacksonville Civic Council, Office of Research.<br>
+  Figures reflect the FY2025-2026 proposed budget and the 2026 legislative session as of early 2026.<br>
+  This page is for civic education and does not constitute legal, tax, or financial advice.</p>
+</footer>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var GAP = 283.2; // millions
+  var NON_PS = 901; // millions, non-public-safety General Fund (after P&PS reclassified to public safety)
+  var SURTAX_PENNY = 255; // millions raised by one-cent Duval surtax (illustrative)
+  var PARCELS = 390000; // approx Duval parcels for per-parcel fee
+  var HOUSEHOLDS = 390000; // approx Duval households for per-household tax estimate
+  var BASE_RATE = 0.075; // current Duval combined sales tax rate
+  var NONDEPT = 654.1; // $M non-departmental non-PS spending (debt service, pensions, transfers, grants, citywide allocations) = NON_PS minus listed service depts
+
+  // Service-impact narratives, keyed to the same non-PS departments.
+  // Each describes what losing roughly the cut share of staff/budget would mean.
+  var serviceImpacts = [
+    {dept:"Public Library",
+     headline:"Shorter branch hours and possible closures",
+     detail:"The 21-branch system runs on staff. Fewer librarians means reduced hours, fewer story times and programs, and pressure to close the smallest neighborhood branches."},
+    {dept:"Public Works",
+     headline:"Slower road, signal, and streetlight repair",
+     detail:"Potholes, broken traffic signals, and dark streetlights take longer to fix. Deferred maintenance also raises long-term repair costs and carries a real safety risk."},
+    {dept:"Parks, Recreation & Community Services",
+     headline:"Reduced park upkeep and program hours",
+     detail:"Community centers, pools, and youth and senior programs lose hours or close. Mowing, cleanup, and field maintenance slow down across the park system."},
+    {dept:"Neighborhoods",
+     headline:"Blight and code violations pile up",
+     detail:"Code enforcement, lot mowing, and animal services thin out. Complaints take longer to resolve, letting nuisance and structural hazards accumulate."},
+    {dept:"Planning and Development",
+     headline:"Longer permit and inspection waits",
+     detail:"Fewer planners and inspectors mean slower permitting and review, which delays both home projects and new construction the city is counting on for growth."}
+  ];
+
+  // Per-item taxable purchases for the register example (pre-tax price in $).
+  var taxItems = [
+    {name:"Dinner out for a family of four", price:80},
+    {name:"A $1,200 car repair", price:1200},
+    {name:"A new laptop", price:900},
+    {name:"A furniture purchase", price:600}
+  ];
+
+  // ---- Revenue sources (General Fund, FY25-26 proposed, $M) ----
+  var revenue = [
+    {name:"Property (ad valorem) taxes", amt:1191},
+    {name:"State-shared revenue", amt:233},
+    {name:"Contributions from local units", amt:150},
+    {name:"Utility service tax", amt:112},
+    {name:"Transfers from other funds", amt:76},
+    {name:"Franchise fees", amt:48},
+    {name:"Communication services tax", amt:33},
+    {name:"All other sources", amt:175}
+  ];
+
+  // ---- Departments (FY25-26, General Fund). budget $M, emp = employee cap ----
+  // ps:true = public safety (shielded). Non-ps share the cut.
+  var depts = [
+    {name:"Fire and Rescue", budget:387.3, emp:1925, ps:true,
+      desc:"Jacksonville Fire and Rescue runs fire stations, ambulances, and emergency medical response across Duval County. Protected from cuts under the proposal."},
+    {name:"Sheriff's Office (Patrol & Enforcement)", budget:249.5, emp:1401, ps:true,
+      desc:"Frontline policing and patrol. The single largest piece of the Sheriff's Office. Protected from cuts under the proposal."},
+    {name:"Corrections", budget:173.2, emp:804, ps:true,
+      desc:"Operates the city jail and pretrial detention. Treated as public safety and shielded under the proposal."},
+    {name:"Investigations & Homeland Security", budget:102.5, emp:537, ps:true,
+      desc:"Detectives, forensics, and security operations within the Sheriff's Office. Protected from cuts."},
+    {name:"Police Services", budget:62.6, emp:366, ps:true,
+      desc:"Records, training, and support functions for the Sheriff's Office. Treated as public safety."},
+    {name:"Public Works", budget:64.3, emp:287, ps:false,
+      desc:"Maintains roads, drainage, traffic signals, and city buildings. Not shielded, so it would face cuts. There is a hidden safety cost here: streetlights and signal upkeep prevent accidents."},
+    {name:"Parks, Recreation & Community Services", budget:58.8, emp:253, ps:false,
+      desc:"Runs parks, community centers, pools, and youth and senior programs. Among the first places service hours and maintenance get reduced."},
+    {name:"Public Library", budget:42.4, emp:307, ps:false,
+      desc:"The 21-branch public library system. Branch hours and locations are vulnerable when this budget shrinks."},
+    {name:"Personnel & Professional Standards", budget:42.7, emp:250, ps:true,
+      desc:"Personnel, training, and professional standards functions within the Sheriff's Office. Treated as public safety and shielded under the proposal."},
+    {name:"Neighborhoods", budget:17.8, emp:101, ps:false,
+      desc:"Code enforcement, mowing, animal services, and neighborhood cleanup. Cutting it lets blight and code violations build up."},
+    {name:"Office of Administrative Services", budget:15.6, emp:153, ps:false,
+      desc:"Procurement, fleet, and internal city services. A support function not shielded from cuts."},
+    {name:"City Council", budget:12.6, emp:65, ps:false,
+      desc:"The legislative branch of city government and its staff."},
+    {name:"Finance", budget:17.9, emp:80, ps:false,
+      desc:"Budgeting, accounting, and treasury for the City. Not shielded."},
+    {name:"Supervisor of Elections", budget:9.4, emp:34, ps:false,
+      desc:"Runs elections and maintains voter rolls for Duval County."},
+    {name:"Planning and Development", budget:5.2, emp:37, ps:false,
+      desc:"Reviews development, zoning, and permitting. Slower permitting is a direct consequence of cuts here."},
+    {name:"Office of Economic Development", budget:2.9, emp:19, ps:false,
+      desc:"Recruits employers and manages incentive deals. A discretionary function exposed to cuts."}
+  ];
+
+  // ---------- helpers ----------
+  function money(m){
+    if(m >= 1000) return "$" + (m/1000).toFixed(2) + "B";
+    if(m >= 100) return "$" + m.toFixed(0) + "M";
+    return "$" + m.toFixed(1) + "M";
+  }
+  function fmtFull(m){
+    return "$" + Math.round(m*1000000).toLocaleString() ;
+  }
+
+  // ---------- render revenue bars ----------
+  var revTotal = revenue.reduce(function(s,r){return s+r.amt;},0);
+  var maxRev = Math.max.apply(null, revenue.map(function(r){return r.amt;}));
+  var revHTML = "";
+  revenue.forEach(function(r){
+    var pct = (r.amt/maxRev*100).toFixed(1);
+    revHTML += '<div class="bar-item">'
+      + '<div class="bar-top"><span class="name">'+r.name+'</span><span class="amt">'+money(r.amt)+'</span></div>'
+      + '<div class="bar-track"><div class="bar-fill rev" style="width:'+pct+'%"></div></div>'
+      + '</div>';
+  });
+  document.getElementById("revBars").innerHTML = revHTML;
+
+  // ---------- render departments ----------
+  var dl = document.getElementById("deptList");
+  var psDepts = depts.filter(function(d){return d.ps;});
+  var npDepts = depts.filter(function(d){return !d.ps;});
+  var psTotalBudget = psDepts.reduce(function(s,d){return s+d.budget;},0);
+  var psTotalEmp = psDepts.reduce(function(s,d){return s+d.emp;},0);
+
+  function deptRow(d, idx, nested){
+    var tag = d.ps ? '<span class="tag ps">Public Safety</span>' : '<span class="tag np">Other Services</span>';
+    return '<div class="dept'+(nested?' dept-nested':'')+'">'
+      + '<button class="dept-btn" aria-expanded="false" aria-controls="dp'+idx+'" id="db'+idx+'">'
+        + '<span class="chev" aria-hidden="true">&#9654;</span>'
+        + '<span class="dn">'+d.name+'</span>'
+        + tag
+        + '<span class="da">'+money(d.budget)+'</span>'
+      + '</button>'
+      + '<div class="dept-panel" id="dp'+idx+'" role="region" aria-labelledby="db'+idx+'">'
+        + '<p style="margin:0 0 10px;">'+d.desc+'</p>'
+        + '<span class="emp">'+d.emp.toLocaleString()+' employees</span> &middot; '
+        + '<span class="emp">'+money(d.budget)+'</span> budget'
+      + '</div>'
+    + '</div>';
+  }
+
+  var dHTML = "";
+
+  // ---- Public Safety top-line, expands to its individual departments ----
+  dHTML += '<div class="dept dept-summary">'
+    + '<button class="dept-btn ps-summary" aria-expanded="false" aria-controls="psGroup" id="psSummaryBtn">'
+      + '<span class="chev" aria-hidden="true">&#9654;</span>'
+      + '<span class="dn">Public Safety <span class="dn-sub">police, fire, corrections</span></span>'
+      + '<span class="tag ps">Shielded</span>'
+      + '<span class="da">'+money(psTotalBudget)+'</span>'
+    + '</button>'
+    + '<div class="dept-group" id="psGroup" role="region" aria-labelledby="psSummaryBtn">'
+      + '<p class="group-note">These departments are protected from cuts by the amendment. Together they make up '+money(psTotalBudget)+' and about '+psTotalEmp.toLocaleString()+' positions. Tap each to see detail.</p>';
+  psDepts.forEach(function(d){
+    var gi = depts.indexOf(d);
+    dHTML += deptRow(d, gi, true);
+  });
+  dHTML += '</div></div>';
+
+  // ---- Non-public-safety departments (the exposed pool) ----
+  npDepts.forEach(function(d){
+    var gi = depts.indexOf(d);
+    dHTML += deptRow(d, gi, false);
+  });
+
+  dl.innerHTML = dHTML;
+
+  // toggle for the public safety group
+  var psSummaryBtn = document.getElementById("psSummaryBtn");
+  psSummaryBtn.addEventListener("click", function(){
+    var exp = psSummaryBtn.getAttribute("aria-expanded") === "true";
+    psSummaryBtn.setAttribute("aria-expanded", String(!exp));
+    document.getElementById("psGroup").classList.toggle("open", !exp);
+  });
+
+  // toggles for individual department detail panels
+  document.querySelectorAll(".dept-btn:not(.ps-summary)").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      var exp = btn.getAttribute("aria-expanded") === "true";
+      btn.setAttribute("aria-expanded", String(!exp));
+      var panel = document.getElementById(btn.getAttribute("aria-controls"));
+      panel.classList.toggle("open", !exp);
+    });
+  });
+
+  // ---------- calculator ----------
+  var nonPSDepts = depts.filter(function(d){return !d.ps;});
+  var nonPSTotal = nonPSDepts.reduce(function(s,d){return s+d.budget;},0);
+
+  var slider = document.getElementById("mixSlider");
+  var mixReadout = document.getElementById("mixReadout");
+  var cutAmtEl = document.getElementById("cutAmt");
+  var cutSubEl = document.getElementById("cutSub");
+  var cutListEl = document.getElementById("cutList");
+  var taxAmtEl = document.getElementById("taxAmt");
+  var taxSubEl = document.getElementById("taxSub");
+  var taxListEl = document.getElementById("taxList");
+
+  // meaning-section elements
+  var meanCutHead = document.getElementById("meanCutHead");
+  var meanCutList = document.getElementById("meanCutList");
+  var meanTaxHead = document.getElementById("meanTaxHead");
+  var meanTaxList = document.getElementById("meanTaxList");
+
+  function update(){
+    var taxShare = parseInt(slider.value,10)/100;   // 0..1 toward taxes
+    var cutShare = 1 - taxShare;                     // toward cuts
+
+    // Cuttable pool = departmental non-PS budgets only (no debt/pension/grants).
+    var cutPool = nonPSDepts.reduce(function(s,d){return s+d.budget;},0); // ~246.9M
+    // The cut side targets a share of the shortfall, but can never exceed the cuttable pool.
+    var cutTarget = GAP * cutShare;
+    var cutDollars = Math.min(cutTarget, cutPool);
+    // Taxes/fees cover everything the cuts cannot.
+    var taxDollars = GAP - cutDollars;
+
+    // Zero out whole departments, SMALLEST budget first, until cutDollars is reached.
+    var bySize = nonPSDepts.slice().sort(function(a,b){return a.budget-b.budget;});
+    var running = 0, jobsLost = 0;
+    var cutState = []; // {d, state:'full'|'partial'|'none', loss, jobs}
+    bySize.forEach(function(d){
+      if(running >= cutDollars - 0.01){
+        cutState.push({d:d, state:'none', loss:0, jobs:0});
+      } else if(running + d.budget <= cutDollars + 0.01){
+        running += d.budget;
+        jobsLost += d.emp;
+        cutState.push({d:d, state:'full', loss:d.budget, jobs:d.emp});
+      } else {
+        // partial: the boundary department absorbs the remainder
+        var rem = cutDollars - running;
+        var frac = rem / d.budget;
+        running += rem;
+        var pj = Math.round(d.emp * frac);
+        jobsLost += pj;
+        cutState.push({d:d, state:'partial', loss:rem, jobs:pj});
+      }
+    });
+
+    // readout + accessible value text
+    var cutPctOfGap = Math.round(cutDollars / GAP * 100);
+    var taxPctOfGap = 100 - cutPctOfGap;
+    mixReadout.innerHTML = "Closing <b>"+cutPctOfGap+"%</b> with service cuts and <b>"+taxPctOfGap+"%</b> with new taxes &amp; fees";
+    slider.setAttribute("aria-valuetext", cutPctOfGap+" percent service cuts, "+taxPctOfGap+" percent new taxes and fees");
+
+    // ---- CUTS side ----
+    cutAmtEl.textContent = money(cutDollars);
+    var fullCount = cutState.filter(function(c){return c.state==='full';}).length;
+    if(cutDollars < 0.05){
+      cutSubEl.textContent = "No departments eliminated at this setting";
+    } else if(cutDollars >= cutPool - 0.05){
+      cutSubEl.textContent = "Every cuttable department eliminated, an estimated " + jobsLost.toLocaleString() + " positions";
+    } else {
+      cutSubEl.textContent = fullCount + (fullCount===1?" department":" departments") + " eliminated entirely, an estimated " + jobsLost.toLocaleString() + " positions";
+    }
+
+    // list departments, largest first for display, showing eliminated / reduced / funded
+    var display = cutState.slice().sort(function(a,b){return b.d.budget-a.d.budget;});
+    var cHTML = "";
+    if(cutDollars < 0.05){
+      cHTML = '<li><span>No departments eliminated at this setting</span><span class="ci">$0</span></li>';
+    } else {
+      display.forEach(function(c){
+        var label, cls;
+        if(c.state==='full'){ label='Eliminated'; cls='ci'; }
+        else if(c.state==='partial'){ label='Reduced'; cls='ci'; }
+        else { label='Still funded'; cls='ci muted-ci'; }
+        var amt = c.loss>0 ? '&minus;'+money(c.loss) : '&mdash;';
+        var sub = c.state==='none' ? 'kept at current funding'
+                 : (c.state==='partial' ? '~'+c.jobs.toLocaleString()+' positions (partial)'
+                                        : '~'+c.jobs.toLocaleString()+' positions');
+        cHTML += '<li><span>'+c.d.name+'<br><span class="sub-emp">'+sub+'</span></span><span class="'+cls+'">'+amt+'</span></li>';
+      });
+      cHTML += '<li class="total-row"><span>Total from service cuts<br><span class="sub-emp">~'+jobsLost.toLocaleString()+' positions</span></span><span class="ci">&minus;'+money(cutDollars)+'</span></li>';
+      if(cutDollars >= cutPool - 0.05){
+        cHTML += '<li class="resid-row"><span>Still unfunded after cutting everything<br><span class="sub-emp">must come from taxes &amp; fees</span></span><span class="ci">'+money(GAP-cutPool)+'</span></li>';
+      }
+    }
+    cutListEl.innerHTML = cHTML;
+
+    // reduceFactor retained for the meaning-section job estimates (avg across pool)
+    var reduceFactor = cutPool > 0 ? (cutDollars/cutPool) : 0;
+
+    // ---- TAX side ----
+    taxAmtEl.textContent = money(taxDollars);
+    taxSubEl.textContent = "New revenue the City would have to raise";
+
+    var surtaxPennies = taxDollars / SURTAX_PENNY;        // fraction of a penny surtax
+    var perParcel = (taxDollars*1000000) / PARCELS;        // $ per parcel per year
+    var tHTML = "";
+    if(taxDollars < 0.05){
+      tHTML = '<li><span>No new taxes or fees at this setting</span><span class="ci">$0</span></li>';
+    } else {
+      tHTML += '<li><span>Equivalent local sales surtax</span><span class="ci">+'+surtaxPennies.toFixed(2)+'&cent;</span></li>';
+      tHTML += '<li><span>Or a flat yearly fee per property</span><span class="ci">'+ "$"+Math.round(perParcel).toLocaleString() +'</span></li>';
+      tHTML += '<li><span>Share of the 1.5&cent; surtax cap used</span><span class="ci">'+ Math.round(surtaxPennies/1.5*100) +'%</span></li>';
+    }
+    taxListEl.innerHTML = tHTML;
+
+    // ---- MEANING: service side ----
+    if(cutDollars < 0.05){
+      meanCutHead.textContent = "No service departments eliminated at this setting";
+    } else {
+      meanCutHead.textContent = "An estimated " + jobsLost.toLocaleString() + " positions cut, with whole departments eliminated";
+    }
+    var mcHTML = "";
+    if(cutDollars < 0.05){
+      mcHTML = '<li><span class="ihead">No service cuts at this setting</span><span class="idetail">Move the slider left to eliminate departments.</span></li>';
+    } else {
+      // show which of the narrated services are fully eliminated vs reduced at this setting
+      serviceImpacts.forEach(function(s){
+        var cs = cutState.filter(function(c){return c.d.name===s.dept;})[0];
+        var statusTxt;
+        if(!cs || cs.state==='none') statusTxt = '('+s.dept+': still funded at this setting)';
+        else if(cs.state==='full') statusTxt = '('+s.dept+': eliminated, about '+cs.jobs.toLocaleString()+' positions)';
+        else statusTxt = '('+s.dept+': reduced, about '+cs.jobs.toLocaleString()+' positions)';
+        mcHTML += '<li><span class="ihead">'+s.headline+'</span>'
+          + '<span class="idetail">'+s.detail+' <em>'+statusTxt+'</em></span></li>';
+      });
+    }
+    meanCutList.innerHTML = mcHTML;
+
+    // ---- MEANING: tax side ----
+    var addedRate = (surtaxPennies/100); // extra rate as a decimal (cents -> rate points)
+    var newRate = BASE_RATE + addedRate;
+    var perHouseholdYr = (taxDollars*1000000) / HOUSEHOLDS;
+    meanTaxHead.textContent = "About $" + Math.round(perHouseholdYr).toLocaleString() + " more per household each year";
+    var mtHTML = "";
+    if(taxDollars < 0.05){
+      mtHTML = '<li><span class="ihead">No added cost at this setting</span><span class="idetail">Move the slider right to see the effect of new taxes.</span></li>';
+    } else {
+      mtHTML += '<li><div class="impact-row"><span class="ihead">Combined sales tax rate</span>'
+        + '<span class="icost">' + (BASE_RATE*100).toFixed(1) + '% &rarr; ' + (newRate*100).toFixed(2) + '%</span></div>'
+        + '<span class="idetail">Groceries and medicine stay exempt. The increase applies to other taxable purchases.</span></li>';
+      taxItems.forEach(function(it){
+        var extra = it.price * addedRate;
+        mtHTML += '<li><div class="impact-row"><span class="ihead">'+it.name+'</span>'
+          + '<span class="icost">+$'+ extra.toFixed(2) +'</span></div></li>';
+      });
+    }
+    meanTaxList.innerHTML = mtHTML;
+  }
+
+  slider.addEventListener("input", update);
+  update();
+
+  // ============ BUILD YOUR OWN BUDGET ============
+  // Service departments (cuttable). Pull non-PS depts from the dataset.
+  var byoService = nonPSDepts.map(function(d){
+    return {name:d.name, budget:d.budget, emp:d.emp, locked:false, cut:false};
+  });
+  // Locked items: the non-departmental ~$654.1M, broken into recognizable pieces.
+  var byoLocked = [
+    {name:"Debt service & repayments", budget:260.0, emp:0, locked:true, cut:false,
+     note:"Bond payments owed to lenders. Missing them would affect the city's credit rating."},
+    {name:"Pension contributions (UAAL & current)", budget:200.0, emp:0, locked:true, cut:false,
+     note:"Retirement promised to employees by contract. Cannot be skipped by law."},
+    {name:"Transfers to other funds", budget:120.0, emp:0, locked:true, cut:false,
+     note:"Required transfers that keep other city operations running."},
+    {name:"Grants, aid & community contributions", budget:74.1, emp:0, locked:true, cut:false,
+     note:"Money to nonprofits, health, and community programs. Discretionary but already committed."}
+  ];
+
+  var byoServiceEl = document.getElementById("byoService");
+  var byoLockedEl = document.getElementById("byoLocked");
+  var byoClosedEl = document.getElementById("byoClosed");
+  var byoFillEl = document.getElementById("byoFill");
+  var byoBarEl = document.getElementById("byoBar");
+  var byoStatusEl = document.getElementById("byoStatus");
+  var byoNoteEl = document.getElementById("byoNote");
+  var byoResetBtn = document.getElementById("byoReset");
+
+  function byoRender(){
+    byoServiceEl.innerHTML = "";
+    byoLockedEl.innerHTML = "";
+
+    byoService.forEach(function(it, i){
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "byo-item " + (it.cut ? "cut" : "funded");
+      btn.setAttribute("aria-pressed", String(it.cut));
+      btn.innerHTML = '<span class="bi-name">'+it.name+'</span>'
+        + '<span class="bi-amt">'+money(it.budget)+'</span>'
+        + '<span class="bi-state">'+(it.cut ? "Cut" : "Funded")+'</span>';
+      btn.addEventListener("click", function(){
+        it.cut = !it.cut; byoRender();
+      });
+      byoServiceEl.appendChild(btn);
+    });
+
+    byoLocked.forEach(function(it, i){
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "byo-item locked-item " + (it.cut ? "cut" : "funded");
+      btn.setAttribute("aria-pressed", String(it.cut));
+      btn.innerHTML = '<span class="bi-name">'+it.name+'<br><span class="bi-lock">'+it.note+'</span></span>'
+        + '<span class="bi-amt">'+money(it.budget)+'</span>'
+        + '<span class="bi-state">'+(it.cut ? "Broken" : "Locked")+'</span>';
+      btn.addEventListener("click", function(){
+        if(!it.cut){
+          var ok = window.confirm("Cutting \""+it.name+"\" means breaking a legal or contractual obligation. In reality the city cannot simply do this. Continue anyway to see what it would take?");
+          if(!ok) return;
+        }
+        it.cut = !it.cut; byoRender();
+      });
+      byoLockedEl.appendChild(btn);
+    });
+
+    // tally
+    var closed = 0;
+    byoService.forEach(function(it){ if(it.cut) closed += it.budget; });
+    byoLocked.forEach(function(it){ if(it.cut) closed += it.budget; });
+    var pct = Math.min(100, closed / GAP * 100);
+    byoClosedEl.textContent = money(closed);
+    byoFillEl.style.width = pct + "%";
+    byoBarEl.setAttribute("aria-valuenow", closed.toFixed(1));
+
+    var serviceMax = byoService.reduce(function(s,d){return s+d.budget;},0);
+    var remaining = GAP - closed;
+
+    if(closed >= GAP){
+      byoFillEl.classList.add("green");
+      byoStatusEl.classList.add("win");
+      byoStatusEl.textContent = "Shortfall closed. The selected categories show what reaching that total requires.";
+    } else {
+      byoFillEl.classList.remove("green");
+      byoStatusEl.classList.remove("win");
+      byoStatusEl.textContent = money(remaining) + " still to cut.";
+    }
+
+    // contextual note
+    var allServiceCut = byoService.every(function(it){return it.cut;});
+    var anyLockedCut = byoLocked.some(function(it){return it.cut;});
+    if(allServiceCut && !anyLockedCut){
+      byoNoteEl.innerHTML = "Reducing every cuttable service department to zero (about "+money(serviceMax)+") still leaves "+money(GAP-serviceMax)+" of the shortfall unclosed. Closing the remainder would require reducing locked obligations such as debt or pensions.";
+    } else if(anyLockedCut){
+      byoNoteEl.innerHTML = "Reaching the goal required breaking obligations the city legally cannot skip. This shows the gap is larger than the city's realistically cuttable budget.";
+    } else {
+      byoNoteEl.innerHTML = "Tip: the cuttable service departments total only about "+money(serviceMax)+", less than the "+money(GAP)+" gap. See how close you can get before running out.";
+    }
+  }
+
+  byoResetBtn.addEventListener("click", function(){
+    byoService.forEach(function(it){ it.cut = false; });
+    byoLocked.forEach(function(it){ it.cut = false; });
+    byoRender();
+  });
+
+  byoRender();
+
+  // ============ SPENDING CHARTS (real vs nominal) ============
+  // Data from City ACFR Statement of Activities 2015-2024, CPI-adjusted to 2015 dollars ($ thousands).
+  var spend = [
+    {y:2015, nom:1359697, real:1359697, pop:866345},
+    {y:2016, nom:1386638, real:1375263, pop:881502},
+    {y:2017, nom:1549488, real:1510673, pop:893203},
+    {y:2018, nom:1660811, real:1572816, pop:904170},
+    {y:2019, nom:1682495, real:1565002, pop:913521},
+    {y:2020, nom:1975372, real:1819485, pop:920570},
+    {y:2021, nom:1934545, real:1691142, pop:954614},
+    {y:2022, nom:1990342, real:1603245, pop:975614},
+    {y:2023, nom:2424043, real:1892459, pop:993468},
+    {y:2024, nom:2548850, real:1933914, pop:1010000}
+  ];
+  // category real change 2015->2024 (%)
+  var catChange = [
+    {name:"Transportation", pct:90.8},
+    {name:"Human services", pct:80.5},
+    {name:"Public safety", pct:76.1},
+    {name:"Culture & recreation", pct:47.6},
+    {name:"Economic & phys. env.", pct:-28.1},
+    {name:"General government", pct:-45.5},
+    {name:"Interest on debt", pct:-65.6}
+  ];
+
+  function svgEl(tag, attrs){
+    var e = document.createElementNS("http://www.w3.org/2000/svg", tag);
+    for(var k in attrs){ e.setAttribute(k, attrs[k]); }
+    return e;
+  }
+
+  // ---- Trend chart (indexed to 100 at 2015 so three series share a scale) ----
+  (function drawTrend(){
+    var host = document.getElementById("chartTrend");
+    if(!host) return;
+    var W=700, H=360, mL=46, mR=16, mT=14, mB=40;
+    var pw=W-mL-mR, ph=H-mT-mB;
+    var base=spend[0];
+    var series = {
+      nom: spend.map(function(d){return d.nom/base.nom*100;}),
+      real: spend.map(function(d){return d.real/base.real*100;}),
+      pc: spend.map(function(d){return (d.real/d.pop)/(base.real/base.pop)*100;})
+    };
+    var allv = series.nom.concat(series.real, series.pc);
+    var ymin=90, ymax=Math.ceil(Math.max.apply(null,allv)/10)*10;
+    var n=spend.length;
+    function px(i){return mL + pw*(i/(n-1));}
+    function py(v){return mT + ph*(1-(v-ymin)/(ymax-ymin));}
+    var svg = svgEl("svg",{viewBox:"0 0 "+W+" "+H,preserveAspectRatio:"xMidYMid meet"});
+    // gridlines + y labels (index values)
+    for(var g=ymin; g<=ymax; g+=20){
+      svg.appendChild(svgEl("line",{x1:mL,y1:py(g),x2:W-mR,y2:py(g),class:"cl-grid","stroke-width":1}));
+      var t=svgEl("text",{x:mL-8,y:py(g)+4,class:"cl-txt","font-size":12,"text-anchor":"end"}); t.textContent=g; svg.appendChild(t);
+    }
+    // x labels (every other year)
+    spend.forEach(function(d,i){
+      if(i%2===0 || i===n-1){
+        var t=svgEl("text",{x:px(i),y:H-mB+22,class:"cl-txt","font-size":12,"text-anchor":"middle"}); t.textContent=d.y; svg.appendChild(t);
+      }
+    });
+    // axis baseline
+    svg.appendChild(svgEl("line",{x1:mL,y1:mT,x2:mL,y2:mT+ph,class:"cl-axis","stroke-width":1.5}));
+    function path(vals, cls, dash){
+      var d="";
+      vals.forEach(function(v,i){ d+=(i?"L":"M")+px(i)+" "+py(v)+" "; });
+      var p=svgEl("path",{d:d,fill:"none",class:cls,"stroke-width":3,"stroke-linejoin":"round"});
+      if(dash) p.setAttribute("stroke-dasharray","7 5");
+      svg.appendChild(p);
+    }
+    path(series.nom,"cl-nom");
+    path(series.real,"cl-real");
+    path(series.pc,"cl-pc",true);
+    // end-point value labels
+    function endLabel(vals, cls){
+      var i=n-1, v=vals[i];
+      var t=svgEl("text",{x:px(i)-4,y:py(v)-8,class:"bar-val "+cls,"font-size":13,"text-anchor":"end"});
+      t.textContent="+"+Math.round(v-100)+"%"; svg.appendChild(t);
+    }
+    endLabel(series.nom,"bar-val-neg");
+    endLabel(series.real,"bar-val-pos");
+    // dots at endpoints
+    svg.appendChild(svgEl("circle",{cx:px(n-1),cy:py(series.nom[n-1]),r:4,class:"cl-dot-nom"}));
+    svg.appendChild(svgEl("circle",{cx:px(n-1),cy:py(series.real[n-1]),r:4,class:"cl-dot-real"}));
+    host.appendChild(svg);
+  })();
+
+  // ---- Category bar chart (diverging, % real change) ----
+  (function drawCats(){
+    var host = document.getElementById("chartCats");
+    if(!host) return;
+    var rows=catChange.length;
+    var W=700, rowH=38, mT=10, mB=10, mL=170, mR=60;
+    var H=mT+mB+rows*rowH;
+    var pw=W-mL-mR;
+    var maxAbs=Math.ceil(Math.max.apply(null,catChange.map(function(c){return Math.abs(c.pct);}))/10)*10;
+    var zero=mL + pw*(maxAbs/(2*maxAbs)); // center
+    function bx(v){return mL + pw*((v+maxAbs)/(2*maxAbs));}
+    var svg=svgEl("svg",{viewBox:"0 0 "+W+" "+H,preserveAspectRatio:"xMidYMid meet"});
+    // zero line
+    svg.appendChild(svgEl("line",{x1:zero,y1:mT,x2:zero,y2:H-mB,class:"cl-axis","stroke-width":1.5}));
+    catChange.forEach(function(c,i){
+      var cy=mT+i*rowH+rowH/2;
+      var x0=zero, x1=bx(c.pct);
+      var x=Math.min(x0,x1), w=Math.abs(x1-x0);
+      svg.appendChild(svgEl("rect",{x:x,y:cy-11,width:w,height:22,class:(c.pct>=0?"bar-pos":"bar-neg"),rx:2}));
+      // category label (left)
+      var lbl=svgEl("text",{x:mL-12,y:cy+5,class:"bar-lbl","font-size":14,"text-anchor":"end"}); lbl.textContent=c.name; svg.appendChild(lbl);
+      // value label (outer end of bar)
+      var vlbl=svgEl("text",{y:cy+5,class:"bar-val "+(c.pct>=0?"bar-val-pos":"bar-val-neg"),"font-size":13.5});
+      if(c.pct>=0){ vlbl.setAttribute("x",x1+6); vlbl.setAttribute("text-anchor","start"); }
+      else { vlbl.setAttribute("x",x1-6); vlbl.setAttribute("text-anchor","end"); }
+      vlbl.textContent=(c.pct>=0?"+":"")+c.pct.toFixed(0)+"%"; svg.appendChild(vlbl);
+    });
+    host.appendChild(svg);
+  })();
+
+  // ============ REGULATORY FAQ TOGGLES ============
+  document.querySelectorAll(".reg-btn").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      var exp = btn.getAttribute("aria-expanded") === "true";
+      btn.setAttribute("aria-expanded", String(!exp));
+      document.getElementById(btn.getAttribute("aria-controls")).classList.toggle("open", !exp);
+    });
+  });
+})();
+</script>
+</body>
+</html>
