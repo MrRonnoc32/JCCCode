@@ -575,3 +575,9 @@
   .hp-mill-v{ display:block; font-family:"Manrope"; font-weight:800; font-size:40px; color:var(--teal-darkest); line-height:1; }
   .hp-mill-l{ display:block; margin-top:8px; font-size:14px; color:var(--muted); }
   .hp-mill-arrow{ font-family:"Manrope"; font-size:34px; font-weight:800; color:var(--teal-deep); }
+
+  /* hide the sticky top bar on scroll-down (mobile only) */
+  nav{ transition:transform .3s ease; will-change:transform; }
+  @media (max-width:760px){
+    nav.nav-hidden{ transform:translateY(-100%); }
+  }

@@ -643,3 +643,20 @@
   });
 })();
 })();
+
+// Hide the sticky top bar on scroll-down (mobile only); reveal on scroll-up.
+// CSS gates the actual hiding to <=760px, so this is inert on desktop.
+(function(){
+  var siteNav = document.querySelector("nav");
+  if(!siteNav) return;
+  var lastY = window.pageYOffset || 0, ticking = false;
+  function onScroll(){
+    var y = window.pageYOffset || 0;
+    if(y > lastY + 6 && y > 90){ siteNav.classList.add("nav-hidden"); }
+    else if(y < lastY - 6 || y <= 90){ siteNav.classList.remove("nav-hidden"); }
+    lastY = y; ticking = false;
+  }
+  window.addEventListener("scroll", function(){
+    if(!ticking){ window.requestAnimationFrame(onScroll); ticking = true; }
+  }, {passive:true});
+})();
