@@ -582,3 +582,35 @@
   @media (max-width:760px){
     nav.nav-hidden{ transform:translateY(-100%); }
   }
+
+  /* hero call-to-action buttons */
+  .hero-cta{ display:flex; flex-wrap:wrap; gap:14px; margin-top:30px; }
+  .btn{ display:inline-flex; align-items:center; gap:8px; font-family:"Manrope"; font-weight:800;
+    font-size:16px; text-decoration:none; padding:16px 26px; border-radius:16px;
+    transition:transform .15s ease, box-shadow .15s ease, background .15s ease; }
+  .btn:hover{ transform:translateY(-1px); }
+  .btn-primary{ background:linear-gradient(135deg,var(--teal-darkest),var(--teal-deep)); color:#fff;
+    box-shadow:0 14px 30px rgba(5,58,64,0.18); }
+  .btn-primary:hover{ box-shadow:0 18px 38px rgba(5,58,64,0.26); }
+  .btn-secondary{ background:rgba(255,255,255,0.72); color:var(--teal-deep); border:2px solid rgba(32,133,145,0.5); }
+  .btn-secondary:hover{ background:rgba(0,230,165,0.12); border-color:var(--mint); }
+
+  /* civic action ladder (injected above the footer on every page) */
+  .action-ladder{ background:var(--paper-2); padding:64px 24px; border-top:1px solid var(--rule); }
+  .al-title{ color:var(--teal-darkest); font-size:clamp(26px,3.4vw,38px); max-width:22ch; }
+  .al-sub{ color:var(--muted); margin:14px 0 0; max-width:62ch; font-size:16.5px; }
+  .al-steps{ list-style:none; padding:0; margin:34px 0 0; display:grid; gap:14px; }
+  .al-steps li{ display:flex; align-items:flex-start; gap:18px; background:var(--surface);
+    border:1px solid var(--rule); border-radius:20px; padding:20px 22px; box-shadow:0 14px 30px var(--shadow); }
+  .al-num{ flex:none; width:38px; height:38px; border-radius:50%;
+    background:linear-gradient(135deg,var(--teal-darkest),var(--teal-deep)); color:#fff;
+    font-family:"Manrope"; font-weight:800; font-size:18px; display:flex; align-items:center; justify-content:center; }
+  .al-body{ flex:1; display:flex; flex-direction:column; gap:3px; }
+  .al-h{ font-family:"Manrope"; font-weight:700; font-size:17px; color:var(--teal-darkest); }
+  .al-d{ font-size:14.5px; color:var(--muted); }
+  .al-d em{ color:var(--teal-deep); font-style:italic; }
+  .al-go{ flex:none; align-self:center; font-family:"Manrope"; font-weight:800; font-size:14px; color:#fff;
+    background:linear-gradient(135deg,var(--teal-darkest),var(--teal-deep)); padding:11px 17px;
+    border-radius:12px; text-decoration:none; white-space:nowrap; }
+  .al-go:hover{ box-shadow:0 8px 18px var(--shadow); }
+  @media(max-width:600px){ .al-steps li{ flex-wrap:wrap; } .al-go{ margin-left:56px; } }

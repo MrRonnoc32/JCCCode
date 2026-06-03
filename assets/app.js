@@ -660,3 +660,29 @@
     if(!ticking){ window.requestAnimationFrame(onScroll); ticking = true; }
   }, {passive:true});
 })();
+
+// Civic action ladder: defined once here, injected above the footer on every page.
+(function(){
+  var footer = document.querySelector("footer");
+  if(!footer || document.querySelector(".action-ladder")) return;
+  var html =
+    '<section class="action-ladder" aria-label="How to get involved">'
+    + '<div class="inner">'
+    + '<h2 class="al-title">Understand the tradeoff, then take the next step</h2>'
+    + '<p class="al-sub">This is civic education, not a campaign. The aim is simply that more Jacksonville residents understand the tradeoff before they decide.</p>'
+    + '<ol class="al-steps">'
+    + '<li><span class="al-num">1</span><div class="al-body"><span class="al-h">Run the budget test</span>'
+    + '<span class="al-d">See whether you can close the $283M gap with cuts, new revenue, or a mix.</span></div>'
+    + '<a class="al-go" href="calculators.html">Open &rarr;</a></li>'
+    + '<li><span class="al-num">2</span><div class="al-body"><span class="al-h">Share your result with one neighbor</span>'
+    + '<span class="al-d">A single conversation does more than a statistic.</span></div></li>'
+    + '<li><span class="al-num">3</span><div class="al-body"><span class="al-h">Download the one-page impact brief</span>'
+    + '<span class="al-d">A printable summary of the numbers. <em>Coming soon.</em></span></div></li>'
+    + '<li><span class="al-num">4</span><div class="al-body"><span class="al-h">Request a presentation</span>'
+    + '<span class="al-d">For your neighborhood, civic group, or business association.</span></div>'
+    + '<a class="al-go" href="mailto:connor@jaxciviccouncil.com?subject=Presentation%20request">Email &rarr;</a></li>'
+    + '<li><span class="al-num">5</span><div class="al-body"><span class="al-h">Check the ballot date and make a voting plan</span>'
+    + '<span class="al-d">The amendment would go before Florida voters at the next general election.</span></div></li>'
+    + '</ol></div></section>';
+  footer.insertAdjacentHTML("beforebegin", html);
+})();
