@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Budget &amp; What's Cuttable | Jacksonville Property Tax</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<div class="wrap">
+
+<div class="draft-banner" role="note">
+  This is a <b>working draft</b>. We welcome comments and questions. Please send them to our Director of Research, Dr. Connor Oswald, at <a href="mailto:connor@jaxciviccouncil.com">connor@jaxciviccouncil.com</a>.
+</div>
+
+<nav aria-label="Site navigation">
+  <ul>
+    <li><a class="brand" href="index.html">JAX BUDGET</a></li>
+    <li><a href="taxed.html">How You're Taxed</a></li>
+    <li><a href="budget.html" aria-current="page">The Budget</a></li>
+    <li><a href="spending.html">Spending Growth</a></li>
+    <li><a href="proposal.html">The Proposal</a></li>
+    <li><a href="calculators.html">Calculators</a></li>
+    <li><a href="sources.html">Sources</a></li>
+  </ul>
+</nav>
+
+<header class="page-head">
+  <h1>The budget today, and what's left to cut</h1>
+  <p>Where the General Fund comes from, where it is spent, and how much the City could realistically cut once public safety, debt service, and pensions are accounted for.</p>
+</header>
+
+<main id="main">
+
+<section id="budget">
+  <div class="inner">
+    <div class="sec-num">The budget today</div>
+    <h2>What Jacksonville's taxes and fees pay for</h2>
+    <p class="lead">The City runs on a General Fund of about $2.02 billion for the 2025-2026 year. This section shows where that money comes from first, then where it is spent. About 55% of the General Fund goes to public safety. Here is the full picture before any change.</p>
+
+    <div class="stat-row" role="list">
+      <div class="stat" role="listitem"><div class="v">$2.02B</div><div class="l">Total General Fund budget</div></div>
+      <div class="stat" role="listitem"><div class="v">$1.19B</div><div class="l">Comes from property (ad valorem) taxes</div></div>
+      <div class="stat" role="listitem"><div class="v">8,189</div><div class="l">Total city employees, all funds</div></div>
+      <div class="stat" role="listitem"><div class="v">~55%</div><div class="l">Of the budget pays for public safety</div></div>
+    </div>
+
+    <h3 style="margin-top:60px;font-size:26px;">Where the money comes from</h3>
+    <p style="margin-top:14px;">Property tax is the single largest source. The other pieces, such as state-shared money and utility taxes, are smaller and largely set outside the City's control.</p>
+    <div class="barblock" id="revBars" aria-label="General Fund revenue sources"></div>
+
+    <div class="dept-intro">
+      <h3 style="font-size:26px;">Where the money is spent, department by department</h3>
+      <p style="margin:14px 0 0;">Public safety is grouped into one line at the top; tap it to expand the individual police, fire, and corrections departments. Below it are the other services, each marked <span class="tag np" style="font-size:11px;">Other Services</span>. Under the amendment, public-safety funding is protected from cuts, so any revenue loss would fall on these other services.</p>
+    </div>
+    <div class="dept-list" id="deptList"></div>
+  </div>
+</section>
+
+<section id="shortfall">
+  <div class="inner">
+    <div class="sec-num">What's left to cut</div>
+    <h2>A $2 billion budget, and what is left to cut</h2>
+    <p class="lead">The City's General Fund is about $2 billion. The proposed exemption would reduce General Fund revenue by roughly $283 million each year. The question that follows is whether the City could simply trim $283 million of spending. The answer is that it would be very challenging given our city's commitments. And the cuts the City could make would dramatically impact core services.</p>
+
+    <div class="wf-shell">
+      <div class="wf-step">
+        <div class="wf-label"><span class="wf-tag total">Start</span> Total General Fund budget</div>
+        <div class="wf-barwrap"><div class="wf-bar total" style="width:100%"><span class="wf-amt">$2.02B</span></div></div>
+      </div>
+
+      <div class="wf-step">
+        <div class="wf-label"><span class="wf-tag ps">Step 1, set aside</span> Public safety (police, fire, corrections) is held harmless by the amendment</div>
+        <div class="wf-barwrap"><div class="wf-bar ps" style="width:55.3%"><span class="wf-amt">&minus;$1.12B</span></div></div>
+      </div>
+
+      <div class="wf-step">
+        <div class="wf-label"><span class="wf-tag lock">Step 2, set aside</span> Locked obligations: debt payments, pensions, required transfers, and committed grants</div>
+        <div class="wf-barwrap"><div class="wf-bar lock" style="width:32.4%"><span class="wf-amt">&minus;$654M</span></div></div>
+      </div>
+
+      <div class="wf-step wf-remain">
+        <div class="wf-label"><span class="wf-tag cut">What remains</span> Everything else the City could legally choose to cut</div>
+        <div class="wf-barwrap"><div class="wf-bar cut" style="width:12.2%"><span class="wf-amt">$247M</span></div></div>
+      </div>
+
+      <div class="wf-compare">
+        <div class="wf-comp-row">
+          <span class="wf-comp-label">Cuttable spending available</span>
+          <span class="wf-comp-val cut">$247M</span>
+        </div>
+        <div class="wf-comp-row">
+          <span class="wf-comp-label">Revenue that must be replaced</span>
+          <span class="wf-comp-val gap">$283M</span>
+        </div>
+        <div class="wf-comp-result">
+          Eliminating <b>every</b> cuttable service, all libraries, parks, road crews, code enforcement, planning, and the rest, still falls about <b>$36 million short</b> of the $283 million.
+        </div>
+      </div>
+    </div>
+
+    <p style="margin-top:34px;">In short: public-safety funding is protected under the amendment, and debt and pension obligations have to be paid regardless. That leaves only about <b>12% of the budget</b> as discretionary service spending. Because the shortfall is larger than that entire pool, closing it through cuts alone would mean eliminating whole categories of city services.</p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>Prepared as a public-information resource by the Jacksonville Civic Council, Office of Research.<br>
+  Figures reflect the FY2025-2026 proposed budget and the 2026 legislative session as of early 2026.<br>
+  This page is for civic education and does not constitute legal, tax, or financial advice.</p>
+</footer>
+
+</div>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

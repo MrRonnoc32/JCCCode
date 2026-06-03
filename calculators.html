@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculators | Jacksonville Property Tax</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<div class="wrap">
+
+<div class="draft-banner" role="note">
+  This is a <b>working draft</b>. We welcome comments and questions. Please send them to our Director of Research, Dr. Connor Oswald, at <a href="mailto:connor@jaxciviccouncil.com">connor@jaxciviccouncil.com</a>.
+</div>
+
+<nav aria-label="Site navigation">
+  <ul>
+    <li><a class="brand" href="index.html">JAX BUDGET</a></li>
+    <li><a href="taxed.html">How You're Taxed</a></li>
+    <li><a href="budget.html">The Budget</a></li>
+    <li><a href="spending.html">Spending Growth</a></li>
+    <li><a href="proposal.html">The Proposal</a></li>
+    <li><a href="calculators.html" aria-current="page">Calculators</a></li>
+    <li><a href="sources.html">Sources</a></li>
+  </ul>
+</nav>
+
+<header class="page-head">
+  <h1>Test the tradeoffs yourself</h1>
+  <p>Explore how the roughly $283 million shortfall could be closed through cuts, new revenue, or a mix, and build a budget of your own.</p>
+</header>
+
+<main id="main">
+
+<section id="calc">
+  <div class="inner">
+    <div class="sec-num">The tradeoff</div>
+    <h2>The tradeoff: cuts or new taxes?</h2>
+    <p class="lead">The $283.2 million shortfall would need to be closed. Move the slider to explore the range: closing it entirely through service reductions, entirely through new taxes and fees, or any mix in between.</p>
+
+    <div class="calc-shell">
+      <div class="gap-banner">
+        <div class="gv">$283.2M</div>
+        <div class="gl">THE YEARLY REVENUE GAP THAT MUST BE CLOSED</div>
+      </div>
+
+      <div class="slider-zone">
+        <div class="slider-ends">
+          <span class="left">&#9664; Cut Services</span>
+          <span class="mid">Drag to choose how the gap is closed</span>
+          <span class="right">Raise Taxes &amp; Fees &#9654;</span>
+        </div>
+        <input type="range" id="mixSlider" min="0" max="100" value="50" step="1"
+               aria-label="Choose the mix between service cuts and tax increases. 0 is all cuts, 100 is all new taxes and fees."
+               aria-valuetext="50 percent cuts, 50 percent new taxes and fees">
+        <div class="mix-readout" id="mixReadout" aria-live="polite"></div>
+      </div>
+
+      <div class="split">
+        <div class="panel cuts">
+          <h3>Closed by cutting services</h3>
+          <div class="amount" id="cutAmt">$141.6M</div>
+          <div class="sub" id="cutSub">Whole departments eliminated, smallest first</div>
+          <ul class="conseq" id="cutList"></ul>
+          <p class="note">Police, fire, and corrections are protected by the amendment, so cuts can only come from the roughly $247M of discretionary service departments. Departments are eliminated whole, smallest budget first. Because that pool is smaller than the $283.2M shortfall, even eliminating all of them leaves a remainder that taxes and fees must cover.</p>
+        </div>
+        <div class="panel taxes">
+          <h3>Closed by raising taxes &amp; fees</h3>
+          <div class="amount" id="taxAmt">$141.6M</div>
+          <div class="sub" id="taxSub">Equivalent new revenue the City would need to find</div>
+          <ul class="conseq" id="taxList"></ul>
+          <p class="note">The City's main legal options are raising the property tax millage (its consolidated charter allows up to about 20 mills) and, with voter approval, the local sales surtax. Recovering the full loss through the millage would concentrate the increase on a smaller taxable base, since the amendment removes much of the homestead value from that base. Sales surtax and fees apply to renters and lower-income households as well as homeowners.</p>
+        </div>
+      </div>
+
+      <div class="calc-foot">
+        <b>How to read this.</b> The cut side draws from the discretionary service departments that are not protected by the amendment, eliminating them whole, smallest budget first, using FY2025-2026 figures. The tax side converts the same dollars into rough, illustrative equivalents: an increase in the property tax millage (scaled from the City's current ratio of about 11.19 mills to roughly $1.19B in property tax revenue) and an equivalent local sales surtax (a one-cent Duval surtax raises on the order of $250-260M a year). These are scale estimates for public understanding, not precise rate forecasts. The sales and property tax bases are not interchangeable, and the still-taxable property base would itself shrink under the amendment, so a real-world millage increase would likely need to be larger than the illustrative figure shown here.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="build">
+  <div class="inner">
+    <div class="sec-num">Build your own budget</div>
+    <h2>Build your own budget</h2>
+    <p class="lead">This tool lets you build a budget directly. Every department starts funded at today's level. Use the sliders to reduce any department's funding by as much or as little as you choose; each dollar cut counts toward closing the $283.2 million shortfall. The goal is to see how close service reductions alone can get to the full amount, and what it would take to reach it.</p>
+
+    <div class="byo-shell">
+      <div class="byo-meter">
+        <div class="byo-meter-top">
+          <span class="byo-label">Gap closed</span>
+          <span class="byo-figure"><span id="byoClosed">$0</span> <span class="byo-of">of $283.2M</span></span>
+        </div>
+        <div class="byo-track" role="progressbar" aria-valuemin="0" aria-valuemax="283.2" aria-valuenow="0" aria-label="Budget gap closed" id="byoBar">
+          <div class="byo-fill" id="byoFill"></div>
+          <div class="byo-goal-line" aria-hidden="true"></div>
+        </div>
+        <p class="byo-status" id="byoStatus" aria-live="polite">$283.2M still to cut. Adjust the sliders below.</p>
+      </div>
+
+      <div class="byo-cols">
+        <div class="byo-group">
+          <h3 class="byo-h ok">Service departments you can reduce</h3>
+          <p class="byo-sub">These are the discretionary services not protected by the amendment. Drag each slider to set its funding.</p>
+          <div class="byo-list" id="byoService"></div>
+        </div>
+        <div class="byo-group">
+          <h3 class="byo-h locked">Legally or contractually locked</h3>
+          <p class="byo-sub">Debt payments and pensions are promised by contract and law. Reducing them means breaking an obligation. You will be asked to confirm the first time you move one of these sliders.</p>
+          <div class="byo-list" id="byoLocked"></div>
+        </div>
+      </div>
+
+      <div class="byo-foot">
+        <button class="byo-reset" id="byoReset" type="button">Reset to current budget</button>
+        <p class="byo-note" id="byoNote"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="meaning">
+  <div class="inner">
+    <div class="sec-num">What it means</div>
+    <h2>What each option would mean in practice</h2>
+    <p class="lead">This section translates the slider choice into concrete terms: on one side, the effect on services the City delivers; on the other, the effect on what residents pay at the register. Both sides update as you move the slider above.</p>
+
+    <div class="meaning-grid">
+      <div class="meaning-col cuts">
+        <h3>If the gap is closed by cutting</h3>
+        <p class="mc-head" id="meanCutHead">An estimated 210 positions cut from service departments</p>
+        <ul class="impact-list" id="meanCutList"></ul>
+        <p class="note">At a given setting, departments are eliminated whole, smallest first, so a service is either fully funded or fully cut, not trimmed. The list shows which services are eliminated at the current slider position.</p>
+      </div>
+      <div class="meaning-col taxes">
+        <h3>If the gap is closed by taxing</h3>
+        <p class="mc-head" id="meanTaxHead">About $363 more per household each year</p>
+        <ul class="impact-list" id="meanTaxList"></ul>
+        <p class="note">Florida exempts most groceries and medicine, so the cost lands on other purchases: dining out, repairs, electronics, furniture, and similar taxable goods and services. Renters pay this too, even though they get none of the homestead savings.</p>
+      </div>
+    </div>
+
+    <div class="disclaimer" style="margin-top:42px;">
+      <b>On the household figure.</b> The per-household estimate spreads the tax share of the gap across Duval County's roughly 390,000 households. It is an average; a family that spends more on taxable goods pays more, and one that spends less pays less. Per-item costs show the extra tax on a single purchase at the higher rate, not a yearly total.
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>Prepared as a public-information resource by the Jacksonville Civic Council, Office of Research.<br>
+  Figures reflect the FY2025-2026 proposed budget and the 2026 legislative session as of early 2026.<br>
+  This page is for civic education and does not constitute legal, tax, or financial advice.</p>
+</footer>
+
+</div>
+
+<script src="assets/app.js"></script>
+</body>
+</html>
