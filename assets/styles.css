@@ -166,6 +166,7 @@
     font-family:"Manrope";font-size:12px;letter-spacing:0.22em;text-transform:uppercase;
     color:var(--teal-deep);font-weight:800;margin-bottom:14px;
   }
+  section h1,
   section h2{font-size:clamp(32px,4.4vw,54px);font-weight:800;max-width:16ch;color:var(--teal-darkest);}
   .lead{font-size:clamp(18px,1.9vw,22px);max-width:62ch;margin-top:20px;color:var(--muted);}
   p{max-width:65ch;}
