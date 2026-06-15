@@ -355,6 +355,43 @@
   tally();
 
   }
+  if(document.getElementById("expSlider")){
+  // ============ THE TRADEOFF (budget exposure + household tradeoff) ============
+  var es = document.getElementById("expSlider");
+  var poolM = CUT_TOTAL/1e6;                                    // ~692.5
+  var SALES_PENNY_EDR = 235;                                    // $M per 1-cent Duval surtax (EDR FY2026, illustrative)
+  var perMillReduced = (PROP_TAX_REV - GAP) / CURRENT_MILLAGE;  // backfill on the shrunken base (~81.1)
+  var perMillOld = PROP_TAX_REV / CURRENT_MILLAGE;              // simple scale (~106.4)
+  function gid(id){ return document.getElementById(id); }
+  function expUpdate(){
+    var revShare = parseInt(es.value,10)/100;     // toward replacement revenue
+    var cutShare = 1 - revShare;
+    var cutD = GAP*cutShare, revD = GAP*revShare;
+    var cutPct = Math.round(cutShare*100), revPct = 100 - cutPct;
+    gid("rMix").innerHTML = "<b>"+cutPct+"%</b> from service cuts &middot; <b>"+revPct+"%</b> from replacement revenue";
+    es.setAttribute("aria-valuetext", cutPct+" percent service cuts, "+revPct+" percent replacement revenue");
+    gid("rCuts").textContent = money(cutD);
+    gid("rRev").textContent = money(revD);
+    gid("rCutPct").textContent = Math.round(cutD/poolM*100) + "%";
+    gid("rHhYr").textContent = "$" + Math.round(revD*1e6/HOUSEHOLDS).toLocaleString();
+    gid("rHhMo").textContent = "$" + (revD*1e6/HOUSEHOLDS/12).toFixed(2);
+    var addR = revD/perMillReduced;
+    gid("rMillAdd").textContent = "+" + addR.toFixed(2);
+    gid("rMillNew").textContent = (CURRENT_MILLAGE + addR).toFixed(2);
+    gid("rMillOld").textContent = "+" + (revD/perMillOld).toFixed(2);
+    gid("rCent").textContent = "+" + (revD/SALES_PENNY_EDR).toFixed(2) + "¢";
+    var frac = cutD/poolM;
+    var tb = "";
+    CUT_GROUPS.forEach(function(g){
+      tb += '<tr><td>'+g.name+'</td><td class="num">'+money(g.total/1e6)+'</td><td class="num">&minus;'+money(g.total/1e6*frac)+'</td></tr>';
+    });
+    tb += '<tr class="ex-total"><td>Total exposed pool</td><td class="num">'+money(poolM)+'</td><td class="num">&minus;'+money(cutD)+'</td></tr>';
+    gid("expRows").innerHTML = tb;
+  }
+  es.addEventListener("input", expUpdate);
+  expUpdate();
+
+  }
   // ============ SPENDING CHARTS (real vs nominal) ============
   // Data from City ACFR Statement of Activities 2015-2024, CPI-adjusted to 2015 dollars ($ thousands).
   var spend = [
