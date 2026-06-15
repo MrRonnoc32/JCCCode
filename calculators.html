@@ -59,9 +59,9 @@
         <div class="panel cuts">
           <h3>Closed by cutting services</h3>
           <div class="amount" id="cutAmt">$141.6M</div>
-          <div class="sub" id="cutSub">Whole departments eliminated, smallest first</div>
+          <div class="sub" id="cutSub">Drawn from non-protected spending</div>
           <ul class="conseq" id="cutList"></ul>
-          <p class="note">Police, fire, and corrections are protected by the amendment, so cuts can only come from the roughly $247M of discretionary service departments. Departments are eliminated whole, smallest budget first. Because that pool is smaller than the $283.2M shortfall, even eliminating all of them leaves a remainder that taxes and fees must cover.</p>
+          <p class="note">Public safety, debt service, and pensions are protected, so cuts come from the roughly $693M of non-protected spending &mdash; departments, citywide activities, transfers, and contingencies. This view spreads the chosen cut share proportionally across those categories. The pool is larger than the $283.2M loss, so cuts can reach it &mdash; but much of it is one-time money, so it does not durably replace a loss that recurs every year.</p>
         </div>
         <div class="panel taxes">
           <h3>Closed by raising taxes &amp; fees</h3>
@@ -73,7 +73,7 @@
       </div>
 
       <div class="calc-foot">
-        <b>How to read this.</b> The cut side draws from the discretionary service departments that are not protected by the amendment, eliminating them whole, smallest budget first, using FY2025-2026 figures. The tax side converts the same dollars into rough, illustrative equivalents: an increase in the property tax millage (scaled from the City's current ratio of about 11.19 mills to roughly $1.19B in property tax revenue) and an equivalent local sales surtax (a one-cent Duval surtax raises on the order of $250-260M a year). These are scale estimates for public understanding, not precise rate forecasts. The sales and property tax bases are not interchangeable, and the still-taxable property base would itself shrink under the amendment, so a real-world millage increase would likely need to be larger than the illustrative figure shown here.
+        <b>How to read this.</b> The cut side spreads the chosen cut share proportionally across the non-protected categories from the Council Auditor's FY2025-2026 budget (departments, citywide activities, transfers, and contingencies, ~$693M in all). The tax side converts the same dollars into rough, illustrative equivalents: an increase in the property tax millage (scaled from the City's current ratio of about 11.19 mills to roughly $1.19B in property tax revenue) and an equivalent local sales surtax (a one-cent Duval surtax raises on the order of $250-260M a year). These are scale estimates for public understanding, not precise rate forecasts. The sales and property tax bases are not interchangeable, and the still-taxable property base would itself shrink under the amendment, so a real-world millage increase would likely need to be larger than the illustrative figure shown here.
       </div>
     </div>
   </div>
@@ -83,7 +83,7 @@
   <div class="inner">
     <div class="sec-num">Build your own budget</div>
     <h2>Build your own budget</h2>
-    <p class="lead">This tool lets you build a budget directly. Every department starts funded at today's level. Use the sliders to reduce any department's funding by as much or as little as you choose; each dollar cut counts toward closing the $283.2 million shortfall. The goal is to see how close service reductions alone can get to the full amount, and what it would take to reach it.</p>
+    <p class="lead">This tool uses the Council Auditor's FY2025-2026 budget. Each non-protected category has a slider; drag it to cut that share of the category, and expand any category to see its line items. Every dollar counts toward closing the $283.2 million gap. Public safety, debt, and pensions are protected and shown separately.</p>
 
     <div class="byo-shell">
       <div class="byo-meter">
@@ -95,26 +95,27 @@
           <div class="byo-fill" id="byoFill"></div>
           <div class="byo-goal-line" aria-hidden="true"></div>
         </div>
-        <p class="byo-status" id="byoStatus" aria-live="polite">$283.2M still to cut. Adjust the sliders below.</p>
+        <p class="byo-status" id="byoStatus" aria-live="polite">$283.2M still to close. Move the sliders below.</p>
       </div>
 
-      <div class="byo-cols">
-        <div class="byo-group">
-          <h3 class="byo-h ok">Service departments you can reduce</h3>
-          <p class="byo-sub">These are the discretionary services not protected by the amendment. Drag each slider to set its funding.</p>
-          <div class="byo-list" id="byoService"></div>
-        </div>
-        <div class="byo-group">
-          <h3 class="byo-h locked">Legally or contractually locked</h3>
-          <p class="byo-sub">Debt payments and pensions are promised by contract and law. Reducing them means breaking an obligation. You will be asked to confirm the first time you move one of these sliders.</p>
-          <div class="byo-list" id="byoLocked"></div>
-        </div>
+      <div class="byo-group">
+        <h3 class="byo-h ok">Non-protected spending you can cut</h3>
+        <p class="byo-sub">The Council Auditor's categories. Drag a slider to cut that share of a category; tap a category to see its line items.</p>
+        <div class="byo-groups" id="byoGroups"></div>
+      </div>
+
+      <div class="byo-group">
+        <h3 class="byo-h locked">Off the table: protected under the amendment</h3>
+        <p class="byo-sub">Public safety, debt service, and pension obligations are permitted uses of property tax, so the tool does not let you cut them.</p>
+        <div id="byoProtected"></div>
       </div>
 
       <div class="byo-foot">
-        <button class="byo-reset" id="byoReset" type="button">Reset to current budget</button>
+        <button class="byo-reset" id="byoReset" type="button">Reset to full funding</button>
         <p class="byo-note" id="byoNote"></p>
       </div>
+
+      <p class="byo-caveat">These are single-year FY2025-2026 figures. Many non-protected items &mdash; grants, economic incentives, contingencies, and one-time transfers &mdash; are nonrecurring, so cutting them closes the gap once but does not replace a revenue loss that returns every year.</p>
     </div>
   </div>
 </section>
@@ -128,9 +129,9 @@
     <div class="meaning-grid">
       <div class="meaning-col cuts">
         <h3>If the gap is closed by cutting</h3>
-        <p class="mc-head" id="meanCutHead">An estimated 210 positions cut from service departments</p>
+        <p class="mc-head" id="meanCutHead">Cuts fall on city programs and services</p>
         <ul class="impact-list" id="meanCutList"></ul>
-        <p class="note">At a given setting, departments are eliminated whole, smallest first, so a service is either fully funded or fully cut, not trimmed. The list shows which services are eliminated at the current slider position.</p>
+        <p class="note">Cuts are spread proportionally across non-protected spending. The examples above show the kinds of services and programs affected; the last item is the catch: much of this spending is one-time, so cutting it is not a durable fix for a recurring loss.</p>
       </div>
       <div class="meaning-col taxes">
         <h3>If the gap is closed by taxing</h3>

@@ -53,42 +53,26 @@
     {name:"All other sources", amt:175}
   ];
 
-  // ---- Departments (FY25-26, General Fund). budget $M, emp = employee cap ----
-  // ps:true = public safety (protected from cuts). Non-ps share the cut.
-  var depts = [
-    {name:"Fire and Rescue", budget:387.3, emp:1925, ps:true,
-      desc:"Jacksonville Fire and Rescue runs fire stations, ambulances, and emergency medical response across Duval County. Protected from cuts under the proposal."},
-    {name:"Sheriff's Office (Patrol & Enforcement)", budget:249.5, emp:1401, ps:true,
-      desc:"Frontline policing and patrol. The single largest piece of the Sheriff's Office. Protected from cuts under the proposal."},
-    {name:"Corrections", budget:173.2, emp:804, ps:true,
-      desc:"Operates the city jail and pretrial detention. Treated as public safety and protected from cuts under the proposal."},
-    {name:"Investigations & Homeland Security", budget:102.5, emp:537, ps:true,
-      desc:"Detectives, forensics, and security operations within the Sheriff's Office. Protected from cuts."},
-    {name:"Police Services", budget:62.6, emp:366, ps:true,
-      desc:"Records, training, and support functions for the Sheriff's Office. Treated as public safety."},
-    {name:"Public Works", budget:64.3, emp:287, ps:false,
-      desc:"Maintains roads, drainage, traffic signals, and city buildings. Not protected from cuts. Streetlight and traffic-signal maintenance also carry safety implications."},
-    {name:"Parks, Recreation & Community Services", budget:58.8, emp:253, ps:false,
-      desc:"Runs parks, community centers, pools, and youth and senior programs. Among the first places service hours and maintenance get reduced."},
-    {name:"Public Library", budget:42.4, emp:307, ps:false,
-      desc:"The 21-branch public library system. Branch hours and locations are vulnerable when this budget shrinks."},
-    {name:"Personnel & Professional Standards", budget:42.7, emp:250, ps:true,
-      desc:"Personnel, training, and professional standards functions within the Sheriff's Office. Treated as public safety and protected from cuts under the proposal."},
-    {name:"Neighborhoods", budget:17.8, emp:101, ps:false,
-      desc:"Code enforcement, mowing, animal services, and neighborhood cleanup. Cutting it lets blight and code violations build up."},
-    {name:"Office of Administrative Services", budget:15.6, emp:153, ps:false,
-      desc:"Procurement, fleet, and internal city services. A support function not protected from cuts."},
-    {name:"City Council", budget:12.6, emp:65, ps:false,
-      desc:"The legislative branch of city government and its staff."},
-    {name:"Finance", budget:17.9, emp:80, ps:false,
-      desc:"Budgeting, accounting, and treasury for the City. Not protected from cuts."},
-    {name:"Supervisor of Elections", budget:9.4, emp:34, ps:false,
-      desc:"Runs elections and maintains voter rolls for Duval County."},
-    {name:"Planning and Development", budget:5.2, emp:37, ps:false,
-      desc:"Reviews development, zoning, and permitting. Slower permitting is a direct consequence of cuts here."},
-    {name:"Office of Economic Development", budget:2.9, emp:19, ps:false,
-      desc:"Recruits employers and manages incentive deals. A discretionary function exposed to cuts."}
+  // ---- Council Auditor FY25/26 GF/GSD budget (transcribed). Amounts in dollars. ----
+  // Protected = permitted property-tax uses under the amendment (public safety, debt, retirement).
+  var TOTAL_BUDGET = 2003918147;
+  var PROTECTED = [
+    {name:"Public Safety", note:"Sheriff's Office, Fire & Rescue, JFRD/JSO pensions", amt:1171622026},
+    {name:"Debt service", note:"payments on existing bonds", amt:123952217},
+    {name:"Pension liability (other)", note:"retirement obligations", amt:15801681}
   ];
+  // Cuttable = everything else, by the auditor's categories, with line items.
+  var CUT_GROUPS = [
+    {key:"depts", name:"Non-Public-Safety Departments", items:[{name:"Administrative Services",amt:16009491},{name:"Advisory Boards And Commissions",amt:519822},{name:"City Council",amt:12614754},{name:"Clerk of the Court",amt:1526257},{name:"Courts",amt:5128176},{name:"Downtown Investment Authority",amt:746336},{name:"Economic Development",amt:3078542},{name:"Employee Services",amt:7308731},{name:"Ethics",amt:644469},{name:"Finance",amt:17191785},{name:"General Counsel - Delegation/Settlements",amt:149978},{name:"Health Administrator",amt:1895068},{name:"Inspector General's Office",amt:1541130},{name:"Jacksonville Human Rights Commission",amt:1040332},{name:"Mayor's Office",amt:4864399},{name:"Medical Examiner",amt:7098044},{name:"Military Affairs and Veterans",amt:1433663},{name:"Neighborhoods",amt:12243629},{name:"Parks, Recreation & Community Services",amt:57211570},{name:"Planning and Development",amt:4599011},{name:"Public Defender",amt:1509142},{name:"Public Library",amt:39022019},{name:"Public Works",amt:63475277},{name:"Sports and Entertainment",amt:1122150},{name:"State Attorney",amt:2841154},{name:"Supervisor of Elections",amt:9429334}]},
+    {key:"citywide", name:"Citywide Activities", items:[{name:"415 Limit Pension Cost",amt:36000},{name:"Alcohol Rehabilitation Program",amt:399989},{name:"Annual Independent Audit",amt:429500},{name:"Gator Bowl Game",amt:464409},{name:"Florida-Florida State Baseball",amt:55000},{name:"BJP 20% Gas Tax Contrib To Fiscal Agent",amt:4739612},{name:"Business Improvement District - Downtown Vision",amt:804877},{name:"Economic Incentives",amt:23887260},{name:"Employee Parking Subsidy - 50% Discount City Garages",amt:531300},{name:"Employee Training and Travel",amt:465785},{name:"FAMIS / BPREP Annual Maintenance",amt:259000},{name:"Filing Fee Local Ord-Public Def FS 27.54",amt:15000},{name:"Filing Fee Local Ord-St Attorney FS 27.34",amt:52000},{name:"JPA - Contributions To/From",amt:13513769},{name:"JTA - Contributions To/From",amt:1856342},{name:"Juvenile Justice",amt:6081861},{name:"Lapse Personnel Lapse-Contingency",amt:-4914206},{name:"License Agreements And Fees",amt:69265},{name:"Lobbyist Fees",amt:120000},{name:"Manatee Study",amt:103549},{name:"Medicaid Program F.S. 409.915",amt:22746000},{name:"Municipal Dues & Affiliation",amt:9410},{name:"Municipal Dues/Affiliation Sec 10.109",amt:230603},{name:"N. FL TPO (Transportation Planning Org)",amt:265648},{name:"Non Departmental IS Allocations",amt:1187028},{name:"Refund - Taxes Overpaid, Error, Controversy",amt:5000},{name:"Special Committee on Duval DOGE - 2% Lapse",amt:-2138202},{name:"Stormwater 501c3 Low Income Subsidy",amt:1485303},{name:"Tax Deed Purchases",amt:80000},{name:"WJCT Lease Payment",amt:30000},{name:"Zoo Contract",amt:1282500},{name:"Art In Public Places - Insurance",amt:5408},{name:"Cultural Service Grants",amt:7000000},{name:"Public Service Grants",amt:7200000},{name:"988 Crisis Counseling Call Center",amt:200000},{name:"Agape Community Health Center",amt:121724},{name:"Florida Black Expo",amt:100000},{name:"Florida State College at Jacksonville - Fire Academy Burn Building",amt:3500000},{name:"FOP Foundation",amt:200000},{name:"Infant Mortality",amt:200000},{name:"Jacksonville Classical Academy",amt:300000},{name:"Jacksonville Historical Society",amt:200000},{name:"JaxCareConnect",amt:1499557},{name:"Sulzbacher Center",amt:400000},{name:"United Way 211",amt:250000},{name:"Volunteers in Medicine",amt:200000},{name:"Duval County Fair Association (DCFA) 2024-285-E",amt:1500000},{name:"Shands Jax Medical Center - Indigent Care",amt:56000000},{name:"Telehealth",amt:1500000}]},
+    {key:"transfers", name:"Transfers Out", items:[{name:"Special Events - General Fund",amt:10701104},{name:"Emergency Reserve",amt:780000},{name:"Multiyear Programs and Initiatives",amt:18000000},{name:"Journey Forward",amt:100000},{name:"Property Appraiser",amt:13266764},{name:"Tax Collector",amt:14796904},{name:"Kids Hope Alliance Fund",amt:59310767},{name:"Jacksonville Upward Mobility Program",amt:461000},{name:"Homelessness Initiatives Special Revenue Fund",amt:4331677},{name:"Huguenot Park",amt:355735},{name:"Cecil Field Commerce Center",amt:1611160},{name:"Beach Erosion - Local",amt:500000},{name:"Animal Care & Protective Services Programs",amt:295759},{name:"General Trust & Agency",amt:600000},{name:"Art In Public Places Trust Fund",amt:327274},{name:"Library Conference Facility Trust",amt:89480},{name:"Recording Fees Technology",amt:482348},{name:"Duval County Teen Court Programs Trust",amt:182074},{name:"Court Costs $65 Fee FS: 939.185",amt:452301},{name:"Solid Waste Disposal",amt:51995648},{name:"Equestrian Center-NFES Horse",amt:563249},{name:"City Venues-City",amt:33493841},{name:"City Venues Capital Project Fund",amt:500000},{name:"Group Health",amt:21485229}]},
+    {key:"contingencies", name:"Contingencies", items:[{name:"Budget Stabilization Account",amt:1059243},{name:"Executive Operating Contingency - Council",amt:100000},{name:"Executive Operating Contingency - Mayor",amt:100000},{name:"Federal Matching Grants",amt:6944496},{name:"Federal Programs - Reserve",amt:250000},{name:"FIND Grant Match",amt:3060000},{name:"International Association of Fire Fighters",amt:245320},{name:"Municipal Dues & Affiliation",amt:830000},{name:"Riverfront Parks",amt:2600000},{name:"Salvation Army",amt:150000},{name:"Special Committee on Duval DOGE - 2% Lapse",amt:5868505},{name:"Youth Empowerment City Council Special Committee",amt:5000000}]},
+    {key:"interlocal", name:"Interlocal Agreements", items:[{name:"Interlocal Agreements",amt:2877791}]},
+  ];
+  CUT_GROUPS.forEach(function(g){ g.total = g.items.reduce(function(s,i){return s+i.amt;},0); g.cutFrac = 0; });
+  var CUT_TOTAL = CUT_GROUPS.reduce(function(s,g){return s+g.total;},0);    // ~$692.5M
+  var PROTECTED_TOTAL = PROTECTED.reduce(function(s,p){return s+p.amt;},0); // ~$1,311.4M
+  function usd(d){ var n=Math.round(Math.abs(d)).toLocaleString(); return (d<0?"-$":"$")+n; }
 
   // ---------- helpers ----------
   function money(m){
@@ -114,80 +98,43 @@
   var _revBars=document.getElementById("revBars"); if(_revBars){ _revBars.innerHTML = revHTML; }
 
   if(document.getElementById("deptList")){
-  // ---------- render departments ----------
+  // ---------- render the auditor budget breakdown (read-only accordion) ----------
   var dl = document.getElementById("deptList");
-  var psDepts = depts.filter(function(d){return d.ps;});
-  var npDepts = depts.filter(function(d){return !d.ps;});
-  var psTotalBudget = psDepts.reduce(function(s,d){return s+d.budget;},0);
-  var psTotalEmp = psDepts.reduce(function(s,d){return s+d.emp;},0);
-
-  function deptRow(d, idx, nested){
-    var tag = d.ps ? '<span class="tag ps">Public Safety</span>' : '<span class="tag np">Other Services</span>';
-    return '<div class="dept'+(nested?' dept-nested':'')+'">'
-      + '<button class="dept-btn" aria-expanded="false" aria-controls="dp'+idx+'" id="db'+idx+'">'
-        + '<span class="chev" aria-hidden="true">&#9654;</span>'
-        + '<span class="dn">'+d.name+'</span>'
-        + tag
-        + '<span class="da">'+money(d.budget)+'</span>'
-      + '</button>'
-      + '<div class="dept-panel" id="dp'+idx+'" role="region" aria-labelledby="db'+idx+'">'
-        + '<p style="margin:0 0 10px;">'+d.desc+'</p>'
-        + '<span class="emp">'+d.emp.toLocaleString()+' employees</span> &middot; '
-        + '<span class="emp">'+money(d.budget)+'</span> budget'
-      + '</div>'
-    + '</div>';
+  var H = "", _ci = 0;
+  function catBlock(name, sub, tagHtml, totalDollars, items){
+    var id = "cg"+(_ci++); var has = items && items.length;
+    H += '<div class="dept dept-summary">'
+      + '<button class="dept-btn ps-summary'+(has?'':' no-exp')+'" aria-expanded="false"'
+        + (has?(' aria-controls="'+id+'"'):'') + ' id="'+id+'b">'
+        + '<span class="chev" aria-hidden="true"'+(has?'':' style="visibility:hidden"')+'>&#9654;</span>'
+        + '<span class="dn">'+name+(sub?(' <span class="dn-sub">'+sub+'</span>'):'')+'</span>'
+        + tagHtml
+        + '<span class="da">'+money(totalDollars/1e6)+'</span>'
+      + '</button>';
+    if(has){
+      H += '<div class="dept-group" id="'+id+'" role="region" aria-labelledby="'+id+'b">';
+      items.forEach(function(it){
+        H += '<div class="dept-line"><span class="dl-name">'+it.name+'</span><span class="dl-amt">'+usd(it.amt)+'</span></div>';
+      });
+      H += '</div>';
+    }
+    H += '</div>';
   }
-
-  var dHTML = "";
-
-  // ---- Public Safety top-line, expands to its individual departments ----
-  dHTML += '<div class="dept dept-summary">'
-    + '<button class="dept-btn ps-summary" aria-expanded="false" aria-controls="psGroup" id="psSummaryBtn">'
-      + '<span class="chev" aria-hidden="true">&#9654;</span>'
-      + '<span class="dn">Public Safety <span class="dn-sub">police, fire, corrections</span></span>'
-      + '<span class="tag ps">Protected</span>'
-      + '<span class="da">'+money(psTotalBudget)+'</span>'
-    + '</button>'
-    + '<div class="dept-group" id="psGroup" role="region" aria-labelledby="psSummaryBtn">'
-      + '<p class="group-note">These departments are protected from cuts by the amendment. Together they make up '+money(psTotalBudget)+' and about '+psTotalEmp.toLocaleString()+' positions. Tap each to see detail.</p>';
-  psDepts.forEach(function(d){
-    var gi = depts.indexOf(d);
-    dHTML += deptRow(d, gi, true);
-  });
-  dHTML += '</div></div>';
-
-  // ---- Non-public-safety departments (the exposed pool) ----
-  npDepts.forEach(function(d){
-    var gi = depts.indexOf(d);
-    dHTML += deptRow(d, gi, false);
-  });
-
-  dl.innerHTML = dHTML;
-
-  // toggle for the public safety group
-  var psSummaryBtn = document.getElementById("psSummaryBtn");
-  psSummaryBtn.addEventListener("click", function(){
-    var exp = psSummaryBtn.getAttribute("aria-expanded") === "true";
-    psSummaryBtn.setAttribute("aria-expanded", String(!exp));
-    document.getElementById("psGroup").classList.toggle("open", !exp);
-  });
-
-  // toggles for individual department detail panels
-  document.querySelectorAll(".dept-btn:not(.ps-summary)").forEach(function(btn){
+  PROTECTED.forEach(function(p){ catBlock(p.name, p.note, '<span class="tag ps">Protected</span>', p.amt, null); });
+  CUT_GROUPS.forEach(function(g){ catBlock(g.name, null, '<span class="tag np">Cuttable</span>', g.total, g.items); });
+  dl.innerHTML = H;
+  document.querySelectorAll('#deptList .dept-btn:not(.no-exp)').forEach(function(btn){
     btn.addEventListener("click", function(){
-      var exp = btn.getAttribute("aria-expanded") === "true";
+      var c = document.getElementById(btn.getAttribute("aria-controls")); if(!c) return;
+      var exp = btn.getAttribute("aria-expanded")==="true";
       btn.setAttribute("aria-expanded", String(!exp));
-      var panel = document.getElementById(btn.getAttribute("aria-controls"));
-      panel.classList.toggle("open", !exp);
+      c.classList.toggle("open", !exp);
     });
   });
 
   }
   if(document.getElementById("mixSlider")){
-  // ---------- calculator ----------
-  var nonPSDepts = depts.filter(function(d){return !d.ps;});
-  var nonPSTotal = nonPSDepts.reduce(function(s,d){return s+d.budget;},0);
-
+  // ---------- tradeoff calculator (cuts vs new revenue) ----------
   var slider = document.getElementById("mixSlider");
   var mixReadout = document.getElementById("mixReadout");
   var cutAmtEl = document.getElementById("cutAmt");
@@ -196,97 +143,44 @@
   var taxAmtEl = document.getElementById("taxAmt");
   var taxSubEl = document.getElementById("taxSub");
   var taxListEl = document.getElementById("taxList");
-
-  // meaning-section elements
   var meanCutHead = document.getElementById("meanCutHead");
   var meanCutList = document.getElementById("meanCutList");
   var meanTaxHead = document.getElementById("meanTaxHead");
   var meanTaxList = document.getElementById("meanTaxList");
+  var cutPoolM = CUT_TOTAL/1e6; // ~$692.5M of non-protected spending
 
   function update(){
     var taxShare = parseInt(slider.value,10)/100;   // 0..1 toward taxes
-    var cutShare = 1 - taxShare;                     // toward cuts
+    var cutShare = 1 - taxShare;
+    var cutDollars = GAP * cutShare;                 // $M closed by cuts (pool > GAP, so always reachable)
+    var taxDollars = GAP * taxShare;
+    var cutPct = Math.round(cutShare*100), taxPct = 100 - cutPct;
+    mixReadout.innerHTML = "Closing <b>"+cutPct+"%</b> with service cuts and <b>"+taxPct+"%</b> with new taxes &amp; fees";
+    slider.setAttribute("aria-valuetext", cutPct+" percent service cuts, "+taxPct+" percent new taxes and fees");
 
-    // Cuttable pool = departmental non-PS budgets only (no debt/pension/grants).
-    var cutPool = nonPSDepts.reduce(function(s,d){return s+d.budget;},0); // ~246.9M
-    // The cut side targets a share of the shortfall, but can never exceed the cuttable pool.
-    var cutTarget = GAP * cutShare;
-    var cutDollars = Math.min(cutTarget, cutPool);
-    // Taxes/fees cover everything the cuts cannot.
-    var taxDollars = GAP - cutDollars;
-
-    // Zero out whole departments, SMALLEST budget first, until cutDollars is reached.
-    var bySize = nonPSDepts.slice().sort(function(a,b){return a.budget-b.budget;});
-    var running = 0, jobsLost = 0;
-    var cutState = []; // {d, state:'full'|'partial'|'none', loss, jobs}
-    bySize.forEach(function(d){
-      if(running >= cutDollars - 0.01){
-        cutState.push({d:d, state:'none', loss:0, jobs:0});
-      } else if(running + d.budget <= cutDollars + 0.01){
-        running += d.budget;
-        jobsLost += d.emp;
-        cutState.push({d:d, state:'full', loss:d.budget, jobs:d.emp});
-      } else {
-        // partial: the boundary department absorbs the remainder
-        var rem = cutDollars - running;
-        var frac = rem / d.budget;
-        running += rem;
-        var pj = Math.round(d.emp * frac);
-        jobsLost += pj;
-        cutState.push({d:d, state:'partial', loss:rem, jobs:pj});
-      }
-    });
-
-    // readout + accessible value text
-    var cutPctOfGap = Math.round(cutDollars / GAP * 100);
-    var taxPctOfGap = 100 - cutPctOfGap;
-    mixReadout.innerHTML = "Closing <b>"+cutPctOfGap+"%</b> with service cuts and <b>"+taxPctOfGap+"%</b> with new taxes &amp; fees";
-    slider.setAttribute("aria-valuetext", cutPctOfGap+" percent service cuts, "+taxPctOfGap+" percent new taxes and fees");
-
-    // ---- CUTS side ----
+    // ---- CUTS side: proportional draw across the non-protected categories ----
     cutAmtEl.textContent = money(cutDollars);
-    var fullCount = cutState.filter(function(c){return c.state==='full';}).length;
-    if(cutDollars < 0.05){
-      cutSubEl.textContent = "No departments eliminated at this setting";
-    } else if(cutDollars >= cutPool - 0.05){
-      cutSubEl.textContent = "Every cuttable department eliminated, an estimated " + jobsLost.toLocaleString() + " positions";
-    } else {
-      cutSubEl.textContent = fullCount + (fullCount===1?" department":" departments") + " eliminated entirely, an estimated " + jobsLost.toLocaleString() + " positions";
-    }
-
-    // list departments, largest first for display, showing eliminated / reduced / funded
-    var display = cutState.slice().sort(function(a,b){return b.d.budget-a.d.budget;});
+    cutSubEl.textContent = cutDollars < 0.05
+      ? "No cuts at this setting"
+      : "drawn from the " + money(cutPoolM) + " of non-protected spending";
     var cHTML = "";
     if(cutDollars < 0.05){
-      cHTML = '<li><span>No departments eliminated at this setting</span><span class="ci">$0</span></li>';
+      cHTML = '<li><span>No cuts at this setting</span><span class="ci">$0</span></li>';
     } else {
-      display.forEach(function(c){
-        var label, cls;
-        if(c.state==='full'){ label='Eliminated'; cls='ci'; }
-        else if(c.state==='partial'){ label='Reduced'; cls='ci'; }
-        else { label='Still funded'; cls='ci muted-ci'; }
-        var amt = c.loss>0 ? '&minus;'+money(c.loss) : '&mdash;';
-        var sub = c.state==='none' ? 'kept at current funding'
-                 : (c.state==='partial' ? '~'+c.jobs.toLocaleString()+' positions (partial)'
-                                        : '~'+c.jobs.toLocaleString()+' positions');
-        cHTML += '<li><span>'+c.d.name+'<br><span class="sub-emp">'+sub+'</span></span><span class="'+cls+'">'+amt+'</span></li>';
+      var frac = cutDollars / cutPoolM;
+      CUT_GROUPS.forEach(function(g){
+        var share = (g.total/1e6) * frac;
+        cHTML += '<li><span>'+g.name+'</span><span class="ci">&minus;'+money(share)+'</span></li>';
       });
-      cHTML += '<li class="total-row"><span>Total from service cuts<br><span class="sub-emp">~'+jobsLost.toLocaleString()+' positions</span></span><span class="ci">&minus;'+money(cutDollars)+'</span></li>';
-      if(cutDollars >= cutPool - 0.05){
-        cHTML += '<li class="resid-row"><span>Still unfunded after cutting everything<br><span class="sub-emp">must come from taxes &amp; fees</span></span><span class="ci">'+money(GAP-cutPool)+'</span></li>';
-      }
+      cHTML += '<li class="total-row"><span>Total from cuts</span><span class="ci">&minus;'+money(cutDollars)+'</span></li>';
     }
     cutListEl.innerHTML = cHTML;
-
-    // reduceFactor retained for the meaning-section job estimates (avg across pool)
-    var reduceFactor = cutPool > 0 ? (cutDollars/cutPool) : 0;
 
     // ---- TAX side ----
     taxAmtEl.textContent = money(taxDollars);
     taxSubEl.textContent = "New revenue the City would have to raise";
-
-    var surtaxPennies = taxDollars / SURTAX_PENNY;        // fraction of a penny surtax (illustrative)
-    var addedMills = taxDollars / REV_PER_MILL;            // extra mills needed (illustrative)
+    var surtaxPennies = taxDollars / SURTAX_PENNY;
+    var addedMills = taxDollars / REV_PER_MILL;
     var newMillage = CURRENT_MILLAGE + addedMills;
     var tHTML = "";
     if(taxDollars < 0.05){
@@ -298,30 +192,22 @@
     taxListEl.innerHTML = tHTML;
 
     // ---- MEANING: service side ----
-    if(cutDollars < 0.05){
-      meanCutHead.textContent = "No service departments eliminated at this setting";
-    } else {
-      meanCutHead.textContent = "An estimated " + jobsLost.toLocaleString() + " positions cut, with whole departments eliminated";
-    }
+    meanCutHead.textContent = cutDollars < 0.05
+      ? "No service or program cuts at this setting"
+      : "About " + money(cutDollars) + " cut from city programs and services";
     var mcHTML = "";
     if(cutDollars < 0.05){
-      mcHTML = '<li><span class="ihead">No service cuts at this setting</span><span class="idetail">Move the slider left to eliminate departments.</span></li>';
+      mcHTML = '<li><span class="ihead">No cuts at this setting</span><span class="idetail">Move the slider left to close more of the gap through cuts.</span></li>';
     } else {
-      // show which of the narrated services are fully eliminated vs reduced at this setting
       serviceImpacts.forEach(function(s){
-        var cs = cutState.filter(function(c){return c.d.name===s.dept;})[0];
-        var statusTxt;
-        if(!cs || cs.state==='none') statusTxt = '('+s.dept+': still funded at this setting)';
-        else if(cs.state==='full') statusTxt = '('+s.dept+': eliminated, about '+cs.jobs.toLocaleString()+' positions)';
-        else statusTxt = '('+s.dept+': reduced, about '+cs.jobs.toLocaleString()+' positions)';
-        mcHTML += '<li><span class="ihead">'+s.headline+'</span>'
-          + '<span class="idetail">'+s.detail+' <em>'+statusTxt+'</em></span></li>';
+        mcHTML += '<li><span class="ihead">'+s.headline+'</span><span class="idetail">'+s.detail+'</span></li>';
       });
+      mcHTML += '<li><span class="ihead">Much of it is one-time money</span><span class="idetail">A large share of non-protected spending (grants, incentives, contingencies, one-time transfers) is nonrecurring, so cutting it closes the gap once but not for the years that follow.</span></li>';
     }
     meanCutList.innerHTML = mcHTML;
 
     // ---- MEANING: tax side ----
-    var addedRate = (surtaxPennies/100); // extra rate as a decimal (cents -> rate points)
+    var addedRate = (surtaxPennies/100);
     var newRate = BASE_RATE + addedRate;
     var perHouseholdYr = (taxDollars*1000000) / HOUSEHOLDS;
     meanTaxHead.textContent = "About $" + Math.round(perHouseholdYr).toLocaleString() + " more per household each year";
@@ -340,146 +226,96 @@
     }
     meanTaxList.innerHTML = mtHTML;
   }
-
   slider.addEventListener("input", update);
   update();
 
   }
-  if(document.getElementById("byoService")){
-  // ============ BUILD YOUR OWN BUDGET ============
-  // Service departments (cuttable). Pull non-PS depts from the dataset.
-  var byoService = nonPSDepts.map(function(d){
-    return {name:d.name, budget:d.budget, emp:d.emp, locked:false, funded:d.budget};
-  });
-  // Locked items: the non-departmental ~$654.1M, broken into recognizable pieces.
-  var byoLocked = [
-    {name:"Debt service & repayments", budget:260.0, locked:true, funded:260.0, acked:false,
-     note:"Bond payments owed to lenders. Missing them would affect the city's credit rating."},
-    {name:"Pension contributions (UAAL & current)", budget:200.0, locked:true, funded:200.0, acked:false,
-     note:"Retirement promised to employees by contract. Cannot be skipped by law."},
-    {name:"Transfers to other funds", budget:120.0, locked:true, funded:120.0, acked:false,
-     note:"Required transfers that keep other city operations running."},
-    {name:"Grants, aid & community contributions", budget:74.1, locked:true, funded:74.1, acked:false,
-     note:"Money to nonprofits, health, and community programs. Discretionary but already committed."}
-  ];
-
-  var byoServiceEl = document.getElementById("byoService");
-  var byoLockedEl = document.getElementById("byoLocked");
+  if(document.getElementById("byoGroups")){
+  // ============ BUILD YOUR OWN BUDGET (grouped, expandable) ============
+  var groupsEl = document.getElementById("byoGroups");
+  var protEl   = document.getElementById("byoProtected");
   var byoClosedEl = document.getElementById("byoClosed");
-  var byoFillEl = document.getElementById("byoFill");
-  var byoBarEl = document.getElementById("byoBar");
+  var byoFillEl   = document.getElementById("byoFill");
+  var byoBarEl    = document.getElementById("byoBar");
   var byoStatusEl = document.getElementById("byoStatus");
-  var byoNoteEl = document.getElementById("byoNote");
+  var byoNoteEl   = document.getElementById("byoNote");
   var byoResetBtn = document.getElementById("byoReset");
+  var poolM = CUT_TOTAL/1e6;
 
-  var serviceMaxTotal = byoService.reduce(function(s,d){return s+d.budget;},0);
+  // protected (read-only)
+  var pHTML = "";
+  PROTECTED.forEach(function(p){
+    pHTML += '<div class="byo-prot-row"><span class="bp-name">'+p.name+'<span class="bp-note">'+p.note+'</span></span>'
+      + '<span class="bp-amt">'+money(p.amt/1e6)+'</span></div>';
+  });
+  protEl.innerHTML = pHTML;
 
-  // Build one adjustable (slider) row per item; created once, then only the tally updates.
-  function makeItem(it, locked){
-    var wrap = document.createElement("div");
-    wrap.className = "byo-item adjust" + (locked ? " locked-item" : "");
-
-    var top = document.createElement("div");
-    top.className = "byo-adj-top";
-    top.innerHTML = '<span class="bi-name">'+it.name
-      + (locked ? '<span class="byo-adj-lock">'+it.note+'</span>' : '')
-      + '</span><span class="bi-amt">'+money(it.budget)+'</span>';
-    wrap.appendChild(top);
+  // cuttable groups (slider per group, expandable to line items)
+  CUT_GROUPS.forEach(function(g, gi){
+    var wrap = document.createElement("div"); wrap.className = "byo-grp";
+    var head = document.createElement("div"); head.className = "byo-grp-head";
+    head.innerHTML = '<button class="byo-grp-exp" type="button" aria-expanded="false" aria-controls="bgi'+gi+'" aria-label="Show line items for '+g.name+'"><span class="chev" aria-hidden="true">&#9654;</span></button>'
+      + '<span class="bg-name">'+g.name+'</span>'
+      + '<span class="bg-total">'+money(g.total/1e6)+'</span>';
+    wrap.appendChild(head);
 
     var slider = document.createElement("input");
-    slider.type = "range";
-    slider.className = "byo-slider";
-    slider.min = 0;
-    slider.max = it.budget;
-    slider.step = it.budget / 200;
-    slider.value = it.funded;
-    slider.setAttribute("aria-label", "Funding for " + it.name + ", out of " + money(it.budget));
+    slider.type = "range"; slider.className = "byo-slider";
+    slider.min = 0; slider.max = 100; slider.step = 1; slider.value = 0;
+    slider.setAttribute("aria-label", "Percent of "+g.name+" to cut");
     wrap.appendChild(slider);
 
-    var foot = document.createElement("div");
-    foot.className = "byo-adj-foot";
-    var fundedSpan = document.createElement("span");
-    fundedSpan.className = "funded-lvl";
-    var cutSpan = document.createElement("span");
-    cutSpan.className = "cut-lvl";
-    foot.appendChild(fundedSpan);
-    foot.appendChild(cutSpan);
-    wrap.appendChild(foot);
+    var foot = document.createElement("div"); foot.className = "byo-adj-foot";
+    var lvl = document.createElement("span"); lvl.className = "funded-lvl";
+    var cutl = document.createElement("span"); cutl.className = "cut-lvl none";
+    foot.appendChild(lvl); foot.appendChild(cutl); wrap.appendChild(foot);
 
-    function refreshItem(){
-      var cut = it.budget - it.funded;
-      fundedSpan.textContent = money(it.funded) + " funded";
-      if(cut < 0.05){
-        cutSpan.textContent = "fully funded";
-        cutSpan.className = "cut-lvl none";
-      } else {
-        cutSpan.textContent = (locked ? "broken " : "cut ") + money(cut);
-        cutSpan.className = "cut-lvl";
-      }
-    }
-
-    slider.addEventListener("input", function(){
-      var val = parseFloat(slider.value);
-      if(locked && val < it.budget - 0.001 && !it.acked){
-        var ok = window.confirm("Reducing \""+it.name+"\" means breaking a legal or contractual obligation. In reality the city cannot simply do this. Continue anyway to see what it would take?");
-        if(!ok){ slider.value = it.budget; val = it.budget; }
-        else { it.acked = true; }
-      }
-      it.funded = val;
-      refreshItem();
-      tally();
+    var det = document.createElement("div"); det.className = "byo-grp-items"; det.id = "bgi"+gi;
+    var ih = ""; g.items.forEach(function(it){
+      ih += '<div class="dept-line"><span class="dl-name">'+it.name+'</span><span class="dl-amt">'+usd(it.amt)+'</span></div>';
     });
+    det.innerHTML = ih; wrap.appendChild(det);
 
-    it._slider = slider;
-    it._refresh = refreshItem;
-    refreshItem();
-    return wrap;
-  }
-
-  function buildItems(){
-    byoServiceEl.innerHTML = "";
-    byoLockedEl.innerHTML = "";
-    byoService.forEach(function(it){ byoServiceEl.appendChild(makeItem(it, false)); });
-    byoLocked.forEach(function(it){ byoLockedEl.appendChild(makeItem(it, true)); });
-  }
+    function refresh(){
+      var gm = g.total/1e6, cut = gm*g.cutFrac;
+      lvl.textContent = money(gm*(1-g.cutFrac)) + " funded";
+      if(g.cutFrac < 0.005){ cutl.textContent = "fully funded"; cutl.className = "cut-lvl none"; }
+      else { cutl.textContent = "cut "+money(cut)+" ("+Math.round(g.cutFrac*100)+"%)"; cutl.className = "cut-lvl"; }
+    }
+    slider.addEventListener("input", function(){ g.cutFrac = parseInt(slider.value,10)/100; refresh(); tally(); });
+    head.querySelector(".byo-grp-exp").addEventListener("click", function(){
+      var exp = this.getAttribute("aria-expanded")==="true";
+      this.setAttribute("aria-expanded", String(!exp));
+      det.classList.toggle("open", !exp);
+    });
+    g._slider = slider; g._refresh = refresh; refresh();
+    groupsEl.appendChild(wrap);
+  });
 
   function tally(){
-    var closed = 0, serviceCut = 0;
-    byoService.forEach(function(it){ var c = it.budget - it.funded; closed += c; serviceCut += c; });
-    byoLocked.forEach(function(it){ closed += (it.budget - it.funded); });
-    var pct = Math.min(100, closed / GAP * 100);
-    byoClosedEl.textContent = money(closed);
+    var closed = 0; CUT_GROUPS.forEach(function(g){ closed += g.total*g.cutFrac; });
+    var closedM = closed/1e6, pct = Math.min(100, closedM/GAP*100);
+    byoClosedEl.textContent = money(closedM);
     byoFillEl.style.width = pct + "%";
-    byoBarEl.setAttribute("aria-valuenow", closed.toFixed(1));
-
-    var remaining = GAP - closed;
-    if(closed >= GAP - 0.05){
-      byoFillEl.classList.add("green");
-      byoStatusEl.classList.add("win");
-      byoStatusEl.textContent = "Shortfall closed. The funding levels you set show what reaching that total requires.";
+    byoBarEl.setAttribute("aria-valuenow", closedM.toFixed(1));
+    var remaining = GAP - closedM;
+    if(closedM >= GAP - 0.05){
+      byoFillEl.classList.add("green"); byoStatusEl.classList.add("win");
+      byoStatusEl.textContent = "You've reached $283.2M — on paper. See the note below on why that isn't a durable fix.";
     } else {
-      byoFillEl.classList.remove("green");
-      byoStatusEl.classList.remove("win");
-      byoStatusEl.textContent = money(remaining) + " still to cut.";
+      byoFillEl.classList.remove("green"); byoStatusEl.classList.remove("win");
+      byoStatusEl.textContent = money(remaining) + " still to close.";
     }
-
-    var anyLockedCut = byoLocked.some(function(it){ return it.funded < it.budget - 0.05; });
-    if(anyLockedCut){
-      byoNoteEl.innerHTML = "Closing the gap here required reducing obligations the city legally cannot skip, such as debt or pensions. This illustrates that the shortfall is larger than the realistically cuttable budget.";
-    } else if(serviceCut >= serviceMaxTotal - 0.05){
-      byoNoteEl.innerHTML = "Even reducing every cuttable service department to zero (about "+money(serviceMaxTotal)+") leaves "+money(GAP-serviceMaxTotal)+" of the shortfall unclosed. Reaching it would mean reducing locked obligations such as debt or pensions.";
-    } else {
-      byoNoteEl.innerHTML = "The cuttable service departments total only about "+money(serviceMaxTotal)+", less than the "+money(GAP)+" gap. Adjust the sliders to see how close you can get.";
-    }
+    var anyCut = CUT_GROUPS.some(function(g){ return g.cutFrac > 0.005; });
+    byoNoteEl.innerHTML = anyCut
+      ? "There is about "+money(poolM)+" of non-protected spending to draw from, so the $283.2M can be reached — but it means permanently ending programs like indigent care, grants, libraries, and parks."
+      : "There is about "+money(poolM)+" of non-protected spending outside public safety, debt, and pensions. Move the sliders to build a budget that closes the $283.2M gap.";
   }
 
   byoResetBtn.addEventListener("click", function(){
-    byoService.forEach(function(it){ it.funded = it.budget; if(it._slider){it._slider.value = it.budget;} if(it._refresh){it._refresh();} });
-    byoLocked.forEach(function(it){ it.funded = it.budget; it.acked = false; if(it._slider){it._slider.value = it.budget;} if(it._refresh){it._refresh();} });
+    CUT_GROUPS.forEach(function(g){ g.cutFrac = 0; if(g._slider){ g._slider.value = 0; } if(g._refresh){ g._refresh(); } });
     tally();
   });
-
-  buildItems();
   tally();
 
   }

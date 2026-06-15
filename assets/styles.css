@@ -614,3 +614,32 @@
     border-radius:12px; text-decoration:none; white-space:nowrap; }
   .al-go:hover{ box-shadow:0 8px 18px var(--shadow); }
   @media(max-width:600px){ .al-steps li{ flex-wrap:wrap; } .al-go{ margin-left:56px; } }
+
+  /* ===== auditor budget breakdown + grouped budget tool ===== */
+  .dept-line{ display:flex; justify-content:space-between; gap:14px; padding:9px 16px 9px 44px;
+    font-size:15px; border-top:1px solid rgba(5,58,64,0.06); }
+  .dl-name{ color:var(--ink); }
+  .dl-amt{ font-family:"Manrope"; font-weight:700; color:var(--muted); white-space:nowrap; }
+  .dept-btn.no-exp{ cursor:default; }
+  .dept-btn.no-exp:hover{ background:none; }
+
+  .byo-shell > .byo-group{ margin:18px 18px 0; }
+  .byo-groups{ display:flex; flex-direction:column; gap:14px; }
+  .byo-grp{ border:1px solid var(--rule); border-radius:18px; background:#fff; padding:16px 18px; }
+  .byo-grp-head{ display:flex; align-items:center; gap:10px; }
+  .byo-grp-exp{ background:none; border:none; cursor:pointer; padding:4px; color:var(--teal-deep); line-height:1; }
+  .byo-grp-exp .chev{ display:inline-block; transition:transform .2s; font-size:14px; }
+  .byo-grp-exp[aria-expanded="true"] .chev{ transform:rotate(90deg); }
+  .bg-name{ flex:1; font-family:"Manrope"; font-weight:700; font-size:16px; color:var(--ink); }
+  .bg-total{ font-family:"Manrope"; font-weight:700; color:var(--muted); white-space:nowrap; }
+  .byo-grp-items{ display:none; margin-top:10px; border-top:1px solid var(--rule); max-height:280px; overflow:auto; }
+  .byo-grp-items.open{ display:block; }
+
+  .byo-prot-row{ display:flex; justify-content:space-between; align-items:baseline; gap:14px;
+    padding:12px 14px; border:1px dashed rgba(0,102,110,0.28); border-radius:14px; margin-bottom:8px; background:#f6fbfb; }
+  .bp-name{ font-family:"Manrope"; font-weight:600; color:var(--teal-darkest); }
+  .bp-note{ display:block; font-family:"Cormorant Garamond",Georgia,serif; font-size:15px; color:var(--muted); font-weight:400; }
+  .bp-amt{ font-family:"Manrope"; font-weight:800; color:var(--teal-deep); white-space:nowrap; }
+
+  .byo-caveat{ margin:0; padding:18px 24px; border-top:1px solid var(--rule); background:var(--paper-2);
+    font-size:14px; color:var(--muted); line-height:1.55; }
