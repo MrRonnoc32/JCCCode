@@ -687,6 +687,33 @@
   .rcpt .rl{ font-size:14px; color:var(--muted); margin-top:8px; line-height:1.4; }
   .rcpt .rl-sub{ display:block; font-size:12.5px; color:var(--muted); opacity:0.85; }
 
+  /* friendly category subtitles */
+  .bg-sub{ display:block; font-family:"Cormorant Garamond",Georgia,serif; font-weight:400; font-size:14px;
+    color:var(--muted); margin-top:1px; }
+  .td-sub{ display:block; font-family:"Cormorant Garamond",Georgia,serif; font-size:15px; color:var(--muted); }
+
+  /* ===== grouped nav dropdown ("The Gap") ===== */
+  .nav-group{ position:relative; }
+  .nav-group-btn{ font-family:"Manrope"; font-size:13px; font-weight:700; letter-spacing:0.12em;
+    text-transform:uppercase; color:var(--ink); background:none; border:none; cursor:pointer;
+    display:block; padding:18px 16px; }
+  .nav-group-btn:hover, .nav-group:hover .nav-group-btn{ color:var(--teal-deep); }
+  .nav-caret{ font-size:10px; margin-left:2px; }
+  .nav-group-btn.active{ color:var(--teal-deep); position:relative; }
+  .nav-group-btn.active::after{ content:""; position:absolute; left:16px; right:16px; bottom:12px; height:3px;
+    border-radius:999px; background:linear-gradient(90deg,var(--teal),var(--mint)); }
+  .nav-sub{ display:none; position:absolute; top:100%; left:6px; min-width:220px; margin:0; padding:8px;
+    list-style:none; background:#fff; border:1px solid var(--rule); border-radius:16px;
+    box-shadow:0 18px 44px var(--shadow); z-index:60; }
+  .nav-group:hover .nav-sub, .nav-sub.open{ display:block; }
+  .nav-sub li{ display:block; }
+  .nav-sub a{ display:block; padding:11px 14px; border-radius:10px; text-transform:none; letter-spacing:0.01em;
+    font-size:14.5px; font-weight:600; color:var(--ink); }
+  .nav-sub a:hover{ background:var(--paper-2); color:var(--teal-deep); }
+  .nav-sub a[aria-current="page"]{ color:var(--teal-deep); }
+  .nav-sub a[aria-current="page"]::after{ display:none; }
+  @media(max-width:760px){ .nav-sub{ position:static; box-shadow:none; border:none; padding:0 0 0 16px; min-width:0; } }
+
   .byo-prot-row{ display:flex; justify-content:space-between; align-items:baseline; gap:14px;
     padding:12px 14px; border:1px dashed rgba(0,102,110,0.28); border-radius:14px; margin-bottom:8px; background:#f6fbfb; }
   .bp-name{ font-family:"Manrope"; font-weight:600; color:var(--teal-darkest); }

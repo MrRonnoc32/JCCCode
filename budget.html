@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/styles.css?v=4">
+<link rel="stylesheet" href="assets/styles.css?v=5">
 </head>
 <body>
 <a class="skip" href="#main">Skip to main content</a>
@@ -24,9 +24,14 @@
     <li><a href="budget.html" aria-current="page">The Budget</a></li>
     <li><a href="spending.html">Spending Growth</a></li>
     <li><a href="proposal.html">The Proposal</a></li>
-    <li><a href="tradeoff.html">The Tradeoff</a></li>
-    <li><a href="calculators.html">Consequences</a></li>
-    <li><a href="stakes.html">Services at Stake</a></li>
+    <li class="nav-group">
+      <button class="nav-group-btn" type="button" aria-expanded="false" aria-haspopup="true">The Gap <span class="nav-caret" aria-hidden="true">&#9662;</span></button>
+      <ul class="nav-sub">
+        <li><a href="tradeoff.html">The Tradeoff</a></li>
+        <li><a href="calculators.html">Consequences</a></li>
+        <li><a href="stakes.html">Services at Stake</a></li>
+      </ul>
+    </li>
     <li><a href="sources.html">Sources</a></li>
   </ul>
 </nav>
@@ -108,12 +113,12 @@
 
 <footer>
   <p>Prepared as a public-information resource by the Office of Research.<br>
-  Figures reflect the FY2025-2026 proposed budget and the 2026 legislative session as of early 2026.<br>
+  Figures reflect the adopted FY2025-26 General Fund / GSD budget and CS/HJR 1-F (enrolled June 2, 2026).<br>
   This page is for civic education and does not constitute legal, tax, or financial advice.</p>
 </footer>
 
 </div>
 
-<script src="assets/app.js?v=4"></script>
+<script src="assets/app.js?v=5"></script>
 </body>
 </html>

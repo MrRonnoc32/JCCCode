@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/styles.css?v=4">
+<link rel="stylesheet" href="assets/styles.css?v=5">
 </head>
 <body>
 <a class="skip" href="#main">Skip to main content</a>
@@ -24,9 +24,14 @@
     <li><a href="budget.html">The Budget</a></li>
     <li><a href="spending.html">Spending Growth</a></li>
     <li><a href="proposal.html">The Proposal</a></li>
-    <li><a href="tradeoff.html" aria-current="page">The Tradeoff</a></li>
-    <li><a href="calculators.html">Consequences</a></li>
-    <li><a href="stakes.html">Services at Stake</a></li>
+    <li class="nav-group">
+      <button class="nav-group-btn active" type="button" aria-expanded="false" aria-haspopup="true">The Gap <span class="nav-caret" aria-hidden="true">&#9662;</span></button>
+      <ul class="nav-sub">
+        <li><a href="tradeoff.html" aria-current="page">The Tradeoff</a></li>
+        <li><a href="calculators.html">Consequences</a></li>
+        <li><a href="stakes.html">Services at Stake</a></li>
+      </ul>
+    </li>
     <li><a href="sources.html">Sources</a></li>
   </ul>
 </nav>
@@ -134,6 +139,6 @@
 
 </div>
 
-<script src="assets/app.js?v=4"></script>
+<script src="assets/app.js?v=5"></script>
 </body>
 </html>
