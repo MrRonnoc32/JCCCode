@@ -250,8 +250,17 @@
   });
   protEl.innerHTML = pHTML;
 
-  // cuttable groups (slider per group, expandable to line items)
+  // dollars cut from a group = sum of its positive line-item cuts, capped at the category's net budget
+  function groupCut(g){
+    var c = 0; g.items.forEach(function(it){ if(it.amt > 0) c += it.amt * (it.frac || 0); });
+    return Math.min(c, g.total);
+  }
+
+  // cuttable groups: a category master slider + expandable per-line-item sliders (sorted high to low)
   CUT_GROUPS.forEach(function(g, gi){
+    g.items.forEach(function(it){ it.frac = 0; });
+    var sorted = g.items.slice().sort(function(a,b){ return b.amt - a.amt; });
+
     var wrap = document.createElement("div"); wrap.className = "byo-grp";
     var head = document.createElement("div"); head.className = "byo-grp-head";
     head.innerHTML = '<button class="byo-grp-exp" type="button" aria-expanded="false" aria-controls="bgi'+gi+'" aria-label="Show line items for '+g.name+'"><span class="chev" aria-hidden="true">&#9654;</span></button>'
@@ -259,11 +268,11 @@
       + '<span class="bg-total">'+money(g.total/1e6)+'</span>';
     wrap.appendChild(head);
 
-    var slider = document.createElement("input");
-    slider.type = "range"; slider.className = "byo-slider";
-    slider.min = 0; slider.max = 100; slider.step = 1; slider.value = 0;
-    slider.setAttribute("aria-label", "Percent of "+g.name+" to cut");
-    wrap.appendChild(slider);
+    var master = document.createElement("input");
+    master.type = "range"; master.className = "byo-slider";
+    master.min = 0; master.max = 100; master.step = 1; master.value = 0;
+    master.setAttribute("aria-label", "Cut a percentage of all "+g.name);
+    wrap.appendChild(master);
 
     var foot = document.createElement("div"); foot.className = "byo-adj-foot";
     var lvl = document.createElement("span"); lvl.className = "funded-lvl";
@@ -271,29 +280,52 @@
     foot.appendChild(lvl); foot.appendChild(cutl); wrap.appendChild(foot);
 
     var det = document.createElement("div"); det.className = "byo-grp-items"; det.id = "bgi"+gi;
-    var ih = ""; g.items.forEach(function(it){
-      ih += '<div class="dept-line"><span class="dl-name">'+it.name+'</span><span class="dl-amt">'+usd(it.amt)+'</span></div>';
+    sorted.forEach(function(it){
+      if(it.amt > 0){
+        var row = document.createElement("div"); row.className = "byo-item-row";
+        var top = document.createElement("div"); top.className = "bir-top";
+        top.innerHTML = '<span class="bir-name">'+it.name+'</span><span class="bir-amt">'+usd(it.amt)+'</span>';
+        row.appendChild(top);
+        var is = document.createElement("input");
+        is.type = "range"; is.className = "byo-slider byo-slider-sm";
+        is.min = 0; is.max = 100; is.step = 1; is.value = 0;
+        is.setAttribute("aria-label", "Percent of "+it.name+" to cut");
+        is.addEventListener("input", function(){ it.frac = parseInt(is.value,10)/100; syncMaster(); refreshGroup(); tally(); });
+        it._slider = is;
+        row.appendChild(is);
+        det.appendChild(row);
+      } else {
+        var r2 = document.createElement("div"); r2.className = "dept-line";
+        r2.innerHTML = '<span class="dl-name">'+it.name+' <em class="dl-note">(budgeted lapse &mdash; not cuttable)</em></span><span class="dl-amt">'+usd(it.amt)+'</span>';
+        det.appendChild(r2);
+      }
     });
-    det.innerHTML = ih; wrap.appendChild(det);
+    wrap.appendChild(det);
 
-    function refresh(){
-      var gm = g.total/1e6, cut = gm*g.cutFrac;
-      lvl.textContent = money(gm*(1-g.cutFrac)) + " funded";
-      if(g.cutFrac < 0.005){ cutl.textContent = "fully funded"; cutl.className = "cut-lvl none"; }
-      else { cutl.textContent = "cut "+money(cut)+" ("+Math.round(g.cutFrac*100)+"%)"; cutl.className = "cut-lvl"; }
+    function refreshGroup(){
+      var gm = g.total/1e6, cut = groupCut(g)/1e6;
+      lvl.textContent = money(Math.max(0, gm - cut)) + " funded";
+      if(cut < 0.05){ cutl.textContent = "fully funded"; cutl.className = "cut-lvl none"; }
+      else { cutl.textContent = "cut "+money(cut)+" ("+Math.round(cut/gm*100)+"%)"; cutl.className = "cut-lvl"; }
     }
-    slider.addEventListener("input", function(){ g.cutFrac = parseInt(slider.value,10)/100; refresh(); tally(); });
+    function syncMaster(){ master.value = Math.round(Math.min(100, groupCut(g)/g.total*100)); }
+
+    master.addEventListener("input", function(){
+      var v = parseInt(master.value,10)/100;
+      g.items.forEach(function(it){ if(it.amt > 0){ it.frac = v; if(it._slider){ it._slider.value = master.value; } } });
+      refreshGroup(); tally();
+    });
     head.querySelector(".byo-grp-exp").addEventListener("click", function(){
       var exp = this.getAttribute("aria-expanded")==="true";
       this.setAttribute("aria-expanded", String(!exp));
       det.classList.toggle("open", !exp);
     });
-    g._slider = slider; g._refresh = refresh; refresh();
+    g._master = master; g._refreshGroup = refreshGroup; refreshGroup();
     groupsEl.appendChild(wrap);
   });
 
   function tally(){
-    var closed = 0; CUT_GROUPS.forEach(function(g){ closed += g.total*g.cutFrac; });
+    var closed = 0; CUT_GROUPS.forEach(function(g){ closed += groupCut(g); });
     var closedM = closed/1e6, pct = Math.min(100, closedM/GAP*100);
     byoClosedEl.textContent = money(closedM);
     byoFillEl.style.width = pct + "%";
@@ -306,14 +338,18 @@
       byoFillEl.classList.remove("green"); byoStatusEl.classList.remove("win");
       byoStatusEl.textContent = money(remaining) + " still to close.";
     }
-    var anyCut = CUT_GROUPS.some(function(g){ return g.cutFrac > 0.005; });
+    var anyCut = CUT_GROUPS.some(function(g){ return groupCut(g) > 50000; });
     byoNoteEl.innerHTML = anyCut
       ? "There is about "+money(poolM)+" of non-protected spending to draw from, so the $283.2M can be reached — but it means permanently ending programs like indigent care, grants, libraries, and parks."
-      : "There is about "+money(poolM)+" of non-protected spending outside public safety, debt, and pensions. Move the sliders to build a budget that closes the $283.2M gap.";
+      : "There is about "+money(poolM)+" of non-protected spending outside public safety, debt, and pensions. Move a category slider, or expand a category and cut individual line items.";
   }
 
   byoResetBtn.addEventListener("click", function(){
-    CUT_GROUPS.forEach(function(g){ g.cutFrac = 0; if(g._slider){ g._slider.value = 0; } if(g._refresh){ g._refresh(); } });
+    CUT_GROUPS.forEach(function(g){
+      g.items.forEach(function(it){ it.frac = 0; if(it._slider){ it._slider.value = 0; } });
+      if(g._master){ g._master.value = 0; }
+      if(g._refreshGroup){ g._refreshGroup(); }
+    });
     tally();
   });
   tally();
