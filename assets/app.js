@@ -63,11 +63,23 @@
   ];
   // Cuttable = everything else, by the auditor's categories, with line items.
   var CUT_GROUPS = [
-    {key:"depts", name:"City Departments", sub:"Libraries, parks, roads, neighborhoods, courts, and administration", items:[{name:"Administrative Services",amt:16009491},{name:"Advisory Boards And Commissions",amt:519822},{name:"City Council",amt:12614754},{name:"Clerk of the Court",amt:1526257},{name:"Courts",amt:5128176},{name:"Downtown Investment Authority",amt:746336},{name:"Economic Development",amt:3078542},{name:"Employee Services",amt:7308731},{name:"Ethics",amt:644469},{name:"Finance",amt:17191785},{name:"General Counsel - Delegation/Settlements",amt:149978},{name:"Health Administrator",amt:1895068},{name:"Inspector General's Office",amt:1541130},{name:"Jacksonville Human Rights Commission",amt:1040332},{name:"Mayor's Office",amt:4864399},{name:"Medical Examiner",amt:7098044},{name:"Military Affairs and Veterans",amt:1433663},{name:"Neighborhoods",amt:12243629},{name:"Parks, Recreation & Community Services",amt:57211570},{name:"Planning and Development",amt:4599011},{name:"Public Defender",amt:1509142},{name:"Public Library",amt:39022019},{name:"Public Works",amt:63475277},{name:"Sports and Entertainment",amt:1122150},{name:"State Attorney",amt:2841154},{name:"Supervisor of Elections",amt:9429334}]},
-    {key:"citywide", name:"Citywide Commitments", sub:"Medical care, economic development, grants, and nonprofit aid", items:[{name:"415 Limit Pension Cost",amt:36000},{name:"Alcohol Rehabilitation Program",amt:399989},{name:"Annual Independent Audit",amt:429500},{name:"Gator Bowl Game",amt:464409},{name:"Florida-Florida State Baseball",amt:55000},{name:"BJP 20% Gas Tax Contrib To Fiscal Agent",amt:4739612},{name:"Business Improvement District - Downtown Vision",amt:804877},{name:"Economic Incentives",amt:23887260},{name:"Employee Parking Subsidy - 50% Discount City Garages",amt:531300},{name:"Employee Training and Travel",amt:465785},{name:"FAMIS / BPREP Annual Maintenance",amt:259000},{name:"Filing Fee Local Ord-Public Def FS 27.54",amt:15000},{name:"Filing Fee Local Ord-St Attorney FS 27.34",amt:52000},{name:"JPA - Contributions To/From",amt:13513769},{name:"JTA - Contributions To/From",amt:1856342},{name:"Juvenile Justice",amt:6081861},{name:"Lapse Personnel Lapse-Contingency",amt:-4914206},{name:"License Agreements And Fees",amt:69265},{name:"Lobbyist Fees",amt:120000},{name:"Manatee Study",amt:103549},{name:"Medicaid Program F.S. 409.915",amt:22746000},{name:"Municipal Dues & Affiliation",amt:9410},{name:"Municipal Dues/Affiliation Sec 10.109",amt:230603},{name:"N. FL TPO (Transportation Planning Org)",amt:265648},{name:"Non Departmental IS Allocations",amt:1187028},{name:"Refund - Taxes Overpaid, Error, Controversy",amt:5000},{name:"Special Committee on Duval DOGE - 2% Lapse",amt:-2138202},{name:"Stormwater 501c3 Low Income Subsidy",amt:1485303},{name:"Tax Deed Purchases",amt:80000},{name:"WJCT Lease Payment",amt:30000},{name:"Zoo Contract",amt:1282500},{name:"Art In Public Places - Insurance",amt:5408},{name:"Cultural Service Grants",amt:7000000},{name:"Public Service Grants",amt:7200000},{name:"988 Crisis Counseling Call Center",amt:200000},{name:"Agape Community Health Center",amt:121724},{name:"Florida Black Expo",amt:100000},{name:"Florida State College at Jacksonville - Fire Academy Burn Building",amt:3500000},{name:"FOP Foundation",amt:200000},{name:"Infant Mortality",amt:200000},{name:"Jacksonville Classical Academy",amt:300000},{name:"Jacksonville Historical Society",amt:200000},{name:"JaxCareConnect",amt:1499557},{name:"Sulzbacher Center",amt:400000},{name:"United Way 211",amt:250000},{name:"Volunteers in Medicine",amt:200000},{name:"Duval County Fair Association (DCFA) 2024-285-E",amt:1500000},{name:"Shands Jax Medical Center - Indigent Care",amt:56000000},{name:"Telehealth",amt:1500000}]},
-    {key:"transfers", name:"Transfers to Other Funds", sub:"Kids Hope Alliance, solid waste, city venues, and the tax offices", items:[{name:"Special Events - General Fund",amt:10701104},{name:"Emergency Reserve",amt:780000},{name:"Multiyear Programs and Initiatives",amt:18000000},{name:"Journey Forward",amt:100000},{name:"Property Appraiser",amt:13266764},{name:"Tax Collector",amt:14796904},{name:"Kids Hope Alliance Fund",amt:59310767},{name:"Jacksonville Upward Mobility Program",amt:461000},{name:"Homelessness Initiatives Special Revenue Fund",amt:4331677},{name:"Huguenot Park",amt:355735},{name:"Cecil Field Commerce Center",amt:1611160},{name:"Beach Erosion - Local",amt:500000},{name:"Animal Care & Protective Services Programs",amt:295759},{name:"General Trust & Agency",amt:600000},{name:"Art In Public Places Trust Fund",amt:327274},{name:"Library Conference Facility Trust",amt:89480},{name:"Recording Fees Technology",amt:482348},{name:"Duval County Teen Court Programs Trust",amt:182074},{name:"Court Costs $65 Fee FS: 939.185",amt:452301},{name:"Solid Waste Disposal",amt:51995648},{name:"Equestrian Center-NFES Horse",amt:563249},{name:"City Venues-City",amt:33493841},{name:"City Venues Capital Project Fund",amt:500000},{name:"Group Health",amt:21485229}]},
-    {key:"contingencies", name:"Reserves & Contingencies", sub:"Stabilization, grant matches, and special committees", items:[{name:"Budget Stabilization Account",amt:1059243},{name:"Executive Operating Contingency - Council",amt:100000},{name:"Executive Operating Contingency - Mayor",amt:100000},{name:"Federal Matching Grants",amt:6944496},{name:"Federal Programs - Reserve",amt:250000},{name:"FIND Grant Match",amt:3060000},{name:"International Association of Fire Fighters",amt:245320},{name:"Municipal Dues & Affiliation",amt:830000},{name:"Riverfront Parks",amt:2600000},{name:"Salvation Army",amt:150000},{name:"Special Committee on Duval DOGE - 2% Lapse",amt:5868505},{name:"Youth Empowerment City Council Special Committee",amt:5000000}]},
-    {key:"interlocal", name:"Interlocal Agreements", sub:"Shared costs with the Beaches and Baldwin", items:[{name:"Interlocal Agreements",amt:2877791}]},
+    {key:"roads_drainage_tra", serviceType:"Direct Service", name:"Roads, Drainage, Transit & Port", items:[{name:"Public Works",amt:63475277,use:"infra"},{name:"JPA - Contributions To/From",amt:13513769,use:"discretionary"},{name:"BJP 20% Gas Tax Contrib To Fiscal Agent",amt:4739612,use:"infra"},{name:"JTA - Contributions To/From",amt:1856342,use:"discretionary"},{name:"Stormwater 501c3 Low Income Subsidy",amt:1485303,use:"natural"},{name:"N. Fl TPO (Transportation Planning Org)",amt:265648,use:"infra"}]},
+    {key:"children_youth_fam", serviceType:"Direct Service", name:"Children, Youth & Families", items:[{name:"Kids Hope Alliance Fund",amt:59310767,use:"discretionary"},{name:"Juvenile Justice",amt:6081861,use:"safety"},{name:"Youth Empowerment City Council Special Committee",amt:5000000,use:"discretionary"},{name:"Jacksonville Classical Academy",amt:300000,use:"discretionary"},{name:"Duval County Teen Court Programs Trust",amt:182074,use:"discretionary"}]},
+    {key:"parks_beaches_recr", serviceType:"Direct Service", name:"Parks, Beaches & Recreation", items:[{name:"Parks, Recreation & Community Services",amt:57211570,use:"discretionary"},{name:"Riverfront Parks",amt:2600000,use:"discretionary"},{name:"Equestrian Center-NFES Horse",amt:563249,use:"discretionary"},{name:"Beach Erosion - Local",amt:500000,use:"discretionary"},{name:"Huguenot Park",amt:355735,use:"discretionary"}]},
+    {key:"arts_culture_sport", serviceType:"Direct Service", name:"Arts, Culture, Sports & City Venues", items:[{name:"City Venues-City",amt:33493841,use:"discretionary"},{name:"Special Events - General Fund",amt:10701104,use:"discretionary"},{name:"Cultural Service Grants",amt:7000000,use:"discretionary"},{name:"Duval County Fair Association (DCFA) 2024-285-E",amt:1500000,use:"discretionary"},{name:"Zoo Contract",amt:1282500,use:"discretionary"},{name:"Sports and Entertainment",amt:1122150,use:"discretionary"},{name:"City Venues Capital Project Fund",amt:500000,use:"discretionary"},{name:"Gator Bowl Game",amt:464409,use:"discretionary"},{name:"Art In Public Places Trust Fund",amt:327274,use:"discretionary"},{name:"Jacksonville Historical Society",amt:200000,use:"discretionary"},{name:"Florida Black Expo",amt:100000,use:"discretionary"},{name:"Florida-Florida State Baseball",amt:55000,use:"discretionary"},{name:"WJCT Lease Payment",amt:30000,use:"discretionary"},{name:"Art In Public Places - Insurance",amt:5408,use:"discretionary"}]},
+    {key:"hospital_indigent_", serviceType:"Direct Service", name:"Hospital & Indigent Care (Shands)", items:[{name:"Shands Jax Medical Center - Indigent Care",amt:56000000,use:"discretionary"}]},
+    {key:"trash_solid_waste", serviceType:"Direct Service", name:"Trash & Solid Waste", items:[{name:"Solid Waste Disposal",amt:51995648,use:"discretionary"}]},
+    {key:"libraries", serviceType:"Direct Service", name:"Libraries", items:[{name:"Public Library",amt:39022019,use:"education"},{name:"Library Conference Facility Trust",amt:89480,use:"discretionary"}]},
+    {key:"elections_tax_coll", serviceType:"Direct Service", name:"Elections, Tax Collection & Property Records", items:[{name:"Tax Collector",amt:14796904,use:"admin"},{name:"Property Appraiser",amt:13266764,use:"admin"},{name:"Supervisor of Elections",amt:9429334,use:"admin"}]},
+    {key:"neighborhoods_hous", serviceType:"Direct Service", name:"Neighborhoods, Housing & Community", items:[{name:"Neighborhoods",amt:12243629,use:"admin"},{name:"Public Service Grants",amt:7200000,use:"discretionary"},{name:"Planning and Development",amt:4599011,use:"admin"},{name:"Homelessness Initiatives Special Revenue Fund",amt:4331677,use:"discretionary"},{name:"Florida State College at Jacksonville - Fire Academy Burn Building",amt:3500000,use:"discretionary"},{name:"Military Affairs and Veterans",amt:1433663,use:"discretionary"},{name:"Jacksonville Upward Mobility Program",amt:461000,use:"discretionary"},{name:"Sulzbacher Center",amt:400000,use:"discretionary"},{name:"Animal Care & Protective Services Programs",amt:295759,use:"discretionary"},{name:"United Way 211",amt:250000,use:"discretionary"},{name:"International Association of Fire Fighters",amt:245320,use:"discretionary"},{name:"FOP Foundation",amt:200000,use:"discretionary"},{name:"Salvation Army",amt:150000,use:"discretionary"},{name:"Journey Forward",amt:100000,use:"discretionary"}]},
+    {key:"jobs_economic_deve", serviceType:"Direct Service", name:"Jobs, Economic Development & Downtown", items:[{name:"Economic Incentives",amt:23887260,use:"discretionary"},{name:"Economic Development",amt:3078542,use:"discretionary"},{name:"Cecil Field Commerce Center",amt:1611160,use:"discretionary"},{name:"Business Improvement District - Downtown Vision",amt:804877,use:"discretionary"},{name:"Downtown Investment Authority",amt:746336,use:"discretionary"}]},
+    {key:"public_health_medi", serviceType:"Direct Service", name:"Public Health & Medicaid", items:[{name:"Medicaid Program F.S. 409.915",amt:22746000,use:"admin"},{name:"Health Administrator",amt:1895068,use:"discretionary"},{name:"Telehealth",amt:1500000,use:"discretionary"},{name:"JaxCareConnect",amt:1499557,use:"discretionary"},{name:"Alcohol Rehabilitation Program",amt:399989,use:"discretionary"},{name:"988 Crisis Counseling Call Center",amt:200000,use:"discretionary"},{name:"Infant Mortality",amt:200000,use:"discretionary"},{name:"Volunteers in Medicine",amt:200000,use:"discretionary"},{name:"Agape Community Health Center",amt:121724,use:"discretionary"}]},
+    {key:"courts_prosecution", serviceType:"Direct Service", name:"Courts, Prosecution & Legal", items:[{name:"Medical Examiner",amt:7098044,use:"safety"},{name:"Courts",amt:5128176,use:"admin"},{name:"State Attorney",amt:2841154,use:"admin"},{name:"Clerk of the Court",amt:1526257,use:"admin"},{name:"Public Defender",amt:1509142,use:"admin"},{name:"Recording Fees Technology",amt:482348,use:"discretionary"},{name:"Court Costs $65 Fee FS: 939 185",amt:452301,use:"discretionary"},{name:"Filing Fee Local Ord-St Attorney FS 27.34",amt:52000,use:"admin"},{name:"Filing Fee Local Ord-Public Def FS 27.54",amt:15000,use:"admin"}]},
+    {key:"internal_operation", serviceType:"Government Operations", name:"Internal Operations & Overhead", items:[{name:"Finance",amt:17191785,use:"admin"},{name:"Administrative Services",amt:16009491,use:"admin"},{name:"Non Departmental IS Allocations",amt:1187028,use:"admin"},{name:"Municipal Dues & Affiliation",amt:830000,use:"discretionary"},{name:"FAMIS / BPREP Annual Maintenance",amt:259000,use:"admin"},{name:"Municipal Dues/Affiliation Sec 10.109",amt:230603,use:"admin"},{name:"Manatee Study",amt:103549,use:"natural"},{name:"Tax Deed Purchases",amt:80000,use:"admin"},{name:"License Agreements And Fees",amt:69265,use:"admin"},{name:"Municipal Dues & Affiliation",amt:9410,use:"admin"},{name:"Refund - Taxes Overpaid, Error, Controversy",amt:5000,use:"admin"},{name:"Special Committee on Duval DOGE - 2% Lapse",amt:5868505,use:"discretionary"},{name:"Special Committee on Duval DOGE - 2% Lapse",amt:-2138202,use:"admin"},{name:"Lapse Personnel Lapse-Contingency",amt:-4914206,use:"admin"}]},
+    {key:"employee_pay_benef", serviceType:"Government Operations", name:"Employee Pay & Benefits", items:[{name:"Group Health",amt:21485229,use:"admin"},{name:"Employee Services",amt:7308731,use:"admin"},{name:"Employee Parking Subsidy - 50% Discount City Garages",amt:531300,use:"admin"},{name:"Employee Training and Travel",amt:465785,use:"admin"},{name:"415 Limit Pension Cost",amt:36000,use:"pension"}]},
+    {key:"elected_offices_ov", serviceType:"Government Operations", name:"Elected Offices & Oversight", items:[{name:"City Council",amt:12614754,use:"admin"},{name:"Mayor's Office",amt:4864399,use:"admin"},{name:"Inspector General's Office",amt:1541130,use:"admin"},{name:"Jacksonville Human Rights Commission",amt:1040332,use:"admin"},{name:"Ethics",amt:644469,use:"admin"},{name:"Advisory Boards And Commissions",amt:519822,use:"admin"},{name:"Annual Independent Audit",amt:429500,use:"admin"},{name:"General Counsel - Delegation/Settlements",amt:149978,use:"admin"},{name:"Lobbyist Fees",amt:120000,use:"admin"}]},
+    {key:"reserves_future_co", serviceType:"Financial - Non-Service", name:"Reserves & Future Commitments", items:[{name:"Multiyear Programs and Initiatives",amt:18000000,use:"discretionary"},{name:"Federal Matching Grants",amt:6944496,use:"discretionary"},{name:"FIND Grant Match",amt:3060000,use:"natural"},{name:"Budget Stabilization Account",amt:1059243,use:"admin"},{name:"Emergency Reserve",amt:780000,use:"admin"},{name:"General Trust & Agency",amt:600000,use:"discretionary"},{name:"Federal Programs - Reserve",amt:250000,use:"admin"},{name:"Executive Operating Contingency - Council",amt:100000,use:"admin"},{name:"Executive Operating Contingency - Mayor",amt:100000,use:"admin"}]},
+    {key:"interlocal", serviceType:"Financial - Non-Service", name:"Interlocal Agreements", items:[{name:"Interlocal Agreements",amt:2877791,use:"admin"}]}
   ];
   CUT_GROUPS.forEach(function(g){ g.total = g.items.reduce(function(s,i){return s+i.amt;},0); g.cutFrac = 0; });
   var CUT_TOTAL = CUT_GROUPS.reduce(function(s,g){return s+g.total;},0);    // ~$692.5M
@@ -121,7 +133,7 @@
     H += '</div>';
   }
   PROTECTED.forEach(function(p){ catBlock(p.name, p.note, '<span class="tag ps">Protected</span>', p.amt, null); });
-  CUT_GROUPS.forEach(function(g){ catBlock(g.name, g.sub, '<span class="tag np">Cuttable</span>', g.total, g.items); });
+  CUT_GROUPS.forEach(function(g){ catBlock(g.name, g.serviceType, '<span class="tag np">Cuttable</span>', g.total, g.items); });
   dl.innerHTML = H;
   document.querySelectorAll('#deptList .dept-btn:not(.no-exp)').forEach(function(btn){
     btn.addEventListener("click", function(){
@@ -168,9 +180,14 @@
       cHTML = '<li><span>No cuts at this setting</span><span class="ci">$0</span></li>';
     } else {
       var frac = cutDollars / cutPoolM;
+      var stOrder = [], stSum = {};
       CUT_GROUPS.forEach(function(g){
-        var share = (g.total/1e6) * frac;
-        cHTML += '<li><span>'+g.name+'</span><span class="ci">&minus;'+money(share)+'</span></li>';
+        if(stSum[g.serviceType] === undefined){ stOrder.push(g.serviceType); stSum[g.serviceType] = 0; }
+        stSum[g.serviceType] += g.total;
+      });
+      stOrder.forEach(function(st){
+        var share = (stSum[st]/1e6) * frac;
+        cHTML += '<li><span>'+st+'</span><span class="ci">&minus;'+money(share)+'</span></li>';
       });
       cHTML += '<li class="total-row"><span>Total from cuts</span><span class="ci">&minus;'+money(cutDollars)+'</span></li>';
     }
@@ -253,7 +270,7 @@
   // dollars cut from a group = sum of its positive line-item cuts, capped at the category's net budget
   function groupCut(g){
     var c = 0; g.items.forEach(function(it){ if(it.amt > 0) c += it.amt * (it.frac || 0); });
-    return Math.min(c, g.total);
+    return Math.max(0, Math.min(c, g.total));
   }
 
   // cuttable groups: a category master slider + expandable per-line-item sliders (sorted high to low)
@@ -264,7 +281,7 @@
     var wrap = document.createElement("div"); wrap.className = "byo-grp";
     var head = document.createElement("div"); head.className = "byo-grp-head";
     head.innerHTML = '<button class="byo-grp-exp" type="button" aria-expanded="false" aria-controls="bgi'+gi+'" aria-label="Show line items for '+g.name+'"><span class="chev" aria-hidden="true">&#9654;</span></button>'
-      + '<span class="bg-name">'+g.name+'<span class="bg-sub">'+g.sub+'</span></span>'
+      + '<span class="bg-name">'+g.name+'<span class="bg-sub">'+g.serviceType+'</span></span>'
       + '<span class="bg-total">'+money(g.total/1e6)+'</span>';
     wrap.appendChild(head);
 
@@ -383,7 +400,7 @@
     var frac = cutD/poolM;
     var tb = "";
     CUT_GROUPS.forEach(function(g){
-      tb += '<tr><td>'+g.name+'<span class="td-sub">'+g.sub+'</span></td><td class="num">'+money(g.total/1e6)+'</td><td class="num">&minus;'+money(g.total/1e6*frac)+'</td></tr>';
+      tb += '<tr><td>'+g.name+'<span class="td-sub">'+g.serviceType+'</span></td><td class="num">'+money(g.total/1e6)+'</td><td class="num">&minus;'+money(g.total/1e6*frac)+'</td></tr>';
     });
     tb += '<tr class="ex-total"><td>Total exposed pool</td><td class="num">'+money(poolM)+'</td><td class="num">&minus;'+money(cutD)+'</td></tr>';
     gid("expRows").innerHTML = tb;
@@ -403,49 +420,14 @@
     discretionary:"Outside the core list"
   };
   var USE_ORDER = ["safety","admin","infra","education","debt","pension","natural","discretionary"];
-  var DEPT_USE = {
-    "Administrative Services":"admin","Advisory Boards And Commissions":"admin","City Council":"admin",
-    "Clerk of the Court":"admin","Courts":"admin","Downtown Investment Authority":"discretionary",
-    "Economic Development":"discretionary","Employee Services":"admin","Ethics":"admin","Finance":"admin",
-    "General Counsel - Delegation/Settlements":"admin","Health Administrator":"discretionary",
-    "Inspector General's Office":"admin","Jacksonville Human Rights Commission":"admin","Mayor's Office":"admin",
-    "Medical Examiner":"safety","Military Affairs and Veterans":"discretionary","Neighborhoods":"admin",
-    "Parks, Recreation & Community Services":"discretionary","Planning and Development":"admin",
-    "Public Defender":"admin","Public Library":"education","Public Works":"infra",
-    "Sports and Entertainment":"discretionary","State Attorney":"admin","Supervisor of Elections":"admin"
-  };
-  var CW_USE = {
-    "415 Limit Pension Cost":"pension","Annual Independent Audit":"admin",
-    "BJP 20% Gas Tax Contrib To Fiscal Agent":"infra","Employee Parking Subsidy - 50% Discount City Garages":"admin",
-    "Employee Training and Travel":"admin","FAMIS / BPREP Annual Maintenance":"admin",
-    "Filing Fee Local Ord-Public Def FS 27.54":"admin","Filing Fee Local Ord-St Attorney FS 27.34":"admin",
-    "Juvenile Justice":"safety","Medicaid Program F.S. 409.915":"admin",
-    "License Agreements And Fees":"admin","Lobbyist Fees":"admin",
-    "Manatee Study":"natural","Municipal Dues & Affiliation":"admin","Municipal Dues/Affiliation Sec 10.109":"admin",
-    "N. FL TPO (Transportation Planning Org)":"infra","Non Departmental IS Allocations":"admin",
-    "Refund - Taxes Overpaid, Error, Controversy":"admin","Stormwater 501c3 Low Income Subsidy":"natural",
-    "Tax Deed Purchases":"admin","Lapse Personnel Lapse-Contingency":"admin",
-    "Special Committee on Duval DOGE - 2% Lapse":"admin"
-  };
-  var TR_USE = { "Property Appraiser":"admin","Tax Collector":"admin","Group Health":"admin","Emergency Reserve":"admin" };
-  var CO_USE = { "Budget Stabilization Account":"admin","Executive Operating Contingency - Council":"admin",
-    "Executive Operating Contingency - Mayor":"admin","Federal Programs - Reserve":"admin","FIND Grant Match":"natural" };
-  function useOf(key, name){
-    if(key==="depts") return DEPT_USE[name] || "admin";
-    if(key==="citywide") return CW_USE[name] || "discretionary";
-    if(key==="transfers") return TR_USE[name] || "discretionary";
-    if(key==="contingencies") return CO_USE[name] || "discretionary";
-    if(key==="interlocal") return "admin";
-    return "discretionary";
-  }
-  // build the full line list
+  // Each cuttable line item carries its allowable-use tag (it.use), precomputed from the budget data.
   var coreItems = [];
   PROTECTED.forEach(function(p){
     var u = p.name.indexOf("Public Safety")>=0 ? "safety" : (p.name.indexOf("Debt")>=0 ? "debt" : "pension");
     coreItems.push({name:p.name, group:"Protected", amt:p.amt, use:u});
   });
   CUT_GROUPS.forEach(function(g){
-    g.items.forEach(function(it){ coreItems.push({name:it.name, group:g.name, amt:it.amt, use:useOf(g.key, it.name)}); });
+    g.items.forEach(function(it){ coreItems.push({name:it.name, group:g.name, amt:it.amt, use:it.use || "discretionary"}); });
   });
   var TOTAL = coreItems.reduce(function(s,i){ return s + i.amt; }, 0);
 
