@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Core-Services Test | Jacksonville Property Tax</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css?v=6">
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<div class="wrap">
+
+<div class="draft-banner" role="note">
+  This is a <b>working draft</b>. We welcome comments and questions. Please send them to our Director of Research, Dr. Connor Oswald, at <a href="mailto:connor@jaxciviccouncil.com">connor@jaxciviccouncil.com</a>.
+</div>
+
+<nav aria-label="Site navigation">
+  <ul>
+    <li><a class="brand" href="index.html">JAX BUDGET</a></li>
+    <li><a href="taxed.html">How You're Taxed</a></li>
+    <li><a href="budget.html">The Budget</a></li>
+    <li><a href="spending.html">Spending Growth</a></li>
+    <li><a href="proposal.html">The Proposal</a></li>
+    <li class="nav-group">
+      <button class="nav-group-btn active" type="button" aria-expanded="false" aria-haspopup="true">The Gap <span class="nav-caret" aria-hidden="true">&#9662;</span></button>
+      <ul class="nav-sub">
+        <li><a href="tradeoff.html">The Tradeoff</a></li>
+        <li><a href="calculators.html">Consequences</a></li>
+        <li><a href="coretest.html" aria-current="page">The Core-Services Test</a></li>
+        <li><a href="stakes.html">Services at Stake</a></li>
+      </ul>
+    </li>
+    <li><a href="sources.html">Sources</a></li>
+  </ul>
+</nav>
+
+<header class="page-head">
+  <h1>The core-services test</h1>
+  <p>This is the amendment's <b>other</b> change. Beyond cutting revenue, it would restrict property-tax dollars to a fixed list of "core" uses. This tool sorts the City's actual budget against that list to ask: <b>how much of what Jacksonville spends today is even an allowable use of property tax?</b></p>
+</header>
+
+<main id="main">
+
+<section id="coretest">
+  <div class="inner">
+
+    <h3 class="ex-h">What the amendment allows property tax to fund</h3>
+    <p>Under the amendment, local property-tax revenue may only pay for these core uses:</p>
+    <ul class="core-list">
+      <li><b>Public safety</b> &mdash; law enforcement, fire rescue, and EMS</li>
+      <li><b>Education and public schools</b></li>
+      <li><b>Infrastructure</b> &mdash; roads, bridges, and stormwater</li>
+      <li><b>Natural resources</b> and flood control</li>
+      <li><b>Local bonds and existing debt service</b></li>
+      <li><b>Employee retirement obligations and pensions</b></li>
+      <li><b>Operations and administration</b> of county and city government &mdash; <em>and expenditures approved by their governing bodies</em></li>
+    </ul>
+
+    <div class="ct-toggle-wrap">
+      <p class="ct-toggle-q">That last item is the question. How strictly is it read?</p>
+      <div class="ct-toggle" id="coreToggle" role="group" aria-label="Reading of the operations and governing-body clause">
+        <button type="button" id="ctNarrow" class="ct-btn" aria-pressed="true">Narrow reading</button>
+        <button type="button" id="ctBroad" class="ct-btn" aria-pressed="false">Broad reading</button>
+      </div>
+      <p class="ct-toggle-help" id="ctHelp"></p>
+    </div>
+
+    <div id="coreTool" class="calc-shell">
+      <div class="ct-result">
+        <div class="ct-r ct-r-ok">
+          <div class="ct-rv" id="coreAllowable">$1.6B</div>
+          <div class="ct-rl">an allowable use of property tax <span id="coreAllowablePct">(79%)</span></div>
+        </div>
+        <div class="ct-r ct-r-risk">
+          <div class="ct-rv" id="coreAtRisk">$411M</div>
+          <div class="ct-rl">outside the core list <span id="coreAtRiskPct">(21%)</span></div>
+        </div>
+      </div>
+      <p class="ct-headline" id="coreHeadline"></p>
+      <div class="ct-breakdown" id="coreBreakdown"></div>
+      <div class="calc-foot">
+        <b>How to read this.</b> Every line of the Council Auditor's FY2025-26 budget is sorted into one of the seven allowable uses or marked "outside the core." Public safety, debt, pensions, and infrastructure are clear; libraries (counted as education), parks and recreation, economic incentives, health and human-services spending, and grants are judgment calls, flagged below. This models only the <em>spending restriction</em> &mdash; it is separate from the $283M revenue cut, and the City has other (capped) revenue that could in theory carry some non-core spending.
+      </div>
+    </div>
+
+    <h3 class="ex-h">The biggest spending "outside the core"</h3>
+    <p>Under a narrow reading, these are the largest items property tax could no longer fund &mdash; they would have to be paid from other capped revenue or cut:</p>
+    <div class="ex-table-wrap">
+      <table class="ex-table">
+        <caption class="sr-only">Largest spending items outside the allowable core uses</caption>
+        <thead><tr><th scope="col">Item</th><th scope="col">Category</th><th scope="col" class="num">Amount</th></tr></thead>
+        <tbody id="coreContested"></tbody>
+      </table>
+    </div>
+
+    <div class="disclaimer" style="margin-top:36px;">
+      <b>About this tool.</b> The classification is the Office of Research's reading of the bill, not a legal determination, and the "operations and administration / approved by the governing body" clause has not been tested in court. Reasonable people will sort some lines differently &mdash; that is exactly why the narrow/broad toggle exists. Figures are the adopted FY2025-26 General Fund / GSD budget; the amendment is CS/HJR 1-F (enrolled June 2, 2026).
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>Prepared as a public-information resource by the Office of Research.<br>
+  Figures reflect the adopted FY2025-26 General Fund / GSD budget and CS/HJR 1-F (enrolled June 2, 2026).<br>
+  This page is for civic education and does not constitute legal, tax, or financial advice.</p>
+</footer>
+
+</div>
+
+<script src="assets/app.js?v=6"></script>
+</body>
+</html>

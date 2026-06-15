@@ -392,6 +392,113 @@
   expUpdate();
 
   }
+  if(document.getElementById("coreTool")){
+  // ============ THE CORE-SERVICES TEST (spending restriction) ============
+  // Classify each budget line into one of the 7 allowable uses, or "discretionary"
+  // (outside the core, allowable only if the governing-body clause is read broadly).
+  var USE_LABEL = {
+    safety:"Public safety", education:"Education & libraries", infra:"Infrastructure",
+    natural:"Natural resources & flood control", debt:"Debt service",
+    pension:"Pensions & retirement", admin:"Government operations & administration",
+    discretionary:"Outside the core list"
+  };
+  var USE_ORDER = ["safety","admin","infra","education","debt","pension","natural","discretionary"];
+  var DEPT_USE = {
+    "Administrative Services":"admin","Advisory Boards And Commissions":"admin","City Council":"admin",
+    "Clerk of the Court":"admin","Courts":"admin","Downtown Investment Authority":"discretionary",
+    "Economic Development":"discretionary","Employee Services":"admin","Ethics":"admin","Finance":"admin",
+    "General Counsel - Delegation/Settlements":"admin","Health Administrator":"discretionary",
+    "Inspector General's Office":"admin","Jacksonville Human Rights Commission":"admin","Mayor's Office":"admin",
+    "Medical Examiner":"safety","Military Affairs and Veterans":"discretionary","Neighborhoods":"admin",
+    "Parks, Recreation & Community Services":"discretionary","Planning and Development":"admin",
+    "Public Defender":"admin","Public Library":"education","Public Works":"infra",
+    "Sports and Entertainment":"discretionary","State Attorney":"admin","Supervisor of Elections":"admin"
+  };
+  var CW_USE = {
+    "415 Limit Pension Cost":"pension","Annual Independent Audit":"admin",
+    "BJP 20% Gas Tax Contrib To Fiscal Agent":"infra","Employee Parking Subsidy - 50% Discount City Garages":"admin",
+    "Employee Training and Travel":"admin","FAMIS / BPREP Annual Maintenance":"admin",
+    "Filing Fee Local Ord-Public Def FS 27.54":"admin","Filing Fee Local Ord-St Attorney FS 27.34":"admin",
+    "Juvenile Justice":"safety","License Agreements And Fees":"admin","Lobbyist Fees":"admin",
+    "Manatee Study":"natural","Municipal Dues & Affiliation":"admin","Municipal Dues/Affiliation Sec 10.109":"admin",
+    "N. FL TPO (Transportation Planning Org)":"infra","Non Departmental IS Allocations":"admin",
+    "Refund - Taxes Overpaid, Error, Controversy":"admin","Stormwater 501c3 Low Income Subsidy":"natural",
+    "Tax Deed Purchases":"admin","Lapse Personnel Lapse-Contingency":"admin",
+    "Special Committee on Duval DOGE - 2% Lapse":"admin"
+  };
+  var TR_USE = { "Property Appraiser":"admin","Tax Collector":"admin","Group Health":"admin","Emergency Reserve":"admin" };
+  var CO_USE = { "Budget Stabilization Account":"admin","Executive Operating Contingency - Council":"admin",
+    "Executive Operating Contingency - Mayor":"admin","Federal Programs - Reserve":"admin","FIND Grant Match":"natural" };
+  function useOf(key, name){
+    if(key==="depts") return DEPT_USE[name] || "admin";
+    if(key==="citywide") return CW_USE[name] || "discretionary";
+    if(key==="transfers") return TR_USE[name] || "discretionary";
+    if(key==="contingencies") return CO_USE[name] || "discretionary";
+    if(key==="interlocal") return "admin";
+    return "discretionary";
+  }
+  // build the full line list
+  var coreItems = [];
+  PROTECTED.forEach(function(p){
+    var u = p.name.indexOf("Public Safety")>=0 ? "safety" : (p.name.indexOf("Debt")>=0 ? "debt" : "pension");
+    coreItems.push({name:p.name, group:"Protected", amt:p.amt, use:u});
+  });
+  CUT_GROUPS.forEach(function(g){
+    g.items.forEach(function(it){ coreItems.push({name:it.name, group:g.name, amt:it.amt, use:useOf(g.key, it.name)}); });
+  });
+  var TOTAL = coreItems.reduce(function(s,i){ return s + i.amt; }, 0);
+
+  var reading = "narrow";
+  var ctNarrow = document.getElementById("ctNarrow");
+  var ctBroad  = document.getElementById("ctBroad");
+  function isAllowable(use){ return reading==="broad" ? true : (use !== "discretionary"); }
+
+  function renderCore(){
+    var byUse = {}, allowable = 0, atRisk = 0;
+    coreItems.forEach(function(it){
+      byUse[it.use] = (byUse[it.use]||0) + it.amt;
+      if(isAllowable(it.use)) allowable += it.amt; else atRisk += it.amt;
+    });
+    document.getElementById("coreAllowable").textContent = money(allowable/1e6);
+    document.getElementById("coreAllowablePct").textContent = "(" + Math.round(allowable/TOTAL*100) + "%)";
+    document.getElementById("coreAtRisk").textContent = money(atRisk/1e6);
+    document.getElementById("coreAtRiskPct").textContent = "(" + Math.round(atRisk/TOTAL*100) + "%)";
+    document.getElementById("ctHelp").textContent = reading==="narrow"
+      ? "Narrow: only the enumerated cores plus basic government operations count. Grants, incentives, health and human services, and recreation fall outside."
+      : "Broad: the clause lets the Council approve nearly any expenditure, so almost everything counts — and the restriction has little practical bite.";
+    document.getElementById("coreHeadline").innerHTML = reading==="narrow"
+      ? "Under a <b>narrow</b> reading, about <b>"+money(atRisk/1e6)+"</b> of today's spending is outside the allowable list — property tax could not fund it, so it would lean on other capped revenue or face cuts."
+      : "Under a <b>broad</b> reading, the governing-body clause makes nearly all spending allowable, so the restriction changes little on its own.";
+
+    var max = 0; USE_ORDER.forEach(function(u){ if((byUse[u]||0) > max) max = byUse[u]||0; });
+    var html = "";
+    USE_ORDER.forEach(function(u){
+      var v = byUse[u]||0; if(v <= 0) return;
+      var risk = (u==="discretionary" && reading==="narrow");
+      html += '<div class="ct-bar-row">'
+        + '<div class="ct-bar-label">'+USE_LABEL[u]+(u==="discretionary"?' <span class="ct-flag">(only if approvals count)</span>':'')+'</div>'
+        + '<div class="ct-bar-track"><div class="ct-bar-fill'+(risk?' risk':'')+'" style="width:'+(v/max*100).toFixed(1)+'%"></div></div>'
+        + '<div class="ct-bar-amt">'+money(v/1e6)+'</div></div>';
+    });
+    document.getElementById("coreBreakdown").innerHTML = html;
+
+    var disc = coreItems.filter(function(i){ return i.use==="discretionary" && i.amt>0; })
+      .sort(function(a,b){ return b.amt - a.amt; }).slice(0,10);
+    var tb = "";
+    disc.forEach(function(i){ tb += '<tr><td>'+i.name+'</td><td>'+i.group+'</td><td class="num">'+usd(i.amt)+'</td></tr>'; });
+    document.getElementById("coreContested").innerHTML = tb;
+  }
+  function setReading(r){
+    reading = r;
+    ctNarrow.setAttribute("aria-pressed", String(r==="narrow"));
+    ctBroad.setAttribute("aria-pressed", String(r==="broad"));
+    renderCore();
+  }
+  ctNarrow.addEventListener("click", function(){ setReading("narrow"); });
+  ctBroad.addEventListener("click", function(){ setReading("broad"); });
+  renderCore();
+
+  }
   // ============ SPENDING CHARTS (real vs nominal) ============
   // Data from City ACFR Statement of Activities 2015-2024, CPI-adjusted to 2015 dollars ($ thousands).
   var spend = [
