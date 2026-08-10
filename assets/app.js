@@ -131,7 +131,7 @@
     }
     H += '</div>';
   }
-  PROTECTED.forEach(function(p){ catBlock(p.name, p.note, '<span class="tag ps">Protected</span>', p.amt, null); });
+  PROTECTED.forEach(function(p){ catBlock(p.name, p.note, '<span class="tag ps">Committed</span>', p.amt, null); });
   CUT_GROUPS.forEach(function(g){ catBlock(g.name, g.serviceType, '<span class="tag np">Cuttable</span>', g.total, g.items); });
   dl.innerHTML = H;
   document.querySelectorAll('#deptList .dept-btn:not(.no-exp)').forEach(function(btn){
@@ -173,7 +173,7 @@
     cutAmtEl.textContent = money(cutDollars);
     cutSubEl.textContent = cutDollars < 0.05
       ? "No cuts at this setting"
-      : "drawn from the " + money(cutPoolM) + " of non-protected spending";
+      : "drawn from the " + money(cutPoolM) + " of flexible spending";
     var cHTML = "";
     if(cutDollars < 0.05){
       cHTML = '<li><span>No cuts at this setting</span><span class="ci">$0</span></li>';
@@ -218,7 +218,7 @@
       serviceImpacts.forEach(function(s){
         mcHTML += '<li><span class="ihead">'+s.headline+'</span><span class="idetail">'+s.detail+'</span></li>';
       });
-      mcHTML += '<li><span class="ihead">Much of it is one-time money</span><span class="idetail">A large share of non-protected spending (grants, incentives, contingencies, one-time transfers) is nonrecurring, so cutting it closes the gap once but not for the years that follow.</span></li>';
+      mcHTML += '<li><span class="ihead">Much of it is one-time money</span><span class="idetail">A large share of flexible spending (grants, incentives, contingencies, one-time transfers) is nonrecurring, so cutting it closes the gap once but not for the years that follow.</span></li>';
     }
     meanCutList.innerHTML = mcHTML;
 
@@ -356,8 +356,8 @@
     }
     var anyCut = CUT_GROUPS.some(function(g){ return groupCut(g) > 50000; });
     byoNoteEl.innerHTML = anyCut
-      ? "There is about "+money(poolM)+" of non-protected spending to draw from, so the $283.2M can be reached — but it means permanently ending programs like indigent care, grants, libraries, and parks."
-      : "There is about "+money(poolM)+" of non-protected spending outside public safety, debt, and pensions. Move a category slider, or expand a category and cut individual line items.";
+      ? "There is about "+money(poolM)+" of flexible spending to draw from, so the $283.2M can be reached — but it means permanently ending programs like indigent care, grants, libraries, and parks."
+      : "There is about "+money(poolM)+" of flexible spending outside public safety, debt, and pensions. Move a category slider, or expand a category and cut individual line items.";
   }
 
   byoResetBtn.addEventListener("click", function(){
@@ -423,7 +423,7 @@
   var coreItems = [];
   PROTECTED.forEach(function(p){
     var u = p.name.indexOf("Public Safety")>=0 ? "safety" : (p.name.indexOf("Debt")>=0 ? "debt" : "pension");
-    coreItems.push({name:p.name, group:"Protected", amt:p.amt, use:u});
+    coreItems.push({name:p.name, group:"Committed", amt:p.amt, use:u});
   });
   CUT_GROUPS.forEach(function(g){
     g.items.forEach(function(it){ coreItems.push({name:it.name, group:g.name, amt:it.amt, use:it.use || "discretionary"}); });

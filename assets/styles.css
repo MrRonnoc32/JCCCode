@@ -497,6 +497,7 @@
   .sources p{font-size:15px;color:var(--muted);}
   .sources h2{font-size:30px;}
   footer{background:var(--teal-darkest);color:rgba(255,255,255,0.7);padding:46px 24px;font-size:14px;text-align:center;}
+  footer p{max-width:none;margin-inline:auto;}
   footer a{color:var(--mint);}
 
   .disclaimer{
